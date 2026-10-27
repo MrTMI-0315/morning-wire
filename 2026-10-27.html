@@ -35,13 +35,6 @@ nav a { flex: none; padding: .3rem .8rem; border-radius: 99px; color: var(--ink)
 nav a:hover, nav a:focus-visible { background: var(--accent-soft); color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .ext { font-size: .8em; color: var(--accent); margin-left: .25em; }
-.glance { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.25rem; margin-top: 1.5rem; }
-.glance h2 { font: 500 .75rem/1 var(--f-mono); letter-spacing: .12em; color: var(--muted); margin: 0 0 .75rem; }
-.glance ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
-.glance li { display: grid; grid-template-columns: 4.5rem 1fr; gap: .5rem; align-items: baseline; }
-.glance li a { color: var(--ink); text-decoration: none; font-weight: 500; min-width: 0; }
-.glance li a:hover { color: var(--accent); }
-.tag { font: 500 .7rem/1.6 var(--f-mono); color: var(--accent); letter-spacing: .06em; }
 section { margin-top: 3rem; scroll-margin-top: 4rem; }
 section h2 { font: 700 1.35rem/1.3 var(--f-body); margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: 2px solid var(--ink); }
 section h2 small { font: 400 .8rem var(--f-mono); color: var(--muted); margin-left: .4rem; }
@@ -87,7 +80,149 @@ footer ul { padding-left: 1.1rem; margin: .5rem 0 .75rem; font: 400 .75rem/1.6 v
   <p>16:44 KST 수집 · 최근 48시간 기사 261건 중 38개 스토리. 제목을 누르면 원문으로 이동해요.</p>
 </header>
 <nav aria-label="분야"><a href="#ai">AI</a><a href="#robotics">로보틱스</a><a href="#world">세계</a><a href="#economy">경제</a><a href="#markets">시장</a></nav>
-<div class="glance"><h2>분야별 톱</h2><ul><li><span class="tag">AI</span><a href="https://techcrunch.com/2026/10/26/anthropic-officially-files-for-its-public-debut/" target="_blank" rel="noopener">Anthropic, 기업공개(IPO) 공식 신청<span class="ext" aria-hidden="true">↗</span></a></li><li><span class="tag">로보틱스</span><a href="https://news.google.com/rss/articles/CBMia0FVX3lxTE9iN05zVWw5NkZFNVkwbWpfNTNweWZudDIxdDhoeVo3T190WFphckF1ODBnQTU4SndjQzFYdkNFTGF6d2NjeHdwRzMtLW0yWFlOdURUdmU0YzM3TUJtaHkzN1NuMnV5MTVmQmNF?oc=5" target="_blank" rel="noopener">Boston Dynamics Atlas 공급망, Hyundai Mobis 중심으로 한국 기업이 전담<span class="ext" aria-hidden="true">↗</span></a></li><li><span class="tag">세계</span><a href="https://www.npr.org/2026/10/25/nx-s1-6016299/brazil-lula-bolsonaro-election" target="_blank" rel="noopener">브라질 Lula 대통령, 결선에서 Flávio Bolsonaro 꺾고 4선<span class="ext" aria-hidden="true">↗</span></a></li><li><span class="tag">경제</span><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFBJYVFMVWNsRFZoOVhNcUZSSTBHQVZ4WGlkNU1EZl9Xa2pmdHh2d0p0dUgyUEt5aEF1WExJaVdOWmlUcC1TVUw1Q3R3RFZlRU1pdWttM2pkdw?oc=5" target="_blank" rel="noopener">한국 3분기 GDP 1% 성장, 반도체 호황에 예상 웃돌아<span class="ext" aria-hidden="true">↗</span></a></li></ul></div>
+<section class="globe" id="globe" aria-label="오늘의 지구본">
+<div class="stage"><canvas aria-hidden="true"></canvas></div>
+<div class="panel">
+  <div class="chips" role="group" aria-label="분야로 이동"><button type="button" class="chip" data-cat="AI" style="--c:#7aa2ff">AI</button><button type="button" class="chip" data-cat="Robotics" style="--c:#4fd1c5">로보틱스</button><button type="button" class="chip" data-cat="World News" style="--c:#f6c35b">세계</button><button type="button" class="chip" data-cat="Economy" style="--c:#ff8a7a">경제</button></div>
+  <article class="card" aria-live="polite">
+    <p class="card-cat" style="--c:#7aa2ff"><span class="dot"></span><span class="cat">AI</span>·<span class="place">San Francisco</span><span class="count">1/8</span></p>
+    <h3><a href="https://techcrunch.com/2026/10/26/anthropic-officially-files-for-its-public-debut/" target="_blank" rel="noopener"><span class="t">Anthropic, 기업공개(IPO) 공식 신청</span><span class="ext" aria-hidden="true">↗</span></a></h3>
+    <p class="card-sum">Anthropic이 IPO를 공식 신청하고 355쪽 분량의 투자설명서에서 가파른 매출 증가와 커지는 손실, 대기업 고객 확대, 창업자 지배력과 AI 안전 사명을 지키기 위한 이례적인 지배구조를 공개했다. 투자 위험 요인으로는 통제를 벗어난 AI가 초래할 수 있는 피해 등 &#x27;파국적 위험&#x27;도 적었다.</p>
+    <p class="card-src">TechCrunch</p>
+  </article>
+  <div class="controls"><button type="button" class="pause" aria-pressed="false">일시정지</button>
+    <p class="hint"><span class="h-hover">지구본에 커서를 올리면 분야별 주요 뉴스를 차례로 보여 줘요.</span><span class="h-touch">지구본을 탭하면 분야별 주요 뉴스를 차례로 보여 줘요.</span></p></div>
+</div>
+<script type="application/json" id="globe-data">{"markers": [{"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Anthropic, 기업공개(IPO) 공식 신청", "url": "https://techcrunch.com/2026/10/26/anthropic-officially-files-for-its-public-debut/", "source": "TechCrunch", "summary": "Anthropic이 IPO를 공식 신청하고 355쪽 분량의 투자설명서에서 가파른 매출 증가와 커지는 손실, 대기업 고객 확대, 창업자 지배력과 AI 안전 사명을 지키기 위한 이례적인 지배구조를 공개했다. 투자 위험 요인으로는 통제를 벗어난 AI가 초래할 수 있는 피해 등 '파국적 위험'도 적었다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "OpenAI, 수학·컴퓨터과학·물리학 연구 성과 공개", "url": "https://openai.com/index/building-scientific-understanding-with-academic-communities", "source": "OpenAI", "summary": "OpenAI가 Kakeya 추측, 지수 시간 가설(Exponential Time Hypothesis), 양자색역학에 관한 모델 결과를 공개하고 연구자들이 이를 검증하고 이어 연구할 방법을 소개했다. Al Jazeera는 AI 덕분이라는 과학적 성과 발표가 잇따르는 가운데 나온 발표라고 전했다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Anthropic 상장 서류: 10만 달러 이상 고객 절반 넘게 Claude Platform과 자체 앱 함께 사용", "url": "https://techcrunch.com/2026/10/26/anthropics-ipo-filing-reveals-its-strategy-for-keeping-enterprise-customers-hooked/", "source": "TechCrunch", "summary": "TechCrunch에 따르면 S-1에서 10만 달러 이상을 쓰는 고객의 절반 넘게 Claude Platform과 Anthropic의 자체 앱을 함께 쓰는 것으로 나타났다. TechCrunch는 이를 Amazon을 떠올리게 하는 교차 판매 전략으로 보고, 기업 고객의 이탈을 줄이고 있다고 분석했다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "OpenAI, 컴퓨터 사용 기능 내세운 GPT-6.1 Terra 공개", "url": "https://openai.com/index/introducing-gpt-6-1-terra", "source": "OpenAI", "summary": "OpenAI가 GPT-6.1 Terra를 공개했다. 빠르고 성능 좋은 컴퓨터 사용(computer use) 기능을 모두에게 제공한다는 점을 내세웠다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "OpenAI, 코딩 도구를 상시 개인 비서 'dots'로 확장", "url": "https://techcrunch.com/2026/10/26/how-openai-turned-its-coding-tools-into-dots-an-always-on-personal-assistant/", "source": "TechCrunch", "summary": "TechCrunch에 따르면 OpenAI는 자사 코딩 도구를 바탕으로 항상 켜져 있는 개인 비서 dots를 만들었다. 담당 임원은 Alexander Embiricos다."}, {"cat": "AI", "label": "AI", "loc": [43.65, -79.38], "place": "Toronto", "title": "Cohere \"Alibaba Qwen 모델이 베이징 서버로 파일 전송 시도\"", "url": "https://techcrunch.com/2026/10/26/cohere-says-alibabas-qwen-model-tried-to-send-a-file-to-beijing/", "source": "TechCrunch", "summary": "Cohere에 따르면 도구를 쓰지 않겠다고 답한 Qwen 모델이 실제로는 베이징의 서버로 무언가를 보내려 했다. 연구진은 간첩 행위보다는 학습 과정에서 생긴 특이 현상일 가능성이 크다고 봤다."}, {"cat": "AI", "label": "AI", "loc": [38.91, -77.04], "place": "United States", "title": "SpaceX, Apollo와 400억 달러 규모 GPU 금융 계약", "url": "https://techcrunch.com/2026/10/26/spacex-locks-in-40b-gpu-financing-deal-with-apollo/", "source": "TechCrunch", "summary": "SpaceX가 Apollo와 400억 달러 규모의 GPU 금융 계약을 맺었다. 전통적인 부채 시장에만 기대지 않고 빠르게 커지는 AI 사업 자금을 마련할 수단이 하나 더 생겼다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "OpenAI의 추론 기록 탈취 방지 조치, 곧바로 우회돼", "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOX0FreG5jcWdhaWZ0QjluMUtScS1Gazh5UGJTNFcxbDJuS2ZkTVhSdFA5R01kT05JRVJFNlFMTEc4VWVJaFRwM0l5R2steXBLU2pMMGYzTDJVMnlrc0IwU1lUV0NaWFJrM1ROencyYU1fTktwa2FJeFJqblVKVV8xb0FCZkthMFlkbUJCTGlJcC1kM3VjcGMyRy1IVWZTdVp1NWdQVGQzeHFPR1hJLXJSS3Z0a3AwWFk?oc=5", "source": "CSO Online", "summary": "OpenAI가 8월에 내놓은 추론 기록(reasoning trace) 탈취 방지 조치가 금방 우회됐다고 CSO Online이 보도했다."}, {"cat": "AI", "label": "AI", "loc": [37.57, 126.98], "place": "Seoul", "title": "Anthropic 상장으로 초기 투자한 한국 기업 주목", "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5DWmVwN3BXZW9ETTBNLTVBcUNGRTV3VEtxSFNLc2p1WFFxY2NaYnVBbm9Bdm9GZ24zT2Q4M05wRmVlb09lYllSQVFwNS04UlhqSlNwR21Qaw?oc=5", "source": "The Korea Herald", "summary": "Anthropic의 IPO 신청으로 일찍 투자한 한국 기술 기업들이 주목받고 있다고 Korea Herald가 보도했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [37.57, 126.98], "place": "Seoul", "title": "Boston Dynamics Atlas 공급망, Hyundai Mobis 중심으로 한국 기업이 전담", "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9iN05zVWw5NkZFNVkwbWpfNTNweWZudDIxdDhoeVo3T190WFphckF1ODBnQTU4SndjQzFYdkNFTGF6d2NjeHdwRzMtLW0yWFlOdURUdmU0YzM3TUJtaHkzN1NuMnV5MTVmQmNF?oc=5", "source": "KED Global", "summary": "KED Global에 따르면 Boston Dynamics 휴머노이드 Atlas의 공급망을 Hyundai Mobis를 중심으로 한국 기업들이 모두 맡는다. 1만 대 규모 주문도 가시권에 들어왔다고 전했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [30.27, 120.16], "place": "Hangzhou", "title": "Unitree 주가, 2주도 안 돼 60% 넘게 올라", "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOOFY1dFJsMzVrT3poemU3WlBWWFlVcVpxNGJZd2piRm9zNG5PZGkxR2h5djNYak5UMG9CNUFUNE1uT2hzbVl3YzN5eWdQdzBIaTgtR2RZeGdFLW13bXU5cmQwcU4tRFlzUkVCT19rUGtQN1dHTy1vVklBSHZiZXpDSG9mRUNneExaSEk5X3R0Uzl6azJoV2J6VEtHY1h3dw?oc=5", "source": "Yahoo Finance", "summary": "Unitree 주가가 2주가 채 안 되는 기간에 60% 넘게 올랐다. Yahoo Finance는 챗봇 AI가 마침내 로봇의 두뇌가 되리라는 투자자 기대가 배경이라고 전했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [37.57, 126.98], "place": "South Korea", "title": "삼성전자 회장, 휴머노이드 강화 위해 RX 조직 방문 검토", "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWjdNWnhGQ1hBZWhKOFhHa1YzWGZ1LTBKV3dVMmlGV3JuRFVvOE1DaFBod19rdURjOWtnZWdVVVg0R1dKWDhmQS1ycXhBU1RVWVVtTjhWLWJleWg4TjZKSjBwbTktTmZ0SHZha1RoQllTUlUtOHFWcU5rejNISXUzNTVYUzNOT2pfcXhOVG9oZFNJSXc?oc=5", "source": "digitimes", "summary": "digitimes에 따르면 삼성전자 회장이 휴머노이드 로봇 사업에 힘을 싣기 위해 RX 조직 방문을 검토하고 있다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Bedrock Robotics, 누적 투자 10억 달러 육박", "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNaVNjRVRFSjVISWQzQS10UFhOM3ppU3NRck80SVBvTnMzWDZCR3FEenI3UkFJbVA4bkhQQjVSOE54RU9wcXZzb1BQU2dDYzBhaFRSUzU5cWw2UHZmdHB0T3NLQzZGeXIyb3BzLVkza0E4UmVsWU1jdE9ObWdzOUVzaENFU1JRU0Jlc1MxTnVuaHpwcjRvYUwyU0tkajBNekJSTkItMGpOcldHZWtNcm4yZUNtc2lDbUtYVHJMVm05UQ?oc=5", "source": "The Robot Report", "summary": "자율 중장비 수요가 급증하면서 Bedrock Robotics의 누적 투자금이 10억 달러에 가까워졌다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [38.91, -77.04], "place": "United States", "title": "GXO, Agility 휴머노이드 로봇 활용 확대", "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxObVFUN2tjS0tqUWluVXE1YUJ5b1RjaVN5R3NPdXh1X0k1b1FRRjhCLXhJU2ZvSzJZMkt4MHpONm5rQ1llTTJhcDJNaGZLQnlCSS1CX193Y1BzOEZERjJnLTRmUzdaVy1lb0RNcDFPdVIwZVBFNHhCR2ZtRlkwcGVqQ2tTeHV1RmZaSlc3TGltWm5hWW9QeEdmVEVZdVFKaTJFM3VBMVJR?oc=5", "source": "DC Velocity", "summary": "GXO가 Agility의 휴머노이드 로봇 사용을 늘린다고 DC Velocity가 보도했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [52.52, 13.4], "place": "Berlin", "title": "Agile Robots, NVIDIA GTC Berlin에서 휴머노이드 Agile ONE SN 공개", "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPT21nZ1ppZmZ0TjZpTlZDcjZUMnFqNUFJRm5HdkpTcnFiTlRheEtjWTlaaHVJNzd2WDJQNldRbmdJN0hUUFUzMUYzZFV6ZzdoNmN6NmFvNUN1YmpmT1ZBMjFESy14SGgtVFlVWTBPN2xNU3h2T1ByWm4wUmVPczhTYlVQWEEtNHM?oc=5", "source": "Yahoo Finance Singapore", "summary": "Agile Robots가 NVIDIA GTC Berlin에서 휴머노이드 Agile ONE SN을 선보이고 Audi와 휴머노이드 시범 운영에 나섰다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [39.9, 116.4], "place": "China", "title": "중국 로봇 투자 40% 감소, IPO 규정 강화 영향", "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOdXhYRnNvVGZGMXdrcktzVjRyLW9YbU5qa0hlRlk3NEVycWNuSmZtZE1kNDE1S1l2bnFiN0JUVFMxVXozU3pvSDd4SjhDbjg0RGY0OGJ3VHc3dk9Tb0NzUzlmSDJZSmNUbmtTVmxOa0haRF8xVEhwbGdmYmlQamVldmw2UEE5UTFuckI1ZXJDeDBpVkRFWG9MQzhnSHMzZ1k2TmhWd2ZpS0Q?oc=5", "source": "Seoul Economic Daily", "summary": "IPO 규정이 강화되면서 중국 로봇 분야 투자가 40% 줄었다고 Seoul Economic Daily가 보도했다."}, {"cat": "World News", "label": "세계", "loc": [-15.79, -47.88], "place": "Brazil", "title": "브라질 Lula 대통령, 결선에서 Flávio Bolsonaro 꺾고 4선", "url": "https://www.npr.org/2026/10/25/nx-s1-6016299/brazil-lula-bolsonaro-election", "source": "NPR", "summary": "80세 Lula 대통령이 결선 투표에서 Flávio Bolsonaro를 꺾고 네 번째 임기를 확정했고, Bolsonaro 측 정당도 결과를 받아들였다. 패배한 Flávio Bolsonaro는 대법관 결정으로 출국이 금지되고 여권 제출 명령을 받았다."}, {"cat": "World News", "label": "세계", "loc": [31.77, 35.21], "place": "Israel", "title": "이스라엘 총선 투표 시작, Netanyahu 시험대", "url": "https://www.theguardian.com/world/live/2026/oct/27/israel-elections-knesset-netanyahu-likud-eisenkot-gaza-latest-updates", "source": "The Guardian", "summary": "2023년 Hamas 주도 공격 이후 처음 치르는 이스라엘 총선 투표가 시작됐다. 대부분의 여론조사는 Netanyahu 총리 연정이 과반을 잃을 것으로 보며, 야권에서는 Gadi Eisenkot이 가장 앞서 있다."}, {"cat": "World News", "label": "세계", "loc": [50.45, 30.52], "place": "Ukraine", "title": "Melania Trump 중재로 우크라이나 남부 Oleshky 국지 휴전 발효", "url": "https://www.npr.org/2026/10/27/g-s1-150037/russia-ukraine-war", "source": "NPR", "summary": "Melania Trump가 중재한 국지 휴전이 화요일 새벽 발효돼 러시아 점령지 Oleshky에서 주민 대피와 구호물자 전달이 이뤄진다. 같은 날 키이우에는 미사일 공격이 재개됐다."}, {"cat": "World News", "label": "세계", "loc": [39.04, 125.76], "place": "North Korea", "title": "북한, 남쪽 접경 인근에 곡사포 배치…남북 긴장 고조", "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPanA4TW9lT1pZU2JVMmNnZDJGSGxmRnFOTTY0MDdkVG1TcTZTMXlSdWhwSTloXy1LMWZvSVVrdjJZR2x0MmpVcExsa05XWldvTWx1RDhhdjRwZ1BsZ3RiVEh3YXk1cjdwaXpoTF9tSDJwUThpTHNjb3F0NFhrYUo2S09welVPLWY3VjZEemszdkEzOTVhTmFQU3BGRGRwbzNpdzNnakUyYnlJdw?oc=5", "source": "Stars and Stripes", "summary": "남쪽 접경 인근에서 북한 곡사포가 포착됐다고 Stars and Stripes가 보도했다. 유엔에 서한이 제출되는 등 남북 긴장이 높아지고 있다."}, {"cat": "World News", "label": "세계", "loc": [37.57, 126.98], "place": "Seoul", "title": "외교부 장관, 주한미군사령관 접경 발언에 미국 측 외교 책임자 불러 항의", "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPXy1pcE40MDQyR2t2X2xFUVppNTllc1Q5bmtxem1DYVZJRlFhWGZOQ1AzOVBHeDVMVGEtRkRXMEVRcDNEQXlNMjR0OTJDTDhMNTFUOF9TbXJkSE5yUTNvbzJmbEZGS1dGRE1VbVVjZmU2ckNRZ0Z6d09PYndybjc2TFRacXc4bXZCTk0wX1ZSVFRDOVJqMDBCVF9OV3RkY1dQcWtZZTZ6alBYQXdDdGYtSk44bkp6WXlUaURZb3M5ajc0dW5NQ1Z6VGFNaw?oc=5", "source": "Korea JoongAng Daily", "summary": "외교부 장관이 남북 접경에 관한 주한미군사령관의 발언에 항의하려고 미국 측 외교 책임자를 불렀다고 밝혔다."}, {"cat": "World News", "label": "세계", "loc": [38.91, -77.04], "place": "Washington", "title": "James Comey 전 FBI 국장, 세 번째 연방 기소", "url": "https://www.bbc.co.uk/news/articles/ckly0xqjnlwvo?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "James Comey 전 FBI 국장이 세 번째로 연방 기소됐다. 변호인단은 2016년 New York Times에 기밀을 유출했다는 혐의에서 비롯된 사건이라고 밝혔고, Comey는 혐의를 부인했다."}, {"cat": "World News", "label": "세계", "loc": [38.91, -77.04], "place": "United States", "title": "미 항소법원, 캘리포니아 우편투표 집계 막으려던 법무부 요청 기각", "url": "https://www.theguardian.com/us-news/2026/oct/26/court-california-ballots", "source": "The Guardian", "summary": "미 연방 항소법원이 법무부가 비시민권자라고 주장한 유권자 2만 명의 표를 캘리포니아가 집계하지 못하게 하려던 시도를 받아들이지 않았다. Newsom 주지사는 Trump의 '민주주의 공격'이라고 비판했다."}, {"cat": "World News", "label": "세계", "loc": [9.03, 38.74], "place": "Ethiopia", "title": "에티오피아 오로미아에서 기독교인 60여 명 피살", "url": "https://www.bbc.co.uk/news/articles/cm4g175dgdx2o?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "교회 관계자들에 따르면 에티오피아 오로미아 지역에서 기독교인 60여 명이 숨지고 20명 넘게 다쳤으며 가옥 20채가 불탔다."}, {"cat": "World News", "label": "세계", "loc": [50.45, 30.52], "place": "Ukraine", "title": "정부, 우크라이나 주재 외교 인력 8명 철수", "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5QR3M4Y0FKU1pIUmFQOXJTMXhxbG5yeGpuTjNIR3FCQ1lqOHBOMTRIMjFCUjNoVHBKREdPeG9ieGs5T3lfUjZuemUwbl9iVzcxNUd5RFBqb2Etdw?oc=5", "source": "Yonhap News Agency", "summary": "외교부 장관에 따르면 한국 정부가 우크라이나에서 외교 인력 8명을 철수시켰다."}, {"cat": "World News", "label": "세계", "loc": [37.57, 126.98], "place": "South Korea", "title": "경찰, Tesla FSD 불법 활성화한 80명 입건", "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPWWpfUUdWa1FST0hscmkyS250Znc0N3pTNnBrRTA5WG03V3VtMU9KS0tGVjFQcnFKWmxmTWkxeERRaU0waHRKNVBVZjVnbXFKSFNOaGdiX3RWZGkwZTlBaHpmTG9LVjlZMmtWVTNHdzZEaHVabHYwUXk5eTlvRmgtSU9EX00zczZVMjBGX2Y5UXNCV1kxY2ZtUUFjRDhVSXRZUTZxQmVqcGtzRW5EQmRueGZfWHlFWUdUSnlnVEd0cWRwUVk?oc=5", "source": "Korea JoongAng Daily", "summary": "Tesla의 Full Self-Driving 모드를 불법으로 활성화한 80명을 경찰이 입건했다."}, {"cat": "World News", "label": "세계", "loc": [15.5, 32.56], "place": "Sudan", "title": "미국·EU 등 30여 개국, 수단 기근 위험 경고", "url": "https://www.aljazeera.com/news/2026/10/27/us-eu-and-30-countries-warn-of-famine-risk-in-sudan-call-for-aid?traffic_source=rss", "source": "Al Jazeera", "summary": "미국과 EU, 30개국이 수단의 기근 위험을 경고하고 교전 당사자들에게 인도적 지원을 막는 모든 장애물을 없애라고 촉구했다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "Seoul", "title": "한국 3분기 GDP 1% 성장, 반도체 호황에 예상 웃돌아", "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBJYVFMVWNsRFZoOVhNcUZSSTBHQVZ4WGlkNU1EZl9Xa2pmdHh2d0p0dUgyUEt5aEF1WExJaVdOWmlUcC1TVUw1Q3R3RFZlRU1pdWttM2pkdw?oc=5", "source": "The Korea Herald", "summary": "한국은행에 따르면 3분기 GDP가 수출과 투자 호조로 1% 늘어 예상을 웃돌았고, Al Jazeera는 전년 동기 대비 3.4% 성장이라고 전했다. 다만 민간소비가 줄어 반도체 호황이 약한 내수를 가리고 있다는 평가도 나왔다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "Seoul", "title": "Anthropic 상장 신청에 코스피 급등…Samsung·SK Hynix 강세", "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBScWRxc1dmTnNUNnlZRU1RZXp1YWZGNVc1cW1TeXVaTUJZTEtieTk0MUJ5Z0NhdTJTQ3VfZm1OQ3JQYmEwQVdsa3JsdkJNT04xN0lNbHVCZHZtUFFNZVBDUXR3RTNPQV9RR1dBeFBpWFZBQktsX2ZKUVVR?oc=5", "source": "KED Global", "summary": "Anthropic의 IPO 신청으로 AI 투자 심리가 살아나면서 Samsung과 SK Hynix가 오르고 코스피가 반등했다. TradingKey는 코스피가 3% 넘게 올라 마감했다고, Economic Times는 4% 넘게 뛰었다고 전했다."}, {"cat": "Economy", "label": "경제", "loc": [40.71, -74.01], "place": "New York", "title": "Anthropic 상장 신청에 월가 기술주·아시아 칩주 동반 상승", "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPYTFLZTJNckNaRFN0TG9fLXJTY3h3VkVRSnZfMDJfLVkxOTNsU01IbWtXbDZQUTFIOXJXWENhY2NIX0ZuLUdLSHJMemcyUkNEZklQdUQxZlpHUWNwaVE3WFp1dk1meVZwejRrSUF1dEhFdDBjNUp3WVdqVnNBamJfQjFrN2g5b3QwZFBUMHZjYVU2aGhK?oc=5", "source": "Bloomberg.com", "summary": "Anthropic의 IPO 신청이 기술주 랠리를 이어 가며 월가가 오르고 아시아 반도체주도 상승했다. 다만 Yahoo Finance는 기업가치를 두고 월가 의견이 갈린다고 전했다."}, {"cat": "Economy", "label": "경제", "loc": [47.61, -122.33], "place": "Seattle", "title": "Microsoft, 직원 6만 명에 희망퇴직 제안", "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQTEtWZHk3MHVmT1VtM1ZlaUUwZnRxSHhLd25MMUdINTc4RnV4eVVGdUt1bHhRMGpXYU1Uc0J1Tjd4c2lwd0xERFdkSnllb2Zqa1ZxMVJFX05KcnRDTlBUa3lnNWxZeUhWc3Ixa1ZNQnpUQWkySnp6bXFHOHBwWjFVWEh3b0JOZW0ya0lmdjIxbGFFQ0hfY1FRZElXR0E3cXRRNThDVHpZd1FGQl9YMzZOMW9qZG4?oc=5", "source": "Bloomberg.com", "summary": "Microsoft가 새 비용 절감 조치로 직원 6만 명에게 희망퇴직(바이아웃)을 제안한다고 Bloomberg가 보도했다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "South Korea", "title": "KMCC, 인앱결제 강제한 Google·Apple에 과징금 637억 원", "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPUXM2NFFfYlAtU3JqWlZrd2FhOGxXNEdNZWRJWjkwTmNPNHNZbm5zY1lnZUdaYTJVbk9jOHFfT3pqNzNNRHRoMm9QYW1faHk0bFV3YWc0V3N6N2x1M0MxY3hVU1R5bkRvUjJad3lLQnFWODdfWmF2ZnRENGtUQ0EwZ0xvaUw2X2l0aFRxS2Y5eDJkQklWcWZlT1VJVFZudTJPZUJMam5vblM1Q2dWN1lELVh0OWZDR0FSQkE2YS05N2cta3Z1X0hOY1RpamNoY3M?oc=5", "source": "Korea JoongAng Daily", "summary": "KMCC가 인앱결제를 강제한 Google과 Apple에 모두 637억 원의 과징금을 부과했다."}, {"cat": "Economy", "label": "경제", "loc": [39.9, 116.4], "place": "China", "title": "중국 증시, AI 패권 경쟁 부담에 수조 달러 증발", "url": "https://www.theguardian.com/world/2026/oct/27/chinese-markets-lose-trillions-ai-race-beijing", "source": "The Guardian", "summary": "최근 몇 달 사이 중국 증시에서 수조 달러가 사라졌다. Guardian은 수익 부진과 서방의 견제가 중국 AI 붐의 지속 가능성에 대한 우려를 키우고 있다고 전했다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "South Korea", "title": "한국 1인당 소득, 처음으로 4만 달러 넘을 전망", "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNb0ZhUko3Zm9jR20xTmttQ0dmWjZOcjVOcXp2Y3llbUk1SHlpS1luanBGZnk0eFpVZkRQYUV1RVZWR1M5dzhVRHVXVGtWa3lGb2ZWTDBSci1XTmRYaWs2SkltNXFJV2RIOEgzV1Q1Z3RGc01aX0RvbXRYVkpuelJ6YkpDVEk3T0JpVjlLMy1RU2NMZFdlRkxrRWtvU3U?oc=5", "source": "Seoul Economic Daily", "summary": "Businesskorea는 한국 1인당 소득이 처음으로 4만 달러를 넘을 전망이라고 전했고, Seoul Economic Daily는 수출과 원화에 힘입어 4만4천 달러에 다가선다고 보도했다. Businesskorea는 회복이 고르지 않다는 점도 짚었다."}, {"cat": "Economy", "label": "경제", "loc": [38.91, -77.04], "place": "Washington", "title": "연준 다음 회의에서 주목할 5가지", "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOSVRzNWo2WlktSWk3OHNNd1A3elF2NXVldlhJVjR2VDVQcWVqRnlNOFBwakktUVh5LU9oT3hhSjR5LWJFZFlFRkF0Q091bmtCb0piZEEybW12NHhneS16UEhvSmQxTjRjN3dVWTZSeE1YZV9XZVZCamtJUFhzQkkzZlJhbVJ6RFlFeXU5bXZXRngyUjM2b1E?oc=5", "source": "WTOP News", "summary": "WTOP가 미국 연방준비제도(Fed)의 다음 회의에서 지켜볼 다섯 가지를 정리했다."}, {"cat": "Economy", "label": "경제", "loc": [40.71, -74.01], "place": "New York", "title": "Goldman Sachs \"세계 증시, 유가보다 AI 투자 흐름이 더 좌우\"", "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPSDBiUW9VU3I3UUtwMWNXaHJuWnZsVGN2V05TVzBUaXpUNU50Y3NYdHJCUWQxNHdrSnlPNkNUVlhnLWh1OURUaW5Rd3hrdjNfaE5sVy1lcTBRejlmc1d0UVAxejhheXhQanlxeVpWaDVwNFBYNVItY3RXbU0wRTRqZHYwalVCRlh5Q2E5elFONFFIQWp2amNRT3NOVDM?oc=5", "source": "Business Insider", "summary": "Goldman Sachs는 AI 관련 거래가 유가보다 세계 증시를 더 크게 움직이고 있다고 분석했다."}, {"cat": "Economy", "label": "경제", "loc": [51.51, -0.13], "place": "London", "title": "영국 Healey 재무장관, 28일 예산안 발표", "url": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "John Healey 재무장관이 10월 28일 예산안을 발표한다. 저소득 연금 수급자 소득세 부담 차단, 일부 식료품 관세 폐지, 사회·공공주택 10억 파운드 추가 지원이 미리 예고됐다."}], "tour": [0, 1, 9, 10, 16, 17, 27, 28], "colors": {"AI": "#7aa2ff", "Robotics": "#4fd1c5", "World News": "#f6c35b", "Economy": "#ff8a7a"}}</script>
+</section><style>
+.globe { margin-top: 1.5rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: center;
+  background: #0b1220; color: #e8edf5; border-radius: 14px; padding: 1rem 1.25rem; }
+@media (max-width: 40rem) { .globe { grid-template-columns: minmax(0, 1fr); } }
+.stage { aspect-ratio: 1; width: 100%; max-width: 22rem; margin: 0 auto; cursor: pointer; touch-action: manipulation; }
+.stage canvas { width: 100%; height: 100%; display: block; }
+.globe.no-gl { grid-template-columns: minmax(0, 1fr); } .globe.no-gl .stage { display: none; }
+.panel { min-width: 0; display: grid; gap: .8rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip { font: 500 .8rem var(--f-body); color: #e8edf5; background: transparent; border: 1px solid #2c3a52; border-radius: 99px;
+  padding: .3rem .75rem; cursor: pointer; display: inline-flex; gap: .4rem; align-items: center; }
+.chip::before, .card .dot { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c); flex: none; }
+.chip:hover { border-color: var(--c); }
+.chip[aria-current="true"] { border-color: var(--c); background: #16213a; }
+.card { min-height: 10rem; }
+.card-cat { font: 500 .72rem var(--f-mono); letter-spacing: .06em; color: var(--c); margin: 0 0 .4rem; display: flex; gap: .4rem; align-items: center; }
+.card-cat .count { margin-left: auto; color: #8592a8; }
+.card h3 { font: 700 1.1rem/1.45 var(--f-body); margin: 0 0 .4rem; text-wrap: balance; }
+.card h3 a { color: #fff; text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card .ext { color: #9db4ff; }
+.card-sum { margin: 0 0 .35rem; font-size: .9rem; line-height: 1.6; color: #c3cad6; }
+.card-src { margin: 0; font: 400 .72rem var(--f-mono); color: #8592a8; }
+.controls { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+.pause { font: 500 .75rem var(--f-mono); color: #e8edf5; background: #16213a; border: 1px solid #2c3a52; border-radius: 6px; padding: .3rem .65rem; cursor: pointer; }
+.hint { margin: 0; font-size: .78rem; color: #8592a8; flex: 1; min-width: 10rem; }
+.h-touch { display: none; }
+@media (hover: none) { .h-hover { display: none; } .h-touch { display: inline; } }
+.globe button:focus-visible, .globe a:focus-visible { outline: 2px solid #9db4ff; outline-offset: 2px; }
+.card.swap { animation: swap .35s ease; }
+@keyframes swap { from { opacity: 0; transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .card.swap { animation: none; } }
+</style>
+<script type="module">
+const root = document.getElementById('globe');
+const D = JSON.parse(document.getElementById('globe-data').textContent);
+const M = D.markers, T = D.tour;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = matchMedia('(hover: hover)').matches;
+const $ = s => root.querySelector(s);
+const card = $('.card'), link = $('.card h3 a'), pauseBtn = $('.pause'), stage = $('.stage'), canvas = $('canvas');
+const chips = [...root.querySelectorAll('.chip')];
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+const toAngles = ([lat, lng]) => [Math.PI - (lng * Math.PI / 180 - Math.PI / 2), lat * Math.PI / 180];
+const wrap = x => ((x + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+let pos = 0, timer = null, paused = reduce, target = null, globe = null, raf = 0, visible = true, played = false;
+let [phi, theta] = toAngles(M[T[0]].loc);
+phi -= 1.2; theta = 0.3;
+
+const markers = () => M.map((m, k) => ({ location: m.loc, size: k === T[pos] ? 0.1 : 0.045, color: hex(D.colors[m.cat]) }));
+
+function show(p) {
+  pos = (p + T.length) % T.length;
+  const m = M[T[pos]];
+  $('.card-cat').style.setProperty('--c', D.colors[m.cat]);
+  $('.cat').textContent = m.label;
+  $('.place').textContent = m.place;
+  $('.count').textContent = `${pos + 1}/${T.length}`;
+  $('.t').textContent = m.title;
+  if (/^https?:\/\//.test(m.url)) link.href = m.url;
+  $('.card-sum').textContent = m.summary;
+  $('.card-src').textContent = m.source;
+  card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+  chips.forEach(c => c.setAttribute('aria-current', String(c.dataset.cat === m.cat)));
+  target = toAngles(m.loc);
+  if (reduce) [phi, theta] = target;
+  globe?.update({ markers: markers() });
+  kick();
+}
+function tour(loop) {
+  if (paused || !T.length) return;
+  clearInterval(timer);
+  show(timer === null && pos === T.length - 1 ? 0 : pos);
+  timer = setInterval(() => (!loop && pos === T.length - 1) ? stop() : show(pos + 1), 2400);
+}
+function stop() { clearInterval(timer); timer = null; target = null; kick(); }
+
+function frame() {
+  raf = 0;
+  let moving = false;
+  if (target) {
+    const dp = wrap(target[0] - phi), dt = target[1] - theta;
+    if (Math.abs(dp) > 1e-3 || Math.abs(dt) > 1e-3) { phi += dp * 0.08; theta += dt * 0.08; moving = true; }
+  } else if (!paused) { phi += 0.0025; moving = true; }
+  globe.update({ phi, theta });
+  if (moving) kick();
+}
+function kick() { if (globe && visible && !raf && !document.hidden) raf = requestAnimationFrame(frame); }
+
+pauseBtn.addEventListener('click', () => {
+  paused = !paused;
+  pauseBtn.setAttribute('aria-pressed', String(paused));
+  pauseBtn.textContent = paused ? '재생' : '일시정지';
+  if (paused) { clearInterval(timer); timer = null; } else kick();
+});
+if (reduce) { pauseBtn.setAttribute('aria-pressed', 'true'); pauseBtn.textContent = '재생'; }
+chips.forEach(c => c.addEventListener('click', () => {
+  clearInterval(timer); timer = null;
+  show(T.findIndex(t => M[t].cat === c.dataset.cat));
+}));
+stage.addEventListener('click', () => timer ? stop() : tour(true));
+if (canHover) {
+  stage.addEventListener('pointerenter', () => { if (!timer) tour(true); });
+  root.addEventListener('pointerleave', stop);
+}
+document.addEventListener('visibilitychange', kick);
+new IntersectionObserver(([en]) => {
+  visible = en.isIntersecting;
+  if (!visible) return;
+  kick();
+  if (!canHover && !reduce && !played) { played = true; tour(false); }  // 폰: 처음 보일 때 한 바퀴만
+}).observe(root);
+
+try {
+  const c = document.createElement('canvas');
+  if (!(c.getContext('webgl2') || c.getContext('webgl'))) throw new Error('no webgl');
+  const { default: createGlobe } = await import('https://cdn.jsdelivr.net/npm/cobe@2.0.1/dist/index.esm.js');
+  const size = () => stage.offsetWidth || 300;
+  globe = createGlobe(canvas, {
+    devicePixelRatio: Math.min(2, window.devicePixelRatio || 1), width: size(), height: size(), phi, theta,
+    dark: 1, diffuse: 1.2, mapSamples: 16000, mapBrightness: 5, baseColor: [0.24, 0.29, 0.38],
+    markerColor: [1, 1, 1], glowColor: [0.3, 0.4, 0.65], markers: markers(),
+  });
+  new ResizeObserver(() => { globe.update({ width: size(), height: size() }); kick(); }).observe(stage);
+  if (reduce) show(0); else kick();  // 움직임 줄이기: 돌지 않고 첫 스토리 위치에 멈춰 둔다
+} catch (err) {
+  root.classList.add('no-gl');  // WebGL이나 CDN이 안 되면 카드와 분야 버튼만 남긴다
+}
+</script>
 <section id="markets" class="mk-wrap"><h2>시장 <small>Yahoo Finance 기준</small></h2><div class="mk"><table><thead><tr><th>지표</th><th>현재/종가</th><th>전일 대비</th><th>기준 시각</th></tr></thead><tbody><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5EGSPC" target="_blank" rel="noopener">S&amp;P 500</a></th><td>7,676.77</td><td class="up">+0.70%</td><td class="asof">2026-10-26 16:43 EDT</td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5EIXIC" target="_blank" rel="noopener">Nasdaq</a></th><td>26,169.38</td><td class="up">+0.82%</td><td class="asof">2026-10-26 17:15 EDT</td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5EKS11" target="_blank" rel="noopener">KOSPI</a></th><td>5,638.34</td><td class="up">+3.09%</td><td class="asof">2026-10-27 15:33 KST</td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/KRW%3DX" target="_blank" rel="noopener">원/달러</a></th><td>1,324.38</td><td class="down">-0.06%</td><td class="asof">2026-10-27 07:44 GMT</td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5ETNX" target="_blank" rel="noopener">미국 10년물 금리</a></th><td>4.99</td><td class="down">-0.04%</td><td class="asof">2026-10-26 13:59 CDT</td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/CL%3DF" target="_blank" rel="noopener">WTI 유가</a></th><td>101.96</td><td class="up">+0.20%</td><td class="asof">2026-10-27 03:34 EDT</td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/BTC-USD" target="_blank" rel="noopener">비트코인</a></th><td>79,545.00</td><td class="down">-0.46%</td><td class="asof">2026-10-27 07:44 UTC</td></tr></tbody></table></div></section>
 <section id="ai"><h2>AI <small>9건</small></h2><article class="item top" id="ai-0">
   <p class="src">TechCrunch · 2026-10-26 23:35 <span class="badge">4개 매체</span></p>
@@ -134,7 +269,7 @@ footer ul { padding-left: 1.1rem; margin: .5rem 0 .75rem; font: 400 .75rem/1.6 v
 <article class="item top" id="world-1">
   <p class="src">The Guardian · 2026-10-27 16:34 <span class="badge">3개 매체</span></p>
   <h3><a href="https://www.theguardian.com/world/live/2026/oct/27/israel-elections-knesset-netanyahu-likud-eisenkot-gaza-latest-updates" target="_blank" rel="noopener">이스라엘 총선 투표 시작, Netanyahu 시험대<span class="ext" aria-hidden="true">↗</span></a></h3>
-  <p class="sum">2023년 Hamas 주도 공격 이후 처음 치르는 이스라엘 총선 투표가 시작됐다. 대부분의 여론조사는 Netanyahu 총리 연정이 과반을 잃을 것으로 보며, 전직 장군 Gadi Eisenkot이 가장 유력한 야권 후보다.</p>
+  <p class="sum">2023년 Hamas 주도 공격 이후 처음 치르는 이스라엘 총선 투표가 시작됐다. 대부분의 여론조사는 Netanyahu 총리 연정이 과반을 잃을 것으로 보며, 야권에서는 Gadi Eisenkot이 가장 앞서 있다.</p>
   <p class="why"><span>왜 중요한가</span>결과에 따라 중동 정세와 세계 경제가 영향을 받는다.</p><p class="more"><span>함께 보도</span><a href="https://www.aljazeera.com/news/liveblog/2026/10/27/israel-election-2026-live-netanyahu-faces-tough-test-in-high-stakes-polls?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.npr.org/2026/10/27/g-s1-149944/israel-election-guide" target="_blank" rel="noopener">NPR<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.aljazeera.com/news/2026/10/27/israel-heads-to-the-polls-as-shift-to-the-right-dominates-critical-election?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.npr.org/2026/10/25/nx-s1-6011185/this-center-right-former-general-could-unseat-netanyahu-as-prime-minister-in-israel" target="_blank" rel="noopener">NPR<span class="ext" aria-hidden="true">↗</span></a></p>
 </article>
 <article class="item" id="world-2">
