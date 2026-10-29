@@ -183,7 +183,9 @@ b { font-weight: 500; }
 .foot-nav a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; }
 .foot-nav a .n { margin-left: 0.35em; font-weight: 400; color: var(--field-muted); }
 .foot-places { grid-row: 2; align-self: center; max-width: 64em; padding: 56px 0 0; }
-.foot-places p:first-child { font-size: var(--s-small); color: var(--field-muted); margin-bottom: 10px; }
+.fp-l { font-size: var(--s-small); color: var(--field-muted); margin-bottom: 10px; }
+.fp + .fp { margin-top: 40px; }
+.past a { color: inherit; text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.2em; padding-block: 3px; }
 .places { font: 400 var(--s-lead)/1.45 var(--f-ko); }
 .foot-info { max-width: 30em; font-size: var(--s-small); color: var(--field-muted); }
 .foot-info p { margin-bottom: 10px; }
@@ -265,7 +267,7 @@ b { font-weight: 500; }
       <div class="say">
         <p class="say-date">2026년 10월 29일 목요일</p>
         <p class="say-line">저녁에 확인해보는 소식들</p>
-        <p class="say-eds"><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-29-am.html">조간 09:50</a><span data-href="https://mrtmi-0315.github.io/morning-wire/2026-10-29-noon.html">낮판 13:00</span><b aria-current="page">석간 18:00</b></p>
+        <p class="say-eds"><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-29-am.html">조간 09:50</a><span data-href="https://mrtmi-0315.github.io/morning-wire/2026-10-29-noon.html">낮판 13:00</span><b aria-current="page">석간 18:00</b><a href="#past">지난 판</a></p>
         <div class="say-act"><a class="btn" href="#markets">오늘 판 읽기</a><p>제목을 누르면 원문으로 이동해요.</p></div>
       </div>
       <h1 class="mark"><span>morning wire</span></h1>
@@ -361,7 +363,7 @@ b { font-weight: 500; }
       <details><summary>수집한 피드 28곳</summary><ul><li>AI · OpenAI · 0/1334건</li><li>AI · Google DeepMind · 0/100건</li><li>AI · Hugging Face · 0/891건</li><li>AI · TechCrunch · 0/20건</li><li>AI · Google News · 25/100건</li><li>AI · Google News · 18/100건</li><li>AI · AI타임스 · 25/50건</li><li>AI · ZDNet Korea · 25/30건</li><li>Robotics · IEEE Spectrum · 0/30건</li><li>Robotics · Google News · 20/100건</li><li>Robotics · 로봇신문 · 1/50건</li><li>World News BBC · 7/35건</li><li>World News The Guardian · 24/45건</li><li>World News NPR · 1/10건</li><li>World News Al Jazeera · 25/25건</li><li>World News Google News · 25/100건</li><li>World News 연합뉴스 · 25/120건</li><li>Economy · BBC · 5/39건</li><li>Economy · Federal Reserve · 0/15건</li><li>Economy · Google News · 25/100건</li><li>Economy · Google News · 25/100건</li><li>Economy · 연합뉴스 · 25/120건</li><li>Economy · 한국경제 · 25/50건</li><li>Beauty · WWD · 1/10건</li><li>Beauty · Glossy · 1/20건</li><li>Beauty · Google News · 5/39건</li><li>Beauty · Google News · 17/48건</li><li>Beauty · Google News · 10/44건</li></ul></details>
     </div>
   </div>
-  <div class="foot-places"><p>오늘 기사가 난 곳, 지구본에 찍힌 순서대로</p><p class="places">Washington · Seoul · San Francisco · Beijing · China · Tokyo · United States · London · South Korea</p></div>
+  <div class="foot-places"><div class="fp"><p class="fp-l">오늘 기사가 난 곳, 지구본에 찍힌 순서대로</p><p class="places">Washington · Seoul · San Francisco · Beijing · China · Tokyo · United States · London · South Korea</p></div><div class="fp" id="past"><p class="fp-l">지난 판</p><p class="places past"><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-28.html">10월 28일(수)</a> · <a href="https://mrtmi-0315.github.io/morning-wire/2026-10-27.html">10월 27일(화)</a></p></div></div>
   <p class="foot-mark" aria-hidden="true">morning wire</p>
   <p class="foot-legal">TMI 모닝 와이어 · 2026년 10월 29일 목요일 석간 · 저녁에 확인해보는 소식들</p>
 </footer>
