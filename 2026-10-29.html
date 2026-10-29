@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TMI 모닝 와이어</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;700&family=Instrument+Serif&family=Nanum+Myeongjo:wght@700;800&display=swap">
+<style>
+/* 레이아웃: 종이 위 한 줄 기사 단(최대 44rem). 제호는 가운데, 분야는 색 폴더 탭, 지구본은 검은 판. 제목을 누르면 원문으로 간다. */
+:root {
+  --bg: #eeebe3; --paper: #f7f5f0; --ink: #1b1a17; --muted: #625e55; --line: #d5d0c4;
+  --accent: #df4a1f; --up: #c8322b; --down: #2348b8; --grain: .32; --grain-blend: multiply;
+  --f-mast: "Instrument Serif", "Nanum Myeongjo", "AppleMyungjo", serif;
+  --f-serif: "Nanum Myeongjo", "AppleMyungjo", serif;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", "IBM Plex Sans KR", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #151412; --paper: #1d1c19; --ink: #ebe7dd; --muted: #a29c8f; --line: #312e29;
+  --accent: #ff6d42; --up: #ff7b6b; --down: #85a2ff; --grain: .5; --grain-blend: soft-light; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #151412; --paper: #1d1c19; --ink: #ebe7dd; --muted: #a29c8f; --line: #312e29;
+  --accent: #ff6d42; --up: #ff7b6b; --down: #85a2ff; --grain: .5; --grain-blend: soft-light; color-scheme: dark; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.75 var(--f-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 20; opacity: var(--grain); mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+a, button { transition: color 150ms cubic-bezier(.4, 0, .2, 1), background-color 150ms cubic-bezier(.4, 0, .2, 1), border-color 150ms cubic-bezier(.4, 0, .2, 1); }
+@media (prefers-reduced-motion: reduce) { a, button { transition: none; } }
+.wrap { max-width: 44rem; margin: 0 auto; padding-block: 1.25rem 3rem;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px)); padding-right: max(1rem, env(safe-area-inset-right, 0px)); }
+header { text-align: center; }
+.folio { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: .4rem 0; border-block: 1px solid var(--ink);
+  font: 500 .6875rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; }
+header h1 { margin: 1.75rem 0 0; font-weight: 400; }
+.mast { display: block; font: 400 clamp(2.9rem, 11.5vw, 6rem)/.88 var(--f-mast); letter-spacing: -.005em; text-transform: uppercase; text-wrap: balance; }
+.date { display: block; margin-top: 1rem; font: 800 clamp(1.15rem, 3.6vw, 1.5rem)/1.3 var(--f-serif); }
+.meta { margin: .75rem auto 0; max-width: 32rem; color: var(--muted); font-size: .8125rem; line-height: 1.6; text-wrap: balance; }
+nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  display: flex; align-items: flex-end; gap: 3px; overflow-x: auto; margin: 2rem 0 0; padding-top: .5rem; border-bottom: 3px solid var(--ink); }
+nav a { flex: none; min-height: 2.75rem; box-sizing: border-box; display: inline-flex; align-items: center; padding: 0 1rem;
+  border-radius: 7px 7px 0 0; background: var(--c, var(--ink)); color: var(--on, var(--bg)); text-decoration: none; font: 700 .875rem/1 var(--f-body); }
+nav a:hover { filter: brightness(1.08); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ext { font-size: .8em; color: var(--accent); margin-left: .25em; }
+section { margin-top: 3.25rem; scroll-margin-top: 4.5rem; }
+section h2 { display: flex; align-items: flex-end; justify-content: space-between; gap: .75rem; margin: 0; border-bottom: 3px solid var(--c, var(--ink)); font-weight: 400; }
+.tab { background: var(--c, var(--ink)); color: var(--on, var(--bg)); padding: .45rem 1.1rem .35rem; border-radius: 7px 7px 0 0; font: 700 1.125rem/1.3 var(--f-body); }
+section h2 small { padding-bottom: .4rem; font: 500 .6875rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+section h4 { font: 500 .6875rem/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 1.75rem 0 .5rem; }
+.item { padding-block: 1.5rem; border-bottom: 1px solid var(--line); }
+.item h3 { font: 800 1.25rem/1.5 var(--f-serif); letter-spacing: -.01em; margin: 0 0 .5rem; text-wrap: wrap; word-break: keep-all; overflow-wrap: anywhere; }
+.item.top h3 { font-size: 1.5rem; line-height: 1.42; }
+.item h3 a { color: var(--ink); text-decoration: none; }
+.item h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.item p { margin: 0; }
+.src { font: 500 .6875rem/1.5 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.item .src { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .5rem; margin-bottom: .5rem; }
+.item .sum { margin-bottom: .75rem; }
+.item .why { margin-bottom: .5rem; }
+.badge { font: 500 .6875rem/1.4 var(--f-mono); letter-spacing: .04em; border: 1px solid var(--muted); border-radius: 2px; padding: 0 .35rem; color: var(--muted); }
+.badge.solo { border-style: dashed; }
+.item.top .src::before { content: "TOP"; font: 500 .6875rem/1.4 var(--f-mono); letter-spacing: .1em; color: #fff; background: var(--accent); border-radius: 2px; padding: .05rem .4rem; }
+.why { color: var(--ink); font-size: 1rem; line-height: 1.7; }
+.why span, .more span { font: 500 .6875rem/1.5 var(--f-mono); letter-spacing: .04em; color: var(--accent); margin-right: .5rem; }
+.more { font-size: .875rem; line-height: 1.6; color: var(--muted); }
+.more a { color: var(--ink); text-underline-offset: 3px; }
+.short { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+.short li { display: flex; flex-wrap: wrap; gap: .1rem .6rem; align-items: baseline; padding-left: 1rem; position: relative; }
+.short li::before { content: ""; position: absolute; left: 0; top: .6em; width: .45rem; height: .45rem; background: var(--c, var(--ink)); }
+.short a { color: var(--ink); text-decoration: none; font-weight: 500; min-width: 0; }
+.short a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.empty { color: var(--muted); font-style: italic; }
+.mk { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-top: 0; }
+.mk:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mk table { width: 100%; border-collapse: collapse; font: 400 .875rem/1.5 var(--f-mono); font-variant-numeric: tabular-nums; }
+.mk th, .mk td { padding: .55rem .75rem; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.mk tr:last-child > * { border-bottom: 0; }
+.mk th:first-child { text-align: left; }
+.mk thead th { color: var(--muted); font: 500 .6875rem/1.5 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; }
+.mk th a { color: var(--ink); text-decoration: none; font-family: var(--f-body); font-weight: 500; }
+.mk .up { color: var(--up); } .mk .down { color: var(--down); }
+.mk .asof { color: var(--muted); font-size: .75rem; }
+@media (max-width: 40rem) { .mk .asof { white-space: normal; } .mk .asof span { display: block; } }
+footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--ink); font-size: .8125rem; color: var(--muted); }
+footer summary { cursor: pointer; font: 500 .6875rem/1.5 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; }
+footer ul { padding-left: 1.1rem; margin: .5rem 0 .75rem; font: 400 .75rem/1.6 var(--f-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
+<div class="wrap">
+<header>
+  <p class="folio"><span>No. 2026.10.29</span><span>TMI 아침판</span><span>Seoul · KST</span></p>
+  <h1><span class="mast">Morning Wire</span><span class="date">2026년 10월 29일 목요일</span></h1>
+  <p class="meta">10:10 KST 수집 · 최근 48시간 기사 285건 중 33개 스토리. 제목을 누르면 원문으로 이동해요.</p>
+</header>
+<nav aria-label="분야"><a href="#ai" style="--c:#2f5bd8;--on:#ffffff">AI</a><a href="#robotics" style="--c:#1c8a55;--on:#ffffff">로보틱스</a><a href="#world" style="--c:#e9b21b;--on:#1b1a17">세계</a><a href="#economy" style="--c:#d8382b;--on:#ffffff">경제</a><a href="#markets">시장</a></nav>
+<section class="globe" id="globe" aria-label="오늘의 지구본">
+<div class="stage"><canvas aria-hidden="true"></canvas></div>
+<div class="panel">
+  <div class="chips" role="group" aria-label="분야로 이동"><button type="button" class="chip" data-cat="AI" style="--c:#2f5bd8">AI</button><button type="button" class="chip" data-cat="Robotics" style="--c:#1c8a55">로보틱스</button><button type="button" class="chip" data-cat="World News" style="--c:#e9b21b">세계</button><button type="button" class="chip" data-cat="Economy" style="--c:#d8382b">경제</button></div>
+  <article class="card" aria-live="off">
+    <p class="card-cat" style="--c:#2f5bd8"><span class="dot"></span><span class="cat">AI</span>·<span class="place">San Francisco</span><span class="coord">37.77°N 122.42°W</span><span class="count">1/8</span></p>
+    <h3><a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbmI5VHgtQjFuck9nQkJ5Q0hCekJJT1YxVVR4MlFwcUNodk9hYzJPYWlaQ2JhYjVRcC1JYUFpZlRNNE5iZWJFMFZUQ0tyQ3VnempEZFJNcnhmalhDQWlpWjN5MkllV0p6cWtzd1lHWGZXZVdjcDVlREplX1JReV9fUUdSWjRqQUNr?oc=5" target="_blank" rel="noopener"><span class="t">Anthropic, IPO 투자설명서(S-1) 공개</span><span class="ext" aria-hidden="true">↗</span></a></h3>
+    <p class="card-sum">Anthropic이 상장을 위한 S-1 서류를 공개했다. Yahoo Finance는 4,000억 달러 규모의 컴퓨팅 약정을 짚었고, CNET은 Anthropic이 AI가 인류를 끝낼 수 있다고 밝혔다고 전했다.</p>
+    <p class="card-src">WSJ</p>
+  </article>
+  <div class="controls"><button type="button" class="pause" aria-pressed="false">일시정지</button><button type="button" class="next">다음 기사</button>
+    <p class="hint"><span class="h-hover">지구본에 커서를 올리면 분야별 주요 뉴스를 차례로 보여 줘요. 기사 위로 옮기면 멈춰요.</span><span class="h-touch">지구본을 탭하면 재생하고, 다시 탭하면 멈춰요.</span></p></div>
+</div>
+<script type="application/json" id="globe-data">{"markers": [{"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Anthropic, IPO 투자설명서(S-1) 공개", "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbmI5VHgtQjFuck9nQkJ5Q0hCekJJT1YxVVR4MlFwcUNodk9hYzJPYWlaQ2JhYjVRcC1JYUFpZlRNNE5iZWJFMFZUQ0tyQ3VnempEZFJNcnhmalhDQWlpWjN5MkllV0p6cWtzd1lHWGZXZVdjcDVlREplX1JReV9fUUdSWjRqQUNr?oc=5", "source": "WSJ", "summary": "Anthropic이 상장을 위한 S-1 서류를 공개했다. Yahoo Finance는 4,000억 달러 규모의 컴퓨팅 약정을 짚었고, CNET은 Anthropic이 AI가 인류를 끝낼 수 있다고 밝혔다고 전했다."}, {"cat": "AI", "label": "AI", "loc": [47.61, -122.33], "place": "Seattle", "title": "Microsoft 분기 매출 923억 달러, OpenAI에서 100억 달러 수익", "url": "https://techcrunch.com/2026/10/28/microsoft-recorded-10-billion-in-revenue-from-openai/", "source": "TechCrunch", "summary": "Microsoft의 분기 매출은 923억 달러로 전년 동기 대비 19% 늘었고, Azure 매출을 처음으로 달러 금액(332억 달러)으로 공개했다. 9월 말 끝난 분기에 OpenAI와의 상업 계약에서 100억 달러를 벌었으며, 직원 6만 명에게 희망퇴직을 제안한 지 며칠 만에 나온 실적이다."}, {"cat": "AI", "label": "AI", "loc": [38.91, -77.04], "place": "Washington", "title": "Anthropic, IPO 물량 최대 20% 개인투자자 배정 검토…Warren 의원은 질의", "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5fbjBJWDcxNUU4M1lNN3VFbzBzLUkzNnZTX1VpeWpDeXNiQS1CRXpkbXkyQnE0R1UtbmYwQjhOdVVEcWl1TDloWG4zLTh6VkN6MHpTZTFDMWJyMWJ1dW56Uk1lVXdKU2txXzZxQzFGMEhVUXhlRFE?oc=5", "source": "The Next Web", "summary": "Anthropic이 IPO 물량의 최대 20%를 개인투자자에게 배정하는 방안을 검토하고 있다. Elizabeth Warren 상원의원은 이번 IPO의 AI 안전과 시장 위험을 따져 묻고 있다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Alphabet 매출 25% 증가에 이익은 감소, AI 검색 광고 전 세계로 확대", "url": "https://techcrunch.com/2026/10/28/google-expands-ai-search-ads-globally-as-core-ad-growth-slows/", "source": "TechCrunch", "summary": "Alphabet의 3분기 매출은 전년 동기 대비 25% 늘어난 1,276억 달러였지만 이익은 줄었다. Google은 핵심 광고 성장이 둔화하는 가운데 AI 검색 광고를 전 세계로 넓힌다고 밝혔다."}, {"cat": "AI", "label": "AI", "loc": [51.51, -0.13], "place": "London", "title": "Google DeepMind, 차세대 프런티어 모델 Gemini 4 Carbon 발표", "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/", "source": "Google DeepMind", "summary": "Google DeepMind가 차세대 프런티어 모델 Gemini 4 Carbon을 공개했다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Google, Gemini와 검색에 외부 앱 연결하는 개발자 플랫폼 공개", "url": "https://techcrunch.com/2026/10/28/as-ai-agents-reshape-the-web-google-opens-gemini-and-search-to-more-apps/", "source": "TechCrunch", "summary": "Google이 새 개발자 플랫폼으로 기업이 자사 서비스를 Gemini와 검색 등 Google의 AI 경험에 넣을 수 있게 했다."}, {"cat": "AI", "label": "AI", "loc": [37.57, 126.98], "place": "Seoul", "title": "한국 금융권, 또다시 사이버 공격 받아", "url": "https://techcrunch.com/2026/10/28/south-koreas-financial-industry-hit-by-fresh-wave-of-cyberattacks/", "source": "TechCrunch", "summary": "한국 금융기관들이 다시 한 번 사이버 공격을 받았다. TechCrunch는 아시아에서 AI를 활용한 해킹 위험이 커지고 있음을 보여준다고 전했다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "Anthropic, 기업의 AI 지출 내역을 보여주는 도구 출시", "url": "https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying/", "source": "TechCrunch", "summary": "Anthropic이 기업 고객이 자사 모델에 쓴 돈이 어디에 쓰였는지 보여주는 도구를 내놨다. 예정된 IPO를 앞둔 조치다."}, {"cat": "AI", "label": "AI", "loc": [37.77, -122.42], "place": "San Francisco", "title": "프런티어 AI 연구소들 \"모델이 지수 시간 가설을 반증했다\"", "url": "https://techcrunch.com/2026/10/27/frontier-ai-labs-say-their-models-refuted-the-exponential-time-hypothesis-what-does-that-mean/", "source": "TechCrunch", "summary": "프런티어 AI 연구소들이 자사 모델이 지수 시간 가설(Exponential Time Hypothesis)을 반증했다고 밝혔다. TechCrunch는 OpenAI의 이번 발견을 설명하는 역할을 맡은 MIT 컴퓨터과학자를 인터뷰했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [30.27, 120.16], "place": "Hangzhou", "title": "Unitree 3분기 매출 69.9% 증가…AI 투자로 핵심 이익은 압박", "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPM2dheTlDQXlvUy1Ec1M2OU1tNmtaZzNXMU5aRlFxRnhCX2x5RWZaQTZLcGhYYzYyRXN2RmVxeFAzakJZajJYb1lfQ0dsTEQxOVZacFB0UXplanZJUXFzdmRSa3RkZkZ2a2NqVEg1X3d6X1Rpa1N2QTQxeGRLOUswaTFuTy1Pb3I5bUlvQ09qVlQ2YXU4S2tOaTU1S21CTm1VY21HY1BjTnpHdWc5bVRpU2VkRW5rVEljMENFQjVEbjHSAcABQVVfeXFMUFJ5VXp1cUZuaWs1c19LSkNSQndiWmlwNUsxaldlaTZldW9VT0F6WXpTTk1tWFhKOEw4blFzTDluTjA0M2RwTXFUR09MZW1qazRRSmNsaG9lN1U1bVo5Vy1CdlhKSE4zM2FscGYyT01VMzNiVTBWQTRwbVFNUWdCWDI2NkpWV1dFQlZFbDczRjFOVk5QRUlCU2FlYkpUenY2QmlWVjBnT09fWmRDWHJEZjZrSlVZWElOT0hZcWZpOEFr?oc=5", "source": "South China Morning Post", "summary": "Unitree Robotics의 3분기 매출은 6억 6,500만 위안으로 69.93% 늘었고 분기 이익도 크게 뛰었다. 다만 분기 R&D 지출이 249% 늘어나는 등 AI 투자가 핵심 이익에 부담이 됐다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [38.91, -77.04], "place": "United States", "title": "Tesla, 캘리포니아에서 휴머노이드 로봇 생산 시작", "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQZ1pEWUhFdG91Z0hMcFc2ME9rcFQxZlQydnFBaXhFS1lOUlpJR2FLanNHbHgyczhOdWJ1RWY0YnBWWWE0N0gwVzItcW1YTTNxYzJ5ZVl6dEdEQWZTTC1rWDhseEJ5R2l1bkpISVU2aHZpZWVWTzFkTFdBQTBYdnliX2lsR3RJT1NSd19UOFl5TjFiRU9iWkI3eExWN1h6d0lXbU5ZWTA4UTk?oc=5", "source": "Supply Chain Brain", "summary": "Tesla가 캘리포니아에서 휴머노이드 로봇 생산을 시작했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [52.52, 13.4], "place": "Germany", "title": "Neura Robotics·뮌헨공대, 1,700만 유로 규모 RoboGym 개소하고 새 휴머노이드 공개", "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQdTNuS25tRVNOQ2Q2S1ptMUt1QkFnOEw0THVMM1RRU3MzUjBLX3pWWWtwNXRIb3oxOEJibGN3ZFpvQ1hyd25ZWENXSHB0YVdBRnBwZlR4MDNXU1l1RXJkcnV6bDh3Q2xhTm4wWkl3WUxXZEZ1YVRPRktrcDA2NFZxckFHQVpfR0w1bjFTWjBOTjVMeTRhVS1ISGZlSmU5V1ZqU1JVcjJyOUpRbkFNMXpVRlVaYm9FTjlNcHQyejZWel9ESmJTRkRr?oc=5", "source": "Robotics & Automation News", "summary": "Neura Robotics와 뮌헨공대(TUM)가 1,700만 유로 규모의 RoboGym을 열고 새 휴머노이드를 공개했다."}, {"cat": "Robotics", "label": "로보틱스", "loc": [40.71, -74.01], "place": "New York", "title": "Faraday Future, 9만 달러 휴머노이드 홍보하며 미국 생산 추진", "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOWGJwNUUzb281c2Z0M09Ocks1UmNkTEh1eEh2ZGs3NWZMbnR2alVjUVB5dS1pNmxKN00xeXdTLTIxRFYtTHQ4Z292XzhSUGt6R0dLVU55TDVHN0Z2LUl6VVROVktId0xyd2psNFBFQkdFVHB6TjcxMlV0M2N5S09Rd2thRWE0LUNhVDZoZWJ0Vms0ZVczMmdITmc1TllrSmgzM0RNMFYxOEZRSE5Qbm9tR2ZiTkVLR00yN01Wbk0wWDJMWF9fUDVlVkRhQnVSQ1VQWlZxVmhKWFNsRnVHaUlfV3dyOWE?oc=5", "source": "Robotics & Automation News", "summary": "Faraday Future가 뉴욕에서 9만 달러짜리 AI 휴머노이드 로봇을 홍보했다. 회장은 인터뷰에서 중국산 로봇 조달에서 미국 내 제조로 옮겨 가겠다고 밝혔다."}, {"cat": "World News", "label": "세계", "loc": [40.42, -3.7], "place": "Spain", "title": "스페인 고속열차 충돌로 최소 68명 사망", "url": "https://www.bbc.co.uk/news/articles/c6p3g84kjqjlo?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "마드리드 남쪽 톨레도주에서 달리던 고속열차가 앞에 멈춰 있던 열차를 들이받아 최소 68명이 숨지고 100명 넘게 다쳤다. 교통장관은 \"설명할 수 없는\" 오류가 원인이라고 밝혔다."}, {"cat": "World News", "label": "세계", "loc": [31.77, 35.21], "place": "Israel", "title": "이스라엘 총선, 어느 진영도 과반 못 얻어", "url": "https://www.bbc.co.uk/news/articles/cmdx3knq1xexo?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "개표 85% 기준 Netanyahu의 Likud와 우파 연합은 크네세트 120석 중 53석을 얻을 것으로 보여 과반에 못 미친다. 상대인 Gadi Eisenkot 진영도 과반이 어렵고, 아랍계 정당이 선전해 연정 구성이 쟁점이 됐다."}, {"cat": "World News", "label": "세계", "loc": [-15.79, -47.88], "place": "Brazil", "title": "브라질 대선 패배 Flávio Bolsonaro, 마이애미로 출국", "url": "https://www.theguardian.com/world/2026/oct/28/flavio-bolsonaro-miami-us-fleeing-brazilian-election-defeat", "source": "The Guardian", "summary": "대선에서 패한 Flávio Bolsonaro가 브라질 당국의 여권 반납 명령 뒤 아르헨티나와 에콰도르를 거쳐 가족과 함께 마이애미에 도착했다. 그는 도피를 부인하며 자신이 브라질의 진짜 대통령이라고 주장했다."}, {"cat": "World News", "label": "세계", "loc": [40.42, -3.7], "place": "Spain", "title": "스페인 열차 충돌 사고로 한국인 부상", "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxON0lWQ2w4YnJQMzJENE9IMnA5RlIybXhMLXhCcGpvWTg1eFpacGNUeEdBamZjbkFSMjJiY0xsd2hFNV9yNGVqWTNSWDEyTUFCdjZ3YXk3X3hWMHpmU0xjdlpoMTNpV0JLQmExTy1odjJDZGExOFZFdk4xSjdFdkdPejZYSXhwNWhxOGxqVlFGWEdzV0xBRlgwRWJTWlFITi1OZmhESVBfeFjSAa4BQVVfeXFMTnNqNW9QODRnalk0NXpLMmM3dmU2UTdldXFEWEdRcWV2d2FjaGVrRmNNQ25kQUJ0YVNQbzlOMVlqRWpuM1RjYVVIdmVNNkNiVlZFQkNpNm10QWVjWUp1YUVlbXhfM0g0V1ZTNlJMNGxWZ2tkTWt3NXRIekhkZkxOczNNX1lKbnRIWEY1S2RpeVFkVF93NmxOS1ZGUEZsUWFiTUNpZTBfTjRNZU83OGt3?oc=5", "source": "The Korea Times", "summary": "스페인 고속열차 충돌 사고로 한국인들이 다쳤다. 부상자 수는 Korea Times가 2명, Korea Herald가 경상자 6명으로 전해 매체마다 다르다."}, {"cat": "World News", "label": "세계", "loc": [35.69, 51.39], "place": "Iran", "title": "이란, 호르무즈 해협 재개방 7일 계획 추진…Trump는 평화협상 부인", "url": "https://www.aljazeera.com/news/liveblog/2026/10/29/iran-war-live-tehran-presses-7-day-hormuz-plan-trump-denies-peace-talks?traffic_source=rss", "source": "Al Jazeera", "summary": "Araghchi 이란 외무장관은 호르무즈 해협 재개방을 위한 7일 계획을 실행하려고 중재자들과 긴밀히 접촉하고 있다고 밝혔다. Trump 대통령은 평화협상을 부인했다."}, {"cat": "World News", "label": "세계", "loc": [50.45, 30.52], "place": "Ukraine", "title": "우크라이나 헤르손 지역으로 휴전 확대", "url": "https://www.bbc.co.uk/news/articles/c6lye1w9p2l8o?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "Melania Trump가 중재해 러시아 점령지 올레시키 주민을 위해 시작한 휴전이 헤르손 지역 전체로 넓어졌다. 러시아와 우크라이나 모두 위반 사례는 없다고 밝혔다."}, {"cat": "World News", "label": "세계", "loc": [45.42, -75.7], "place": "Canada", "title": "EU, 캐나다에 제안한 '준회원국' 협상에서 후퇴", "url": "https://www.theguardian.com/world/2026/oct/28/european-union-canada", "source": "The Guardian", "summary": "EU가 회원국 간 이견으로 캐나다를 첫 준회원국으로 만드는 협상 제안에서 물러섰다. 몬트리올 정상회의 공동성명에는 '더 긴밀한 협력'이라는 약한 표현이 들어간다."}, {"cat": "World News", "label": "세계", "loc": [55.76, 37.62], "place": "Russia", "title": "Putin, 러시아-아프리카 정상회의서 \"러시아가 최고의 파트너\"", "url": "https://www.aljazeera.com/video/newsfeed/2026/10/28/putin-russia-is-african-continents-best-partner-not-colonial-west?traffic_source=rss", "source": "Al Jazeera", "summary": "Putin 대통령은 제3차 러시아-아프리카 정상회의에서 아프리카 수십 개국 정상에게 러시아가 최고의 파트너이며 신식민주의를 추구하지 않겠다고 말했다."}, {"cat": "World News", "label": "세계", "loc": [37.57, 126.98], "place": "Seoul", "title": "한미 등 우방국, 북한 비핵화 목표와 대북 제재 이행 재확인", "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBhS1Z2XzFVb2JRRzl1Yk5Ec0Vfd1dKSFo1cnczVjdIRWc1NndhYzRucUlZU0l2cFZ4c1ZsMUtuNTgzemx5M3J4QkZ6SzhTa0VSSi16Uy1mNA?oc=5", "source": "The Korea Herald", "summary": "한국과 미국 등 우방국들이 북한 비핵화 목표를 재확인하고 대북 제재 이행을 지지했다."}, {"cat": "Economy", "label": "경제", "loc": [38.91, -77.04], "place": "Washington", "title": "미 연준, 기준금리 동결…Warsh \"인플레이션 너무 높다\"", "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm", "source": "Federal Reserve", "summary": "연준이 인플레이션이 오르는 가운데서도 기준금리를 3.75~4%로 동결했다. Warsh 의장은 인플레이션이 너무 높다면서도 미국 경제가 과열된 것은 아니라고 말했다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "Seoul", "title": "한국, 인앱결제 규정 위반으로 Google·Apple에 637억 원 과징금", "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQN290MndVSTlsTlpsVUdMMjg0cjdXY1ZxSU1QbkthbS1ZVFE3dlNSV1VXRUt6ZmRUdlZiWDUydVpBdGRNS2FfcnpUWUFpMldmSjkwbkZlTnYyeE9UeTR0cUhQQnFuT3haTDloOW9UdnUzS0pBQXdiTDZWNXdodGNKOC1ycW9QbU5kOHRiMWFGUHoxUTk2NnZjOXNRcTNHNjFzMW1lV3VhTW5ySEx2MENZbU0xbw?oc=5", "source": "Korea JoongAng Daily", "summary": "한국 당국이 앱 결제 규정을 어긴 Google과 Apple에 모두 637억 원(약 4,760만 달러)의 과징금을 부과했다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "Seoul", "title": "KOSPI 6,000선 회복, SK hynix가 상승 주도", "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQenR0LW5iR1R4aXVYZ1RyTThXYU5VTFltdVExUXpQYktNak01d010WVBvU2ZraGkzb3h4Z3ZrN21GWGx3ZU01R2lJYTloNHR5dVlhWl9VbVlYbnpJbFdMN1pkRHUxblJ6VWtndVJhZ3JoQU52U3ViRHJBclRTa3dFVdIBlAFBVV95cUxQR1BqMjFQZHMwMl84QjZHLWhUQlViSUtGZHo3YkdSczdqR3plcGY0cUZnQm9ZY0R1VWltcVo1ZGthUFRTUzR4ejZCYzRkOTdZUmVVbVlyaFJCSTNianBpVGNVUVJ3WlRoQ09DT19NRXpQLXJvS2NBWTVwV2RtMkhMOTJPNlgyWEFWS0d2bWR6SFBDeU9D?oc=5", "source": "Chosunbiz", "summary": "미국 반도체 랠리에 힘입어 KOSPI가 6,000선을 넘었고 SK hynix가 3% 넘게 올랐다. 투자자 예탁금도 다시 90조 원대로 들어섰다."}, {"cat": "Economy", "label": "경제", "loc": [51.51, -0.13], "place": "London", "title": "영국 Healey 재무장관 첫 예산안, 가구당 £100 에너지 지원과 은행세 인상", "url": "https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno?at_medium=RSS&at_campaign=rss", "source": "BBC", "summary": "John Healey 재무장관이 첫 예산안에서 2,000만 가구에 £100의 에너지 요금 지원금을 주고, 그 재원으로 은행과 임대인에 대한 세금을 올렸다. 야당은 충분히 과감하지 않다고 비판했다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "South Korea", "title": "삼성전자 3분기 이익 시장 예상 부합, AI 메모리 수요 증가", "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOanRhTXNhc0dhVWVuU1R2czVZME9uX1AwRUQ4TUhNWFNlUWllOWFpd3F0Y3NrNlVWTnNkOG1ManI5a2lEUU9rcERuOTZqNUtZampraXdIZkhyY01nWVRUSkgwVnc1WTZWbnp1RzlLbGw5T2Z1clFYNlFYT2d2THdmYjlNUFZTZ9IBiwFBVV95cUxPMlJfRno2MkJZOUJpRElyemhVOUpIZWpEbGJyaTBuSTZYODdTd1A3a0k3RDZZY1RMZ21sWG1UWDRUSXdNc2tMenZMR3pSWjRlS0pDa0tCMGlaeHNZbEtDcUFoWFVXUXAwZ2hpdVJOd0JhWkhqNDRPNGpvaFFYcXJHb0NBNjFxSFFQd1NB?oc=5", "source": "CNBC", "summary": "삼성전자의 3분기 이익이 시장 예상에 부합했다. AI 메모리 반도체 수요가 늘고 있다."}, {"cat": "Economy", "label": "경제", "loc": [45.42, -75.7], "place": "Canada", "title": "캐나다 중앙은행, 3년 만에 첫 금리 인상", "url": "https://www.aljazeera.com/economy/2026/10/28/bank-of-canada-raises-interest-rates-for-the-first-time-in-three-years?traffic_source=rss", "source": "Al Jazeera", "summary": "캐나다 중앙은행이 에너지 가격 급등으로 인플레이션이 오르자 기준금리를 0.25%포인트 올렸다. 3년 만의 첫 인상이다."}, {"cat": "Economy", "label": "경제", "loc": [37.57, 126.98], "place": "South Korea", "title": "HD한국조선해양 3분기 영업이익 37.3% 증가", "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5aYmt1ODcza3VDWDV3QnJ6cUV2dmhGTmNqeWozSE9qX3FHenJ2YVYyd3BHUVFwWEdITmNJQzh5OXRIOVhMU2trWHpuaFhHYVlYZGhuTS15cVU5TUxRck1BT2xpLVFGYUU?oc=5", "source": "THE ELEC, Korea Electronics Industry Media", "summary": "HD한국조선해양의 3분기 영업이익이 1조 4,500억 원으로 37.3% 늘었다."}, {"cat": "Economy", "label": "경제", "loc": [38.91, -77.04], "place": "Washington", "title": "Warsh 연준 의장 \"한국 경제 주시…AI 투자도 고금리 영향\"", "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1OZlNYMHZzbkVVclBObVBUZkl1elI4TWxhSVFsTkFWOHUwNlQzTkxOR1d3Nk5KZk9aS2xlbXNVQXpUQ2tUdWNXWENjY01wTUhwcVl1WE9qOXVFM0FidWVhT1BGRlBMeXNxOHMxemo3YVVNZnZMMU5NVi1adXY?oc=5", "source": "아시아경제", "summary": "Warsh 연준 의장은 한국 경제에 큰 관심을 갖고 지켜보고 있다며, AI 투자도 고금리의 영향을 받는다고 말했다. 한국은행 총재에 대해서는 유능한 좋은 친구라고 했다."}, {"cat": "Economy", "label": "경제", "loc": [38.91, -77.04], "place": "United States", "title": "유타주, 예측시장 Kalshi와 창업자 기소", "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOZlNaWlUxWDhWNUtkZGpnTkI2eGJhcXNxNFRZRjJBNG5SaVNfSHVIemNtbEJMWmFhUXdjVnZ4b3dzWFJqNl9jMENqMk81SmRjNkRGTmxyQm9vOUh5bi15M1BXV0N1RHVqcFAzZ0NmbEdsNjVhSHhLenpwSWptNkZBZWZPMnhZY2VzZDhhNDhHWFhZeF9hU0wxRnZWSTN4TDY3LV9HR2tlbndoaTllT1ZYUTN6dnpPRnd4NF9Ib1Z3UklpMkRJbU1BRE55MA?oc=5", "source": "WTOP News", "summary": "유타주가 Kalshi와 창업자들을 기소했다. 예측시장을 누가 규제할지를 둘러싼 다툼이 격해지고 있다."}, {"cat": "Economy", "label": "경제", "loc": [-15.79, -47.88], "place": "Brazil", "title": "Petrobras 원유 생산 사상 최대…이란 전쟁에 석유시장 요동", "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTXNGeGQ2VmF4Vm9OY2RiSExjNHMxNFdIeGtZQXpjbUNoTmJzSXgtbktKMkl1QmdDN09mUGtTb2xXZWZaSUZ1ZVRYMjJKV3pYbXU5Z0Z6cE9kS3hjNWJ2X1A2U1l6SGlURHJnclIxZDhiSElCTzcwYlBHdnI5VGZxbFZadXBMN0o1OENtUFdOSUpSOUw4NG5KMTVRMElkazUzQV8tV0Y5VGdnUVU?oc=5", "source": "Bloomberg", "summary": "이란 전쟁으로 석유시장이 흔들리는 가운데 Petrobras의 원유 생산량이 사상 최대를 기록했다."}], "tour": [0, 1, 9, 10, 13, 14, 22, 23], "colors": {"AI": "#2f5bd8", "Robotics": "#1c8a55", "World News": "#e9b21b", "Economy": "#d8382b"}}</script>
+</section><style>
+.globe { position: relative; margin-top: 2rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem 1.5rem; align-items: center;
+  background: radial-gradient(60% 70% at 28% 50%, #1b1c1f 0%, #08090a 70%); color: #e9e7e1; border-radius: 2px; padding: 1.5rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 40px -24px rgba(20,18,14,.55); }
+.globe::before, .globe::after { content: "+"; position: absolute; font: 400 .875rem/1 var(--f-mono); color: #6d6a63; pointer-events: none; }
+.globe::before { top: .5rem; left: .6rem; } .globe::after { bottom: .5rem; right: .6rem; }
+.stage { aspect-ratio: 1; width: 100%; max-width: 22rem; margin: 0 auto; cursor: pointer; touch-action: manipulation; }
+.stage canvas { width: 100%; height: 100%; display: block; }
+.globe.no-gl { grid-template-columns: minmax(0, 1fr); } .globe.no-gl .stage { display: none; }
+@media (max-width: 40rem) { .globe { grid-template-columns: minmax(0, 1fr); padding: 1.25rem 1rem; } .stage { max-width: 15rem; } }
+.panel { min-width: 0; display: grid; gap: 1rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .375rem; }
+.chip { font: 500 .8125rem/1.5 var(--f-body); color: #d9d6cf; background: transparent; border: 1px solid #3a3935; border-radius: 999px;
+  padding: 0 .8rem; min-height: 2.75rem; box-sizing: border-box; cursor: pointer; display: inline-flex; gap: .5rem; align-items: center; }
+.chip::before, .card .dot { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c); flex: none; box-shadow: 0 0 8px var(--c); }
+.chip:hover { border-color: #7a776f; }
+.chip[aria-current="true"] { border-color: #e9e7e1; color: #fff; }
+.card { min-height: 10rem; }
+.card-cat { font: 500 .75rem/1.5 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: #a19d94; margin: 0 0 .5rem; display: flex; flex-wrap: wrap; gap: .25rem .5rem; align-items: center; }
+.card-cat .cat { color: #fff; }
+.card-cat .count { margin-left: auto; }
+.card h3 { font: 800 1.25rem/1.45 var(--f-serif); letter-spacing: -.01em; margin: 0 0 .5rem; text-wrap: wrap; word-break: keep-all; overflow-wrap: anywhere; }
+.card h3 a { color: #fff; text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.card .ext { color: #ff7a4d; }
+.card-sum { margin: 0 0 .5rem; font-size: .9375rem; line-height: 1.75; color: #c4c0b7; }
+.card-src { margin: 0; font: 400 .75rem/1.5 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: #8d897f; }
+.controls { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.pause, .next { font: 500 .8125rem/1.5 var(--f-body); color: #e9e7e1; background: #161615; border: 1px solid #3a3935; border-radius: 2px;
+  padding: 0 .85rem; min-height: 2.75rem; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.pause:hover, .next:hover { border-color: #7a776f; }
+.hint { margin: 0; font-size: .8125rem; line-height: 1.5; color: #8d897f; flex: 1; min-width: 10rem; }
+.h-touch { display: none; }
+@media (hover: none) { .h-hover { display: none; } .h-touch { display: inline; } }
+.globe button:focus-visible, .globe a:focus-visible { outline: 2px solid #ff7a4d; outline-offset: 2px; }
+.card.swap { animation: swap 180ms cubic-bezier(.22, 1, .36, 1); }
+@keyframes swap { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .card.swap { animation: none; } }
+</style>
+<script type="module">
+const root = document.getElementById('globe');
+const D = JSON.parse(document.getElementById('globe-data').textContent);
+const M = D.markers, T = D.tour;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = matchMedia('(hover: hover)').matches;
+const $ = s => root.querySelector(s);
+const card = $('.card'), link = $('.card h3 a'), pauseBtn = $('.pause'), nextBtn = $('.next'), stage = $('.stage'), canvas = $('canvas');
+const chips = [...root.querySelectorAll('.chip')];
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+const toAngles = ([lat, lng]) => [Math.PI - (lng * Math.PI / 180 - Math.PI / 2), lat * Math.PI / 180];
+const wrap = x => ((x + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+let pos = 0, timer = null, paused = reduce, target = null, globe = null, raf = 0, visible = true;
+let [phi, theta] = toAngles(M[T[0]].loc);
+phi -= 1.2; theta = 0.3;
+
+const markers = () => M.map((m, k) => ({ location: m.loc, size: k === T[pos] ? 0.1 : 0.045, color: hex(D.colors[m.cat]) }));
+
+function show(p, manual) {
+  card.setAttribute('aria-live', manual ? 'polite' : 'off');  // 자동 순환은 읽지 않고, 수동 조작만 안내
+  pos = (p + T.length) % T.length;
+  const m = M[T[pos]];
+  $('.card-cat').style.setProperty('--c', D.colors[m.cat]);
+  $('.cat').textContent = m.label;
+  $('.place').textContent = m.place;
+  const [la, lo] = m.loc;
+  $('.coord').textContent = `${Math.abs(la).toFixed(2)}°${la >= 0 ? 'N' : 'S'} ${Math.abs(lo).toFixed(2)}°${lo >= 0 ? 'E' : 'W'}`;
+  $('.count').textContent = `${pos + 1}/${T.length}`;
+  $('.t').textContent = m.title;
+  if (/^https?:\/\//.test(m.url)) link.href = m.url;
+  $('.card-sum').textContent = m.summary;
+  $('.card-src').textContent = m.source;
+  card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+  chips.forEach(c => c.setAttribute('aria-current', String(c.dataset.cat === m.cat)));
+  target = toAngles(m.loc);
+  if (reduce) [phi, theta] = target;
+  globe?.update({ markers: markers() });
+  kick();
+}
+function tour(loop) {
+  if (paused || !T.length) return;
+  clearInterval(timer);
+  show(timer === null && pos === T.length - 1 ? 0 : pos);
+  timer = setInterval(() => (!loop && pos === T.length - 1) ? stop() : show(pos + 1), 5000);
+}
+function hold() { clearInterval(timer); timer = null; }  // 순환만 멈춤: 지구본은 그 기사 위치에 둔다
+function stop() { clearInterval(timer); timer = null; target = null; kick(); }
+
+function frame() {
+  raf = 0;
+  let moving = false;
+  if (target) {
+    const dp = wrap(target[0] - phi), dt = target[1] - theta;
+    if (Math.abs(dp) > 1e-3 || Math.abs(dt) > 1e-3) { phi += dp * 0.08; theta += dt * 0.08; moving = true; }
+  } else if (!paused) { phi += 0.0025; moving = true; }
+  globe.update({ phi, theta });
+  if (moving) kick();
+}
+function kick() { if (globe && visible && !raf && !document.hidden) raf = requestAnimationFrame(frame); }
+
+pauseBtn.addEventListener('click', () => {
+  paused = !paused;
+  pauseBtn.setAttribute('aria-pressed', String(paused));
+  pauseBtn.textContent = paused ? '재생' : '일시정지';
+  if (paused) { clearInterval(timer); timer = null; } else kick();
+});
+if (reduce) { pauseBtn.setAttribute('aria-pressed', 'true'); pauseBtn.textContent = '재생'; }
+chips.forEach(c => c.addEventListener('click', () => {
+  clearInterval(timer); timer = null;
+  show(T.findIndex(t => M[t].cat === c.dataset.cat), true);
+}));
+nextBtn.addEventListener('click', () => { hold(); show(pos + 1, true); });
+$('.panel').addEventListener('focusin', hold);
+stage.addEventListener('click', () => timer ? stop() : tour(true));
+if (canHover) {
+  stage.addEventListener('pointerenter', () => { if (!timer) tour(true); });
+  $('.panel').addEventListener('pointerenter', hold);
+  root.addEventListener('pointerleave', stop);
+}
+document.addEventListener('visibilitychange', kick);
+new IntersectionObserver(([en]) => {
+  visible = en.isIntersecting;
+  if (visible) kick();
+}).observe(root);
+
+try {
+  const c = document.createElement('canvas');
+  if (!(c.getContext('webgl2') || c.getContext('webgl'))) throw new Error('no webgl');
+  const { default: createGlobe } = await import('https://cdn.jsdelivr.net/npm/cobe@2.0.1/dist/index.esm.js');
+  const size = () => stage.offsetWidth || 300;
+  globe = createGlobe(canvas, {
+    devicePixelRatio: Math.min(2, window.devicePixelRatio || 1), width: size(), height: size(), phi, theta,
+    dark: 1, diffuse: 1.1, mapSamples: 20000, mapBrightness: 7, baseColor: [0.32, 0.32, 0.33],
+    markerColor: [1, 1, 1], glowColor: [0.42, 0.41, 0.39], markerElevation: 0, markers: markers(),
+  });
+  new ResizeObserver(() => { globe.update({ width: size(), height: size() }); kick(); }).observe(stage);
+  if (reduce) show(0); else kick();  // 움직임 줄이기: 돌지 않고 첫 스토리 위치에 멈춰 둔다
+} catch (err) {
+  root.classList.add('no-gl');  // WebGL이나 CDN이 안 되면 카드와 분야 버튼만 남긴다
+}
+</script>
+<section id="markets" class="mk-wrap"><h2><span class="tab">시장</span> <small>Yahoo Finance 기준</small></h2><div class="mk" tabindex="0" role="region" aria-label="시장 지표 표"><table><thead><tr><th>지표</th><th>현재/종가</th><th>전일 대비</th><th>기준 시각</th></tr></thead><tbody><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5EGSPC" target="_blank" rel="noopener">S&amp;P 500</a></th><td>7,743.98</td><td class="up">+0.28%</td><td class="asof"><span>2026-10-28</span> <span>17:18 EDT</span></td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5EIXIC" target="_blank" rel="noopener">Nasdaq</a></th><td>26,549.85</td><td class="up">+0.27%</td><td class="asof"><span>2026-10-28</span> <span>17:15 EDT</span></td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5EKS11" target="_blank" rel="noopener">KOSPI</a></th><td>6,054.48</td><td class="up">+0.70%</td><td class="asof"><span>2026-10-29</span> <span>09:50 KST</span></td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/KRW%3DX" target="_blank" rel="noopener">원/달러</a></th><td>1,334.48</td><td class="down">-0.63%</td><td class="asof"><span>2026-10-29</span> <span>01:10 GMT</span></td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/%5ETNX" target="_blank" rel="noopener">미국 10년물 금리</a></th><td>5.04</td><td class="up">+1.04%</td><td class="asof"><span>2026-10-28</span> <span>13:59 CDT</span></td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/CL%3DF" target="_blank" rel="noopener">WTI 유가</a></th><td>101.90</td><td class="down">-0.86%</td><td class="asof"><span>2026-10-28</span> <span>21:00 EDT</span></td></tr><tr><th scope="row"><a href="https://finance.yahoo.com/quote/BTC-USD" target="_blank" rel="noopener">비트코인</a></th><td>80,777.81</td><td class="down">-0.06%</td><td class="asof"><span>2026-10-29</span> <span>01:10 UTC</span></td></tr></tbody></table></div></section>
+<section id="ai" style="--c:#2f5bd8;--on:#ffffff"><h2><span class="tab">AI</span> <small>9건</small></h2><article class="item top" id="ai-0">
+  <p class="src">WSJ · 2026-10-29 08:55 <span class="badge">5개 매체</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbmI5VHgtQjFuck9nQkJ5Q0hCekJJT1YxVVR4MlFwcUNodk9hYzJPYWlaQ2JhYjVRcC1JYUFpZlRNNE5iZWJFMFZUQ0tyQ3VnempEZFJNcnhmalhDQWlpWjN5MkllV0p6cWtzd1lHWGZXZVdjcDVlREplX1JReV9fUUdSWjRqQUNr?oc=5" target="_blank" rel="noopener">Anthropic, IPO 투자설명서(S-1) 공개<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">Anthropic이 상장을 위한 S-1 서류를 공개했다. Yahoo Finance는 4,000억 달러 규모의 컴퓨팅 약정을 짚었고, CNET은 Anthropic이 AI가 인류를 끝낼 수 있다고 밝혔다고 전했다.</p>
+  <p class="why"><span>왜 중요한가</span>Claude에 기대는 회사라면 공급사의 재무와 위험 요인을 공식 문서로 확인할 수 있게 됐다.</p><p class="more"><span>함께 보도</span><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxQc0k1aFM3cXppSjREQmI3Y3phQzItVW5CdXQ2Y21sN3pnRDd0YWp5YjdWNFJieVFwa2daeVhpV1NTWHNYT21CSm9LOW9hVDByaF9mSlY3VU9NNnliWW9vak43OGwzRnZTa2FVeXdob3hZejZ1R3BWSHpRTFljY0RTaWhnRUNmZ1J5M1B6eDNoSV92LTAxTFpsVi12OHVScWdKc0RXbDJUWF9SX3lzZEZjSWptSmtDRVJ2cXFxcDN3?oc=5" target="_blank" rel="noopener">Reuters<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQNDI5VWd0QklWT2ktMHRwRWowRmoyYVNLWDdHUnRCQXNBZ01hNG1MSDFwdThEdGpXVk9NVXJoOWwtVWxpdlQyUkZrSEE1RWluTGVhZHFXbS1YaGxTcENSbEZ6c0oyU0hOWkJkRG85ZmhseDB3VF9wNXM2N0F3RE1fVk10a045aW9KNUhqWTUzWHFsN0liYUpDbkc4aU11YkQ3cTU1aUt6M3Q0TDQ?oc=5" target="_blank" rel="noopener">Bloomberg<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNOWtKOXQwaHIwSjVfNExlTjNZOHpSeUZ2ZFVaU0dCOEUyTzFwdnpMbHdnSkNMY0NvZkk5bjdpYTdQZzlsRlF6TFk4M2VYcElzZ3Izb1ZLeVN3V1pwNWJWSUk4YVQ2ODRfZGhGRUNORUtweHlhRTI3dTBPVnZMUTFfSw?oc=5" target="_blank" rel="noopener">Yahoo Finance<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMixwFBVV95cUxNbVZfQVdDelI1NTVuNkpick1kSU9ucWxzVFB6RXozMnpwR1BLYnZnTnBzQWpoaEU1VWt0M0RYeEVDWDc4b2F6aU9rZTlYMXFTLWtLaFZSdEhtSmZtaGdBX3FSMkhRV1hLSVEtdFJNbXhzSWRLdjMyWGs5dl9rZzh6VWtvS3FhTWlfdEtTV2FYbTZkODVJckF5ckpRU3VnamNFS0VZZEhGOXdkanNLbkt6aU9la1hBcTRUWUEzQk9QMVVEcGJvU1pj?oc=5" target="_blank" rel="noopener">CNET<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item top" id="ai-1">
+  <p class="src">TechCrunch · 2026-10-29 06:34 <span class="badge">3개 매체</span></p>
+  <h3><a href="https://techcrunch.com/2026/10/28/microsoft-recorded-10-billion-in-revenue-from-openai/" target="_blank" rel="noopener">Microsoft 분기 매출 923억 달러, OpenAI에서 100억 달러 수익<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">Microsoft의 분기 매출은 923억 달러로 전년 동기 대비 19% 늘었고, Azure 매출을 처음으로 달러 금액(332억 달러)으로 공개했다. 9월 말 끝난 분기에 OpenAI와의 상업 계약에서 100억 달러를 벌었으며, 직원 6만 명에게 희망퇴직을 제안한 지 며칠 만에 나온 실적이다.</p>
+  <p class="why"><span>왜 중요한가</span>AI 클라우드 수요가 실제 매출로 이어지고 있고, Microsoft와 OpenAI가 재무적으로 얼마나 얽혀 있는지 보여준다.</p><p class="more"><span>함께 보도</span><a href="https://techcrunch.com/2026/10/28/microsoft-just-shared-azures-actual-revenue-in-dollars-33-2-billion/" target="_blank" rel="noopener">TechCrunch<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://techcrunch.com/2026/10/28/microsoft-hits-10-quarters-of-record-breaking-revenue-in-a-row/" target="_blank" rel="noopener">TechCrunch<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.theguardian.com/technology/2026/oct/28/microsoft-earnings" target="_blank" rel="noopener">The Guardian<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.bbc.co.uk/news/articles/c6m24klyjr8no?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">BBC<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item" id="ai-2">
+  <p class="src">The Next Web · 2026-10-29 05:26 <span class="badge">3개 매체</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE5fbjBJWDcxNUU4M1lNN3VFbzBzLUkzNnZTX1VpeWpDeXNiQS1CRXpkbXkyQnE0R1UtbmYwQjhOdVVEcWl1TDloWG4zLTh6VkN6MHpTZTFDMWJyMWJ1dW56Uk1lVXdKU2txXzZxQzFGMEhVUXhlRFE?oc=5" target="_blank" rel="noopener">Anthropic, IPO 물량 최대 20% 개인투자자 배정 검토…Warren 의원은 질의<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">Anthropic이 IPO 물량의 최대 20%를 개인투자자에게 배정하는 방안을 검토하고 있다. Elizabeth Warren 상원의원은 이번 IPO의 AI 안전과 시장 위험을 따져 묻고 있다.</p>
+  <p class="why"><span>왜 중요한가</span>상장 구조와 규제 당국의 시선이 앞으로의 공모 일정과 조건에 영향을 줄 수 있다.</p><p class="more"><span>함께 보도</span><a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxPSE5zam1ETXNlVzdwVVFSWjNqQmxIemRHNlFKVU1qTmNaNTlXa0ZoOVdjUnFPYmQ5UUQ4TnFMdnd1NWZjNU5xV1YxMVJrdUo2cHVvWnZFZ0VfWmU1T0t5QUVVUU03bUg3N1lLTU9jYVpwWUR6X21WNElhVEl4dWR4cy0zRFd6ei1SS21icnVPaWJha2FmeGc?oc=5" target="_blank" rel="noopener">CFO Dive<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxQQ1ZBdUZ2MmJwMWxMRTNfdTUtbGxYckpzODhjOTEzR2tUeGNMSHJXajlTWldDSmdfWDJwRkNEYjI4RnI1RjN3Vzl2NGUyc1ZLT1hTMjZBU0t4XzM4VU1ZWDN5ekdYZ2NKam53QXk2OHczUHZUYlR5dXFYU29uLWFmUFgwalN3OXg5bjloMWxuV0dvUQ?oc=5" target="_blank" rel="noopener">Business Insider<span class="ext" aria-hidden="true">↗</span></a></p>
+</article><h4>짧게</h4><ul class="short"><li><a href="https://techcrunch.com/2026/10/28/google-expands-ai-search-ads-globally-as-core-ad-growth-slows/" target="_blank" rel="noopener">Alphabet 매출 25% 증가에 이익은 감소, AI 검색 광고 전 세계로 확대<span class="ext" aria-hidden="true">↗</span></a><span class="src">TechCrunch</span></li><li><a href="https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/" target="_blank" rel="noopener">Google DeepMind, 차세대 프런티어 모델 Gemini 4 Carbon 발표<span class="ext" aria-hidden="true">↗</span></a><span class="src">Google DeepMind</span></li><li><a href="https://techcrunch.com/2026/10/28/as-ai-agents-reshape-the-web-google-opens-gemini-and-search-to-more-apps/" target="_blank" rel="noopener">Google, Gemini와 검색에 외부 앱 연결하는 개발자 플랫폼 공개<span class="ext" aria-hidden="true">↗</span></a><span class="src">TechCrunch</span></li><li><a href="https://techcrunch.com/2026/10/28/south-koreas-financial-industry-hit-by-fresh-wave-of-cyberattacks/" target="_blank" rel="noopener">한국 금융권, 또다시 사이버 공격 받아<span class="ext" aria-hidden="true">↗</span></a><span class="src">TechCrunch</span></li><li><a href="https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying/" target="_blank" rel="noopener">Anthropic, 기업의 AI 지출 내역을 보여주는 도구 출시<span class="ext" aria-hidden="true">↗</span></a><span class="src">TechCrunch</span></li><li><a href="https://techcrunch.com/2026/10/27/frontier-ai-labs-say-their-models-refuted-the-exponential-time-hypothesis-what-does-that-mean/" target="_blank" rel="noopener">프런티어 AI 연구소들 &quot;모델이 지수 시간 가설을 반증했다&quot;<span class="ext" aria-hidden="true">↗</span></a><span class="src">TechCrunch</span></li></ul></section>
+<section id="robotics" style="--c:#1c8a55;--on:#ffffff"><h2><span class="tab">로보틱스</span> <small>4건</small></h2><article class="item top" id="robotics-0">
+  <p class="src">South China Morning Post · 2026-10-28 22:38 <span class="badge">4개 매체</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxPM2dheTlDQXlvUy1Ec1M2OU1tNmtaZzNXMU5aRlFxRnhCX2x5RWZaQTZLcGhYYzYyRXN2RmVxeFAzakJZajJYb1lfQ0dsTEQxOVZacFB0UXplanZJUXFzdmRSa3RkZkZ2a2NqVEg1X3d6X1Rpa1N2QTQxeGRLOUswaTFuTy1Pb3I5bUlvQ09qVlQ2YXU4S2tOaTU1S21CTm1VY21HY1BjTnpHdWc5bVRpU2VkRW5rVEljMENFQjVEbjHSAcABQVVfeXFMUFJ5VXp1cUZuaWs1c19LSkNSQndiWmlwNUsxaldlaTZldW9VT0F6WXpTTk1tWFhKOEw4blFzTDluTjA0M2RwTXFUR09MZW1qazRRSmNsaG9lN1U1bVo5Vy1CdlhKSE4zM2FscGYyT01VMzNiVTBWQTRwbVFNUWdCWDI2NkpWV1dFQlZFbDczRjFOVk5QRUlCU2FlYkpUenY2QmlWVjBnT09fWmRDWHJEZjZrSlVZWElOT0hZcWZpOEFr?oc=5" target="_blank" rel="noopener">Unitree 3분기 매출 69.9% 증가…AI 투자로 핵심 이익은 압박<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">Unitree Robotics의 3분기 매출은 6억 6,500만 위안으로 69.93% 늘었고 분기 이익도 크게 뛰었다. 다만 분기 R&amp;D 지출이 249% 늘어나는 등 AI 투자가 핵심 이익에 부담이 됐다.</p>
+  <p class="why"><span>왜 중요한가</span>상장한 휴머노이드 기업의 실적으로 로봇 사업이 돈을 벌 수 있는지 가늠해 볼 수 있다.</p><p class="more"><span>함께 보도</span><a href="https://news.google.com/rss/articles/CBMiYkFVX3lxTE1wUFBISGhuNTBaUjFQMk1BOVRYczRfbHk3TWJnNHBOUGMzWlFjLWMyNmxISzQ5amJxRGlrZFFhY1NNeWxoVHZmVnNRZ1NyRGthazZtLTFLUE43akpfU2V1TlRB?oc=5" target="_blank" rel="noopener">Global Times<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPSGUyYTBqX2pwQWlTLW9GNG9jWlB3R0dmTVU2YThvZWI5bnNtTGNxaXB3SWtzREQ2SHVSaGMzTW80ZVRzRXNsb25CQUFPdUNNS1hITzFrWlRZRllQVWNFbGtEYUxQR05RTnZhWWtXUHc1cFlVU3V0RGZaMGliejhKSENqWVA1a1dkV2EtNmRPRmZ4Nm8wUmVjWXJ5Ql83MUZoaHNYUHd5VTY?oc=5" target="_blank" rel="noopener">IndexBox<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTFBvZUhZaXF1UkFiWllEN2sxNVdRTGNrTl9XQU91eTJwbm9tOVB0ajlYMlRoZXM5LURuX0gxZUdjQm1ObUlVUUN6dUZZUW1TdFBmWjJ1UTZzUGsyVFlNUXI4cnlMd21STmNzZ1l4ZHU4UW9EdG1GZFE?oc=5" target="_blank" rel="noopener">BigGo Finance<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item" id="robotics-1">
+  <p class="src">Supply Chain Brain · 2026-10-29 02:51 <span class="badge solo">단일 출처</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQZ1pEWUhFdG91Z0hMcFc2ME9rcFQxZlQydnFBaXhFS1lOUlpJR2FLanNHbHgyczhOdWJ1RWY0YnBWWWE0N0gwVzItcW1YTTNxYzJ5ZVl6dEdEQWZTTC1rWDhseEJ5R2l1bkpISVU2aHZpZWVWTzFkTFdBQTBYdnliX2lsR3RJT1NSd19UOFl5TjFiRU9iWkI3eExWN1h6d0lXbU5ZWTA4UTk?oc=5" target="_blank" rel="noopener">Tesla, 캘리포니아에서 휴머노이드 로봇 생산 시작<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">Tesla가 캘리포니아에서 휴머노이드 로봇 생산을 시작했다.</p>
+  <p class="why"><span>왜 중요한가</span>휴머노이드가 시제품 단계를 넘어 양산에 들어가는지 보여주는 지표다.</p>
+</article>
+<article class="item" id="robotics-2">
+  <p class="src">Robotics &amp; Automation News · 2026-10-29 04:09 <span class="badge solo">단일 출처</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMixwFBVV95cUxQdTNuS25tRVNOQ2Q2S1ptMUt1QkFnOEw0THVMM1RRU3MzUjBLX3pWWWtwNXRIb3oxOEJibGN3ZFpvQ1hyd25ZWENXSHB0YVdBRnBwZlR4MDNXU1l1RXJkcnV6bDh3Q2xhTm4wWkl3WUxXZEZ1YVRPRktrcDA2NFZxckFHQVpfR0w1bjFTWjBOTjVMeTRhVS1ISGZlSmU5V1ZqU1JVcjJyOUpRbkFNMXpVRlVaYm9FTjlNcHQyejZWel9ESmJTRkRr?oc=5" target="_blank" rel="noopener">Neura Robotics·뮌헨공대, 1,700만 유로 규모 RoboGym 개소하고 새 휴머노이드 공개<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">Neura Robotics와 뮌헨공대(TUM)가 1,700만 유로 규모의 RoboGym을 열고 새 휴머노이드를 공개했다.</p>
+  <p class="why"><span>왜 중요한가</span>유럽도 휴머노이드 학습 인프라에 투자하며 미국·중국과의 경쟁에 나서고 있다.</p>
+</article><h4>짧게</h4><ul class="short"><li><a href="https://news.google.com/rss/articles/CBMi5AFBVV95cUxOWGJwNUUzb281c2Z0M09Ocks1UmNkTEh1eEh2ZGs3NWZMbnR2alVjUVB5dS1pNmxKN00xeXdTLTIxRFYtTHQ4Z292XzhSUGt6R0dLVU55TDVHN0Z2LUl6VVROVktId0xyd2psNFBFQkdFVHB6TjcxMlV0M2N5S09Rd2thRWE0LUNhVDZoZWJ0Vms0ZVczMmdITmc1TllrSmgzM0RNMFYxOEZRSE5Qbm9tR2ZiTkVLR00yN01Wbk0wWDJMWF9fUDVlVkRhQnVSQ1VQWlZxVmhKWFNsRnVHaUlfV3dyOWE?oc=5" target="_blank" rel="noopener">Faraday Future, 9만 달러 휴머노이드 홍보하며 미국 생산 추진<span class="ext" aria-hidden="true">↗</span></a><span class="src">Robotics &amp; Automation News</span></li></ul></section>
+<section id="world" style="--c:#e9b21b;--on:#1b1a17"><h2><span class="tab">세계</span> <small>10건</small></h2><article class="item top" id="world-0">
+  <p class="src">BBC · 2026-10-29 06:38 <span class="badge">4개 매체</span></p>
+  <h3><a href="https://www.bbc.co.uk/news/articles/c6p3g84kjqjlo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">스페인 고속열차 충돌로 최소 68명 사망<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">마드리드 남쪽 톨레도주에서 달리던 고속열차가 앞에 멈춰 있던 열차를 들이받아 최소 68명이 숨지고 100명 넘게 다쳤다. 교통장관은 &quot;설명할 수 없는&quot; 오류가 원인이라고 밝혔다.</p>
+  <p class="why"><span>왜 중요한가</span>10여 년 만에 스페인에서 가장 큰 열차 참사로, 고속철 안전 체계에 대한 의문이 커지고 있다.</p><p class="more"><span>함께 보도</span><a href="https://www.aljazeera.com/video/newsfeed/2026/10/28/spain-demands-answers-after-deadliest-train-disaster-in-over-a-decade?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.bbc.co.uk/news/articles/cm8xz7pkd0jjo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">BBC<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.npr.org/2026/10/28/nx-s1-6020217/spain-train-disaster" target="_blank" rel="noopener">NPR<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.theguardian.com/world/live/2026/oct/28/spain-train-crash-toledo-europe-latest-news-updates" target="_blank" rel="noopener">The Guardian<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item top" id="world-1">
+  <p class="src">BBC · 2026-10-29 05:24 <span class="badge">4개 매체</span></p>
+  <h3><a href="https://www.bbc.co.uk/news/articles/cmdx3knq1xexo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">이스라엘 총선, 어느 진영도 과반 못 얻어<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">개표 85% 기준 Netanyahu의 Likud와 우파 연합은 크네세트 120석 중 53석을 얻을 것으로 보여 과반에 못 미친다. 상대인 Gadi Eisenkot 진영도 과반이 어렵고, 아랍계 정당이 선전해 연정 구성이 쟁점이 됐다.</p>
+  <p class="why"><span>왜 중요한가</span>중동 정세의 핵심인 이스라엘 정부 구성이 불투명해졌다.</p><p class="more"><span>함께 보도</span><a href="https://www.aljazeera.com/news/2026/10/29/no-clear-winner-in-israeli-election-with-nearly-90-percent-of-votes-counted?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.npr.org/2026/10/28/nx-s1-6019423/israel-election-results" target="_blank" rel="noopener">NPR<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.theguardian.com/world/2026/oct/28/israel-election-exit-polls-suggest-netanyahu-eisenkot-blocs-tied-ntwnfb" target="_blank" rel="noopener">The Guardian<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item" id="world-2">
+  <p class="src">The Guardian · 2026-10-29 07:06 <span class="badge">4개 매체</span></p>
+  <h3><a href="https://www.theguardian.com/world/2026/oct/28/flavio-bolsonaro-miami-us-fleeing-brazilian-election-defeat" target="_blank" rel="noopener">브라질 대선 패배 Flávio Bolsonaro, 마이애미로 출국<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">대선에서 패한 Flávio Bolsonaro가 브라질 당국의 여권 반납 명령 뒤 아르헨티나와 에콰도르를 거쳐 가족과 함께 마이애미에 도착했다. 그는 도피를 부인하며 자신이 브라질의 진짜 대통령이라고 주장했다.</p>
+  <p class="why"><span>왜 중요한가</span>남미 최대국의 정권 이양을 둘러싼 갈등이 미국까지 번졌다.</p><p class="more"><span>함께 보도</span><a href="https://www.bbc.co.uk/news/articles/c6kglwe4lxwzo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">BBC<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.npr.org/2026/10/28/nx-s1-6020518/brazilian-political-drama-unfolds-as-defeated-flavio-bolsonaro-arrives-in-miami" target="_blank" rel="noopener">NPR<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://www.aljazeera.com/news/2026/10/28/whats-next-for-brazils-flavio-bolsonaro-after-election-defeat?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera<span class="ext" aria-hidden="true">↗</span></a></p>
+</article><h4>짧게</h4><ul class="short"><li><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxON0lWQ2w4YnJQMzJENE9IMnA5RlIybXhMLXhCcGpvWTg1eFpacGNUeEdBamZjbkFSMjJiY0xsd2hFNV9yNGVqWTNSWDEyTUFCdjZ3YXk3X3hWMHpmU0xjdlpoMTNpV0JLQmExTy1odjJDZGExOFZFdk4xSjdFdkdPejZYSXhwNWhxOGxqVlFGWEdzV0xBRlgwRWJTWlFITi1OZmhESVBfeFjSAa4BQVVfeXFMTnNqNW9QODRnalk0NXpLMmM3dmU2UTdldXFEWEdRcWV2d2FjaGVrRmNNQ25kQUJ0YVNQbzlOMVlqRWpuM1RjYVVIdmVNNkNiVlZFQkNpNm10QWVjWUp1YUVlbXhfM0g0V1ZTNlJMNGxWZ2tkTWt3NXRIekhkZkxOczNNX1lKbnRIWEY1S2RpeVFkVF93NmxOS1ZGUEZsUWFiTUNpZTBfTjRNZU83OGt3?oc=5" target="_blank" rel="noopener">스페인 열차 충돌 사고로 한국인 부상<span class="ext" aria-hidden="true">↗</span></a><span class="src">The Korea Times</span></li><li><a href="https://www.aljazeera.com/news/liveblog/2026/10/29/iran-war-live-tehran-presses-7-day-hormuz-plan-trump-denies-peace-talks?traffic_source=rss" target="_blank" rel="noopener">이란, 호르무즈 해협 재개방 7일 계획 추진…Trump는 평화협상 부인<span class="ext" aria-hidden="true">↗</span></a><span class="src">Al Jazeera</span></li><li><a href="https://www.npr.org/2026/10/27/g-s1-150136/ebola-outbreak-milestone-democratic-republic-congo-vaccine" target="_blank" rel="noopener">에볼라 감염자 1만 명 넘어<span class="ext" aria-hidden="true">↗</span></a><span class="src">NPR</span></li><li><a href="https://www.bbc.co.uk/news/articles/c6lye1w9p2l8o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">우크라이나 헤르손 지역으로 휴전 확대<span class="ext" aria-hidden="true">↗</span></a><span class="src">BBC</span></li><li><a href="https://www.theguardian.com/world/2026/oct/28/european-union-canada" target="_blank" rel="noopener">EU, 캐나다에 제안한 &#x27;준회원국&#x27; 협상에서 후퇴<span class="ext" aria-hidden="true">↗</span></a><span class="src">The Guardian</span></li><li><a href="https://www.aljazeera.com/video/newsfeed/2026/10/28/putin-russia-is-african-continents-best-partner-not-colonial-west?traffic_source=rss" target="_blank" rel="noopener">Putin, 러시아-아프리카 정상회의서 &quot;러시아가 최고의 파트너&quot;<span class="ext" aria-hidden="true">↗</span></a><span class="src">Al Jazeera</span></li><li><a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFBhS1Z2XzFVb2JRRzl1Yk5Ec0Vfd1dKSFo1cnczVjdIRWc1NndhYzRucUlZU0l2cFZ4c1ZsMUtuNTgzemx5M3J4QkZ6SzhTa0VSSi16Uy1mNA?oc=5" target="_blank" rel="noopener">한미 등 우방국, 북한 비핵화 목표와 대북 제재 이행 재확인<span class="ext" aria-hidden="true">↗</span></a><span class="src">The Korea Herald</span></li></ul></section>
+<section id="economy" style="--c:#d8382b;--on:#ffffff"><h2><span class="tab">경제</span> <small>10건</small></h2><article class="item top" id="economy-0">
+  <p class="src">Federal Reserve · 2026-10-29 03:00 <span class="badge">5개 매체</span></p>
+  <h3><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" target="_blank" rel="noopener">미 연준, 기준금리 동결…Warsh &quot;인플레이션 너무 높다&quot;<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">연준이 인플레이션이 오르는 가운데서도 기준금리를 3.75~4%로 동결했다. Warsh 의장은 인플레이션이 너무 높다면서도 미국 경제가 과열된 것은 아니라고 말했다.</p>
+  <p class="why"><span>왜 중요한가</span>고금리가 이어지면 스타트업의 자금 조달 환경도 당분간 빡빡하다.</p><p class="more"><span>함께 보도</span><a href="https://www.aljazeera.com/economy/2026/10/28/fed-leaves-interest-rates-unchanged-despite-inflation-in-the-us?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE1IMERXOVRuWjFGUjUwazlUUUJMWllnRUdnekVEbGtybGNoY2NtNmpsNWw5YVkyWGtHUzRRN1V5UjBhMjNhWWx1aWsyX2tTMXJxUGRGNGNQUQ?oc=5" target="_blank" rel="noopener">The Korea Herald<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMiggJBVV95cUxOUG9ENjFOVkRwU3lUNGlNbTdPQzQ1TWJZSnRFdGxGOWxNLUVVMVlwZE9Zb0RKMVdnTGQyVzR0dzM2dEZnSkhXVzM2VzZpX2dpSzhTVVhCamZsS2V1MWxmeV9vNjBvaDVsajFtQ2xjNy0tUXVVVVNIVjZwejQxb3NBanF5aWlUYlpMRTJNWkRTanlNbUlzTnFGMl9ZNnZxM3lPcVlXRTlGd3owZ3NpanZjaHRwMHp2R3k2Si1MTUJHS3VadG84TzVRZnVsZ2NiNUtUeXhrLVdsSFNfalB1dDVGc0JTNWh6YUJSa2RuYW1YYVlGbERhRHA5ZWs1dU1HMElsalE?oc=5" target="_blank" rel="noopener">thecanadianpressnews.ca<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxQZkEyTjdocVJTajR1TGpGWW5sbVdtZEpKZ2QzLVRCWWxQZkpyQmM5c0tBMEFkd1dtTXgyb1JJWGhSdFFfS2tWNWJLYmpvemw0ODBhYi1CSUVZLUZIc1ExU3ZLQXNkMmlXSHNTVnk1bUlKMEdCeENkSDZwRE9UVDJ1WHJNUzFlLUFWVzNJbXQ0VUt6ZC1hWkE?oc=5" target="_blank" rel="noopener">Reuters<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item" id="economy-1">
+  <p class="src">Korea JoongAng Daily · 2026-10-28 19:59 <span class="badge">4개 매체</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxQN290MndVSTlsTlpsVUdMMjg0cjdXY1ZxSU1QbkthbS1ZVFE3dlNSV1VXRUt6ZmRUdlZiWDUydVpBdGRNS2FfcnpUWUFpMldmSjkwbkZlTnYyeE9UeTR0cUhQQnFuT3haTDloOW9UdnUzS0pBQXdiTDZWNXdodGNKOC1ycW9QbU5kOHRiMWFGUHoxUTk2NnZjOXNRcTNHNjFzMW1lV3VhTW5ySEx2MENZbU0xbw?oc=5" target="_blank" rel="noopener">한국, 인앱결제 규정 위반으로 Google·Apple에 637억 원 과징금<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">한국 당국이 앱 결제 규정을 어긴 Google과 Apple에 모두 637억 원(약 4,760만 달러)의 과징금을 부과했다.</p>
+  <p class="why"><span>왜 중요한가</span>앱으로 매출을 내는 국내 스타트업의 결제 수수료 구조에 영향을 줄 수 있다.</p><p class="more"><span>함께 보도</span><a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE9udkVJQ19falJOWTZZUDNrWUEybzZaU3QwMEJZN2pKbXlaRi1ya09MWUpMR0NEdkdhZktvWWY5a0I5aFc3S3NOOXFJQTlxSTB0Mk5ZTkQwY2ppSHI3VHhPdnBpQndpV21URkpFZmFFajJzV00?oc=5" target="_blank" rel="noopener">Quartz<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE85YjRNTUU2c2FlNDZiMmUxVmgwS0w4SUE1MEI2VG5VNnZEdjN4akxBNW5TMXNFYU00aHlGaHJBa1pvUlJYVVhSNGtqNkM2amNSTlpOai1KSzYtSkFFeG9hYVBnc1lMazg?oc=5" target="_blank" rel="noopener">www.thelec.net<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxNaUtteFplLWxfZmRBVXVHSXBRekxOYTRNd2wwVW9HMFM1Y2lBVGNERS1RNU92OFVvLUs5MmtvMWFoTGxCZWFNZ0dhTmhPNWxKNFc0U3BMMDl5N3R6Z3doajhvVm9DUHR3Mlc4d29mM1dCSXdKS3NPX09kM1R6VW9nZXZPWC1fajU4dWZaUUF3aWJRaWJOODBLT1VULXJLTVp3Z0lxcFBoQ0YxLXRYalVfZmItdGt0d9IBuwFBVV95cUxNV3hfdlhORjdUUXRlQjNKRGM1dHRHTjJqeWU3S2RWbTljLUNNbFIyUlBoZXg5dzA3WXpBWHYwcHl2ZTVFb3lENV9mN08zajRLWmxTS0tqVWQwRkszajlIc01rdWo0WHZZczNqNXF5R2xueVJ3N3JEME9rYUt5bWU5c0VVMlQ5eGhNTEs0aEt5b0hUNnJSeEpFZExJa1pIS1ZrdHkzUmY0T08yOGtIQ0NsczhVOWJJaWR2Y0JJ?oc=5" target="_blank" rel="noopener">upi<span class="ext" aria-hidden="true">↗</span></a></p>
+</article>
+<article class="item" id="economy-2">
+  <p class="src">Chosunbiz · 2026-10-29 09:17 <span class="badge">3개 매체</span></p>
+  <h3><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxQenR0LW5iR1R4aXVYZ1RyTThXYU5VTFltdVExUXpQYktNak01d010WVBvU2ZraGkzb3h4Z3ZrN21GWGx3ZU01R2lJYTloNHR5dVlhWl9VbVlYbnpJbFdMN1pkRHUxblJ6VWtndVJhZ3JoQU52U3ViRHJBclRTa3dFVdIBlAFBVV95cUxQR1BqMjFQZHMwMl84QjZHLWhUQlViSUtGZHo3YkdSczdqR3plcGY0cUZnQm9ZY0R1VWltcVo1ZGthUFRTUzR4ejZCYzRkOTdZUmVVbVlyaFJCSTNianBpVGNVUVJ3WlRoQ09DT19NRXpQLXJvS2NBWTVwV2RtMkhMOTJPNlgyWEFWS0d2bWR6SFBDeU9D?oc=5" target="_blank" rel="noopener">KOSPI 6,000선 회복, SK hynix가 상승 주도<span class="ext" aria-hidden="true">↗</span></a></h3>
+  <p class="sum">미국 반도체 랠리에 힘입어 KOSPI가 6,000선을 넘었고 SK hynix가 3% 넘게 올랐다. 투자자 예탁금도 다시 90조 원대로 들어섰다.</p>
+  <p class="why"><span>왜 중요한가</span>AI 반도체 수요가 국내 증시를 끌어올리고 있다.</p><p class="more"><span>함께 보도</span><a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUlE0bi1maWF2VGdicVpNcmFvUkxDbUl3MmJ6anJSRkxYXy1MUnZaUG56OFpnaTl6aWxJU0RPZDlWVkdrVDNsbndZUUhfdUZ1OHNvVG05VFFJQW9PNGxKRUw3QXlJUkU1RTlvNzFkdnJYYVVwUlBKYnIxQ214bnluVVFlNm1mc2w1SlNwek5TWVZickJNMno0aXR3b0x6di1MdnpVZDhJTHIxMnVYMGRaNURlaGwzVE9kdHpQYUxNSFhfamNmNFh3QmN1UVhybmo5anYw?oc=5" target="_blank" rel="noopener">TradingKey<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTFBlaHFqOHd0M0lMbF80UlhibVE3emt6cFVzbkp6bmlHVmhFYWI1cWkwazBTMUNjdEdRSEU5cjl3MkoxZDdfUE5Od1VWTWh5OWxwTm1MUUU3dUZvZ2tBSjVjdllWSVpiR3dqYXJqYWp1TVowMGI5d3c?oc=5" target="_blank" rel="noopener">BigGo Finance<span class="ext" aria-hidden="true">↗</span></a>, <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxQdWRLbDJDVnY5MFVxSkdQZzM0NHZiMFFkSGNHbncxR1pZV0VhRWpDbG93d25ZUkRyVVR2dzUtbFM4dDFYT0VzMzNHU25nZnpRbndfMUhlVHNnVVFOSU11ei1MMVQ1Q3d2RUQwZkRQVkVNdXZEdzEzRmpVWk03YnlyOdIBlAFBVV95cUxOS0pCeUhQMVBra09KMTlTaHljUU9BZjBJeXZDX09zWXJUSkpWeFhiczJsQV9mM1dQMFVrU2ZrSVI0aEFINGM0YlEwNnd6TU1hdUdUajdGUFdERlIxbTYzU183amNuN3BXOGdYYjRVMWR4T3AydURuSUVMNlBWSDdDTXBXQ205aVI4N3gtcGsxWEJkX0ZR?oc=5" target="_blank" rel="noopener">Chosunbiz<span class="ext" aria-hidden="true">↗</span></a></p>
+</article><h4>짧게</h4><ul class="short"><li><a href="https://www.bbc.co.uk/news/articles/c6x2zrjl7kjno?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">영국 Healey 재무장관 첫 예산안, 가구당 £100 에너지 지원과 은행세 인상<span class="ext" aria-hidden="true">↗</span></a><span class="src">BBC</span></li><li><a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxOanRhTXNhc0dhVWVuU1R2czVZME9uX1AwRUQ4TUhNWFNlUWllOWFpd3F0Y3NrNlVWTnNkOG1ManI5a2lEUU9rcERuOTZqNUtZampraXdIZkhyY01nWVRUSkgwVnc1WTZWbnp1RzlLbGw5T2Z1clFYNlFYT2d2THdmYjlNUFZTZ9IBiwFBVV95cUxPMlJfRno2MkJZOUJpRElyemhVOUpIZWpEbGJyaTBuSTZYODdTd1A3a0k3RDZZY1RMZ21sWG1UWDRUSXdNc2tMenZMR3pSWjRlS0pDa0tCMGlaeHNZbEtDcUFoWFVXUXAwZ2hpdVJOd0JhWkhqNDRPNGpvaFFYcXJHb0NBNjFxSFFQd1NB?oc=5" target="_blank" rel="noopener">삼성전자 3분기 이익 시장 예상 부합, AI 메모리 수요 증가<span class="ext" aria-hidden="true">↗</span></a><span class="src">CNBC</span></li><li><a href="https://www.aljazeera.com/economy/2026/10/28/bank-of-canada-raises-interest-rates-for-the-first-time-in-three-years?traffic_source=rss" target="_blank" rel="noopener">캐나다 중앙은행, 3년 만에 첫 금리 인상<span class="ext" aria-hidden="true">↗</span></a><span class="src">Al Jazeera</span></li><li><a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5aYmt1ODcza3VDWDV3QnJ6cUV2dmhGTmNqeWozSE9qX3FHenJ2YVYyd3BHUVFwWEdITmNJQzh5OXRIOVhMU2trWHpuaFhHYVlYZGhuTS15cVU5TUxRck1BT2xpLVFGYUU?oc=5" target="_blank" rel="noopener">HD한국조선해양 3분기 영업이익 37.3% 증가<span class="ext" aria-hidden="true">↗</span></a><span class="src">THE ELEC, Korea Electronics Industry Media</span></li><li><a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE1OZlNYMHZzbkVVclBObVBUZkl1elI4TWxhSVFsTkFWOHUwNlQzTkxOR1d3Nk5KZk9aS2xlbXNVQXpUQ2tUdWNXWENjY01wTUhwcVl1WE9qOXVFM0FidWVhT1BGRlBMeXNxOHMxemo3YVVNZnZMMU5NVi1adXY?oc=5" target="_blank" rel="noopener">Warsh 연준 의장 &quot;한국 경제 주시…AI 투자도 고금리 영향&quot;<span class="ext" aria-hidden="true">↗</span></a><span class="src">아시아경제</span></li><li><a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxOZlNaWlUxWDhWNUtkZGpnTkI2eGJhcXNxNFRZRjJBNG5SaVNfSHVIemNtbEJMWmFhUXdjVnZ4b3dzWFJqNl9jMENqMk81SmRjNkRGTmxyQm9vOUh5bi15M1BXV0N1RHVqcFAzZ0NmbEdsNjVhSHhLenpwSWptNkZBZWZPMnhZY2VzZDhhNDhHWFhZeF9hU0wxRnZWSTN4TDY3LV9HR2tlbndoaTllT1ZYUTN6dnpPRnd4NF9Ib1Z3UklpMkRJbU1BRE55MA?oc=5" target="_blank" rel="noopener">유타주, 예측시장 Kalshi와 창업자 기소<span class="ext" aria-hidden="true">↗</span></a><span class="src">WTOP News</span></li><li><a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTXNGeGQ2VmF4Vm9OY2RiSExjNHMxNFdIeGtZQXpjbUNoTmJzSXgtbktKMkl1QmdDN09mUGtTb2xXZWZaSUZ1ZVRYMjJKV3pYbXU5Z0Z6cE9kS3hjNWJ2X1A2U1l6SGlURHJnclIxZDhiSElCTzcwYlBHdnI5VGZxbFZadXBMN0o1OENtUFdOSUpSOUw4NG5KMTVRMElkazUzQV8tV0Y5VGdnUVU?oc=5" target="_blank" rel="noopener">Petrobras 원유 생산 사상 최대…이란 전쟁에 석유시장 요동<span class="ext" aria-hidden="true">↗</span></a><span class="src">Bloomberg</span></li></ul></section>
+<footer>
+  <details><summary>수집한 피드</summary><ul><li>AI         OpenAI           5/1334건</li><li>AI         Google DeepMind  2/100건</li><li>AI         Hugging Face     3/891건</li><li>AI         TechCrunch       20/20건</li><li>AI         Google News      25/100건</li><li>AI         Google News      25/100건</li><li>Robotics   IEEE Spectrum    0/30건</li><li>Robotics   Google News      25/100건</li><li>World News BBC              25/27건</li><li>World News The Guardian     25/45건</li><li>World News NPR              10/10건</li><li>World News Al Jazeera       25/25건</li><li>World News Google News      25/100건</li><li>Economy    BBC              25/52건</li><li>Economy    Federal Reserve  1/15건</li><li>Economy    Google News      25/100건</li><li>Economy    Google News      25/97건</li></ul></details>
+  <p>AI가 고르고 요약했어요. 요약은 기사 제목과 소개문만 근거로 썼으니, 중요한 내용은 원문에서 확인하세요.</p>
+</footer>
+</div>
