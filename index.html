@@ -6,6 +6,7 @@
 <title>TMI 모닝 와이어</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..500&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <script>document.documentElement.classList.add('js')</script>
 <style>
@@ -25,8 +26,8 @@
   --s-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
   --s-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
   --s-display: 9.6vw;
-  --f-latin: "Archivo", "Noto Sans KR", system-ui, sans-serif;
-  --f-ko: "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --f-latin: "Archivo", "Pretendard Variable", "Noto Sans KR", system-ui, sans-serif;
+  --f-ko: "Pretendard Variable", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   color-scheme: light;
@@ -51,6 +52,7 @@ b { font-weight: 500; }
 .btn-stage { background: var(--stage-btn); color: var(--stage-ink); min-height: 44px; padding: 0 16px; }
 .st-t, .dl-a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 0.06em; text-underline-offset: 0.22em;
   transition: text-decoration-color 180ms ease; }
+.more, .fig-n, .st-t { padding-block: 3px; } /* Pretendard sets lines tighter; keep these inline links at least 24px tall to tap */
 .more, .fig-n, .foot a { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.2em; }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover { background: var(--accent-hover); }
