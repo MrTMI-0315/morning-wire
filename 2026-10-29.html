@@ -11,12 +11,12 @@
 <style>
 /* The split stage: the globe of today's datelines never moves; the reading column scrolls past it. */
 :root {
-  --bg: #ddd6c6; --paper: #e6e2d8; --ink: #2a2a26; --muted: #59574e;
-  --accent: #4f6238; --accent-ink: #ffffff; --accent-hover: #3f5a2a;
-  --field: #3f5a2a; --field-ink: #efeadf; --field-muted: #cfd6c2;
-  --stage: #2a2a26; --stage-ink: #e4ddcd; --stage-muted: #b3ac9b; --stage-btn: #3d3d37; --stage-btn-hover: #4a4a43;
-  --g-base: #8f8a7c; --g-glow: #2a2a26; --g-hi: #b9d48a; --g-on: #f2ede2; --g-dim: #8a8577;
-  --up: #b02a1f; --down: #1f4aa8;
+  --bg: #ffffff; --paper: #f2f2f2; --ink: #0a0a0a; --muted: #666666;
+  --accent: #0a0a0a; --accent-ink: #ffffff; --accent-hover: #333333;
+  --field: #0a0a0a; --field-ink: #ffffff; --field-muted: #a6a6a6;
+  --stage: #0a0a0a; --stage-ink: #f5f5f5; --stage-muted: #9e9e9e; --stage-btn: #222222; --stage-btn-hover: #333333;
+  --g-base: #8c8c8c; --g-glow: #0a0a0a; --g-hi: #ffffff; --g-on: #f5f5f5; --g-dim: #8c8c8c;
+  --up: #d0271d; --down: #1f4fd6;
   --m: clamp(16px, 2vw, 28px);
   --pad: clamp(40px, 4.5vw, 72px);
   --gap: clamp(104px, 11vw, 176px);
@@ -32,20 +32,20 @@
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #1d1d1a; --paper: #292924; --ink: #e6dfcf; --muted: #aaa392;
-  --accent: #93ab6c; --accent-ink: #161614; --accent-hover: #a7bf80;
-  --field: #2f4220; --field-ink: #e6e1d5; --field-muted: #c3cbb5;
-  --stage: #11110f; --stage-ink: #e6dfcf; --stage-muted: #a39c8b; --stage-btn: #2a2a26; --stage-btn-hover: #383832;
-  --g-base: #77725f; --g-glow: #11110f; --g-hi: #b9d48a; --g-on: #f2ede2; --g-dim: #7d786a;
-  --up: #ff8b7b; --down: #93b2ff;
+  --bg: #000000; --paper: #141414; --ink: #f2f2f2; --muted: #9e9e9e;
+  --accent: #f2f2f2; --accent-ink: #000000; --accent-hover: #d4d4d4;
+  --field: #f2f2f2; --field-ink: #000000; --field-muted: #5c5c5c;
+  --stage: #141414; --stage-ink: #f2f2f2; --stage-muted: #9e9e9e; --stage-btn: #262626; --stage-btn-hover: #333333;
+  --g-base: #707070; --g-glow: #141414; --g-hi: #ffffff; --g-on: #f2f2f2; --g-dim: #707070;
+  --up: #ff6b5e; --down: #7aa2ff;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
-  --bg: #1d1d1a; --paper: #292924; --ink: #e6dfcf; --muted: #aaa392;
-  --accent: #93ab6c; --accent-ink: #161614; --accent-hover: #a7bf80;
-  --field: #2f4220; --field-ink: #e6e1d5; --field-muted: #c3cbb5;
-  --stage: #11110f; --stage-ink: #e6dfcf; --stage-muted: #a39c8b; --stage-btn: #2a2a26; --stage-btn-hover: #383832;
-  --g-base: #77725f; --g-glow: #11110f; --g-hi: #b9d48a; --g-on: #f2ede2; --g-dim: #7d786a;
-  --up: #ff8b7b; --down: #93b2ff;
+  --bg: #000000; --paper: #141414; --ink: #f2f2f2; --muted: #9e9e9e;
+  --accent: #f2f2f2; --accent-ink: #000000; --accent-hover: #d4d4d4;
+  --field: #f2f2f2; --field-ink: #000000; --field-muted: #5c5c5c;
+  --stage: #141414; --stage-ink: #f2f2f2; --stage-muted: #9e9e9e; --stage-btn: #262626; --stage-btn-hover: #333333;
+  --g-base: #707070; --g-glow: #141414; --g-hi: #ffffff; --g-on: #f2f2f2; --g-dim: #707070;
+  --up: #ff6b5e; --down: #7aa2ff;
   color-scheme: dark; }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -60,7 +60,7 @@ b { font-weight: 500; }
 [id] { scroll-margin-top: 24px; }
 
 /* ---------- buttons, links ---------- */
-.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 0; border-radius: 0;
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; white-space: nowrap; border: 0; border-radius: 0;
   background: var(--accent); color: var(--accent-ink); font: 500 var(--s-small)/1 var(--f-ko); text-decoration: none; cursor: pointer;
   transition: transform 140ms var(--ease-out), background-color 180ms ease; }
 .btn:active { transform: scale(0.97); }
@@ -80,9 +80,9 @@ b { font-weight: 500; }
 .sec-h .cat-dot { width: 0.24em; height: 0.24em; margin-right: 0.22em; vertical-align: 0.24em; }
 
 /* ---------- the split ---------- */
-.split { display: grid; grid-template-columns: 47vw minmax(0, 1fr); }
+.split { display: grid; grid-template-columns: calc(52vw - 72px) minmax(0, 1fr); } /* stage share grows smoothly: ~42% at 700px, ~47% at 1440px */
 .stage { position: sticky; top: var(--m); align-self: start; height: calc(100svh - 2 * var(--m)); margin: var(--m) 0 var(--m) var(--m);
-  background: var(--stage); color: var(--stage-ink); display: flex; flex-direction: column; padding: 14px 28px 28px; z-index: 1; }
+  background: var(--stage); color: var(--stage-ink); display: flex; flex-direction: column; padding: 14px clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px); z-index: 1; }
 .nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--stage-ink); font-size: var(--s-small); font-weight: 500;
   text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.3em; transition: text-decoration-color 180ms ease; }
@@ -186,7 +186,7 @@ b { font-weight: 500; }
 .end-main .st-sum { margin-top: 4px; }
 
 /* ---------- footer: the split ends, the name returns ---------- */
-.foot { background: var(--field); color: var(--field-ink); margin-top: var(--gap); min-height: 86svh; padding: var(--m); display: grid; grid-template-rows: auto 1fr auto auto; }
+.foot { background: var(--field); color: var(--field-ink); margin-top: var(--gap); min-height: 86svh; padding: var(--m); display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto auto; }
 .foot-top { display: flex; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; align-items: flex-start; }
 .foot-nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .foot-nav a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; }
@@ -203,7 +203,7 @@ b { font-weight: 500; }
 .foot :focus-visible { outline-color: var(--field-ink); }
 
 /* ---------- phone and narrow tablet: the globe becomes a pinned band ---------- */
-@media (max-width: 899px) {
+@media (max-width: 699px) {
   [id] { scroll-margin-top: 228px; }
   .split { display: block; }
   .stage { top: 0; height: auto; margin: 0; padding: 0 var(--m) 10px; display: grid; grid-template-columns: 152px minmax(0, 1fr); grid-template-rows: auto 152px; column-gap: 14px; z-index: 5; }
