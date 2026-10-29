@@ -31,22 +31,6 @@
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #000000; --paper: #141414; --why: #242424; --ink: #f2f2f2; --muted: #9e9e9e;
-  --accent: #f2f2f2; --accent-ink: #000000; --accent-hover: #d4d4d4;
-  --field: #f2f2f2; --field-ink: #000000; --field-muted: #5c5c5c;
-  --stage: #141414; --stage-ink: #f2f2f2; --stage-muted: #9e9e9e; --stage-btn: #262626; --stage-btn-hover: #333333;
-  --g-base: #707070; --g-glow: #141414; --g-hi: #ffffff; --g-on: #f2f2f2; --g-dim: #707070;
-  --up: #ff6b5e; --down: #7aa2ff;
-  color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --bg: #000000; --paper: #141414; --why: #242424; --ink: #f2f2f2; --muted: #9e9e9e;
-  --accent: #f2f2f2; --accent-ink: #000000; --accent-hover: #d4d4d4;
-  --field: #f2f2f2; --field-ink: #000000; --field-muted: #5c5c5c;
-  --stage: #141414; --stage-ink: #f2f2f2; --stage-muted: #9e9e9e; --stage-btn: #262626; --stage-btn-hover: #333333;
-  --g-base: #707070; --g-glow: #141414; --g-hi: #ffffff; --g-on: #f2f2f2; --g-dim: #707070;
-  --up: #ff6b5e; --down: #7aa2ff;
-  color-scheme: dark; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -123,7 +107,7 @@ b { font-weight: 500; }
 .st-t { font-weight: 500; }
 .st-sum { margin-top: 8px; }
 .st-why { margin-top: 12px; padding: 12px 14px; background: var(--why); }
-.st-why b { display: block; font-weight: 700; margin-bottom: 2px; }
+.st-why b { display: block; font-size: var(--s-small); font-weight: 700; color: var(--muted); margin-bottom: 4px; }
 .st-meta, .st-more { margin-top: 8px; font-size: var(--s-small); color: var(--muted); }
 .st-meta b { color: var(--ink); }
 .st-more a { color: var(--ink); }
@@ -474,7 +458,6 @@ rows.forEach((r) => r.addEventListener('focusin', () => show(+r.dataset.i, 'manu
 new IntersectionObserver(([en]) => { heroIn = en.isIntersecting; if (heroIn && T.length) { rows.forEach((r) => r.classList.remove('is-on')); show(T[tpos], 'tour'); } tour(); },
   { threshold: 0.25 }).observe(document.getElementById('top'));
 document.addEventListener('visibilitychange', kick);
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => globe?.update({ baseColor: rgb('--g-base'), glowColor: rgb('--g-glow') }));
 
 try {
   const c = document.createElement('canvas');
