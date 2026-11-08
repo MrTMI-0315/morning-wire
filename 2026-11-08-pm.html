@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TMI 모닝 와이어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..500&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+/* The split stage: the globe of today's datelines never moves; the reading column scrolls past it. */
+:root {
+  --bg: #ffffff; --paper: #f2f2f2; --why: #e6e6e6; --ink: #0a0a0a; --muted: #666666;
+  --accent: #0a0a0a; --accent-ink: #ffffff; --accent-hover: #333333;
+  --field: #0a0a0a; --field-ink: #ffffff; --field-muted: #a6a6a6;
+  --stage: #0a0a0a; --stage-ink: #f5f5f5; --stage-muted: #9e9e9e; --stage-btn: #222222; --stage-btn-hover: #333333;
+  --g-base: #8c8c8c; --g-glow: #0a0a0a; --g-hi: #ffffff; --g-on: #f5f5f5; --g-dim: #8c8c8c;
+  --up: #d0271d; --down: #1f4fd6;
+  --m: clamp(16px, 2vw, 28px);
+  --pad: clamp(40px, 4.5vw, 72px);
+  --gap: clamp(104px, 11vw, 176px);
+  --s-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --s-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --s-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --s-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --s-display: 9.6vw;
+  --f-latin: "Archivo", "Pretendard Variable", "Noto Sans KR", system-ui, sans-serif;
+  --f-ko: "Pretendard Variable", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 var(--s-body)/1.6 var(--f-ko);
+  word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
+p, ul, ol, h1, h2, h3 { margin: 0; }
+ul, ol { list-style: none; padding: 0; }
+a { color: inherit; }
+b { font-weight: 500; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+[id] { scroll-margin-top: 24px; }
+
+/* ---------- buttons, links ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; white-space: nowrap; border: 0; border-radius: 0;
+  background: var(--accent); color: var(--accent-ink); font: 500 var(--s-small)/1 var(--f-ko); text-decoration: none; cursor: pointer;
+  transition: transform 140ms var(--ease-out), background-color 180ms ease; }
+.btn:active { transform: scale(0.97); }
+.btn-stage { background: var(--stage-btn); color: var(--stage-ink); min-height: 44px; padding: 0 16px; }
+.st-t, .dl-a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 0.06em; text-underline-offset: 0.22em;
+  transition: text-decoration-color 180ms ease; }
+.more, .fig-n, .st-t { padding-block: 3px; } /* Pretendard sets lines tighter; keep these inline links at least 24px tall to tap */
+.more, .fig-n, .foot a { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.2em; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--accent-hover); }
+  .btn-stage:hover { background: var(--stage-btn-hover); }
+  .st-t:hover, .dl-a:hover { text-decoration-color: currentColor; }
+  .nav a:hover { text-decoration-color: currentColor; }
+}
+
+/* category dot: same colour as the globe markers, so it doubles as the legend */
+.cat-dot { display: inline-block; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--c); margin-right: 0.45em; vertical-align: 0.08em; flex: none; }
+.sec-h .cat-dot { width: 0.24em; height: 0.24em; margin-right: 0.22em; vertical-align: 0.24em; }
+
+/* ---------- the split ---------- */
+.split { display: grid; grid-template-columns: calc(52vw - 72px) minmax(0, 1fr); } /* stage share grows smoothly: ~42% at 700px, ~47% at 1440px */
+.stage { position: sticky; top: var(--m); align-self: start; height: calc(100svh - 2 * var(--m)); margin: var(--m) 0 var(--m) var(--m);
+  background: var(--stage); color: var(--stage-ink); display: flex; flex-direction: column; padding: 14px clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px); z-index: 1; }
+.nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--stage-ink); font-size: var(--s-small); font-weight: 500;
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.3em; transition: text-decoration-color 180ms ease; }
+.nav a .n { color: var(--stage-muted); font-weight: 400; margin-left: 0.4em; }
+.orb { flex: 1; min-height: 0; container-type: size; display: grid; place-items: center; }
+.orb canvas { width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); display: block; cursor: pointer; touch-action: manipulation; }
+.no-gl .orb { visibility: hidden; }
+.dateline { max-width: calc(100% - 10vw); min-height: 9.5em; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+.dl-where { font-size: var(--s-small); color: var(--stage-muted); }
+.dl-where .dl-cat { color: var(--stage-ink); font-weight: 500; }
+.dl-title { font: 500 var(--s-lead)/1.35 var(--f-ko); }
+.dl-src { font-size: var(--s-small); color: var(--stage-muted); }
+.dl-ctl { display: flex; gap: 6px; margin-top: 10px; }
+.stage :focus-visible { outline-color: var(--stage-ink); }
+.dateline.swap > * { animation: swap 420ms var(--ease-out) both; }
+.dateline.swap > :nth-child(2) { animation-delay: 50ms; }
+@keyframes swap { from { opacity: 0; transform: translateY(8px); } }
+
+.col { min-width: 0; padding: 0 calc(var(--m) + 28px) 0 var(--pad); position: relative; z-index: 2; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 100svh; }
+.hero-meta { position: absolute; top: var(--m); right: 0; min-height: 44px; display: flex; align-items: center; font-size: var(--s-small); color: var(--muted); }
+.say { position: absolute; top: 38%; left: 0; right: 0; margin-inline: auto; width: min(100%, 21em); font-size: var(--s-lead); }
+.say-date { font: 500 var(--s-lead)/1.35 var(--f-ko); }
+.say-line { font: 400 var(--s-lead)/1.45 var(--f-ko); margin-top: 6px; }
+.say-eds { display: flex; flex-wrap: wrap; gap: 0 16px; margin-top: 10px; font-size: var(--s-small); color: var(--muted); }
+.say-eds > * { padding-block: 3px; }
+.say-eds b { color: var(--ink); font-weight: 700; }
+.say-eds a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.2em; }
+.say-act { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 32px; }
+.say-act p { font-size: var(--s-small); color: var(--muted); }
+.mark { position: absolute; bottom: 40px; left: calc(-10vw - var(--pad)); right: 0; margin: 0; white-space: nowrap;
+  font: 400 var(--s-display)/0.8 var(--f-latin); font-stretch: 100%; letter-spacing: -0.04em; color: var(--ink); transform-origin: 10vw 100%; }
+.mark > span { display: inline-block; clip-path: inset(-40% -2% -40% 10vw); }
+.mark::after { content: "morning wire" / ""; position: absolute; left: 0; top: 0; color: var(--stage-ink); clip-path: inset(-40% calc(100% - 10vw) -40% 0); pointer-events: none; }
+
+/* ---------- sections ---------- */
+.sec { padding-top: var(--gap); }
+.sec-h { font: 500 var(--s-head)/1.05 var(--f-ko); letter-spacing: -0.025em; }
+.sec-note { margin-top: 14px; font-size: var(--s-small); color: var(--muted); }
+.st-t { font-weight: 500; }
+.st-sum { margin-top: 8px; }
+.st-why { margin-top: 12px; padding: 12px 14px; background: var(--why); }
+.st-why b { display: block; font-size: var(--s-small); font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+.st-meta, .st-more { margin-top: 8px; font-size: var(--s-small); color: var(--muted); }
+.st-meta b { color: var(--ink); }
+.st-more a { color: var(--ink); }
+.st-when { flex: none; font-size: var(--s-small); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row-top { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+
+/* market ledger, aligned on the decimal point */
+.ledger-head { margin-bottom: 40px; }
+.figs { display: grid; grid-template-columns: max-content max-content minmax(0, 1fr); row-gap: 20px; }
+.fig { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; }
+.fig-w, .fig-d { font: 400 var(--s-head)/1 var(--f-latin); font-stretch: 87.5%; letter-spacing: -0.02em; font-variant-numeric: tabular-nums lining-nums; }
+.fig-w { text-align: right; }
+.fig-c { padding-left: 24px; }
+.fig-n { font-weight: 500; }
+.fig-c .up, .fig-c .down { font-variant-numeric: tabular-nums; margin-left: 4px; font-weight: 500; }
+.up { color: var(--up); } .down { color: var(--down); }
+.asof { display: block; font-size: var(--s-small); color: var(--muted); }
+
+/* AI: the active list; the row in the reading line is the one the globe shows */
+.act .sec-note { margin-bottom: 40px; }
+.act-row { margin: 0 -20px; padding: 20px; transition: background-color 240ms ease; }
+.act-row .st-t { font-size: var(--s-lead); line-height: 1.35; }
+.story.is-on { background: var(--paper); }
+
+/* Robotics: the giant word over filled bars */
+.giant { container-type: inline-size; padding-top: calc(var(--gap) + 32px); }
+.giant-w { font: 400 var(--s-display)/0.8 var(--f-latin); letter-spacing: -0.045em; margin-left: -0.04em; }
+.giant .sec-note { margin: 22px 0 20px; }
+.bars { display: grid; gap: 6px; }
+.bar { background: var(--paper); }
+.bar summary { min-height: 56px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; gap: 20px; cursor: pointer; list-style: none; }
+.bar summary::-webkit-details-marker { display: none; }
+.bar-x { flex: none; font: 400 var(--s-lead)/1 var(--f-latin); transition: transform 240ms var(--ease-out); }
+.bar[open] .bar-x { transform: rotate(45deg); }
+.bar-body { padding: 0 18px 22px; }
+.bar.is-on { background: var(--paper); }
+
+/* World: one printed wire sheet with cut edges */
+.sheet { max-width: 640px; margin-inline: auto; background: var(--paper); padding: 64px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 8a12 8 0 0 1 24 0z'/%3E%3C/svg%3E") top left / 24px 8px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 0a12 8 0 0 0 24 0z'/%3E%3C/svg%3E") bottom left / 24px 8px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' preserveAspectRatio='none'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E") center / 100% calc(100% - 15px) no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 8a12 8 0 0 1 24 0z'/%3E%3C/svg%3E") top left / 24px 8px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 0a12 8 0 0 0 24 0z'/%3E%3C/svg%3E") bottom left / 24px 8px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' preserveAspectRatio='none'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E") center / 100% calc(100% - 15px) no-repeat; }
+.sheet > .sec-h, .sheet > .sec-note, .sheet-end, .grp-h { text-align: center; }
+.grp { margin-top: 56px; }
+.grp-h { font: 500 var(--s-lead)/1.3 var(--f-ko); margin-bottom: 8px; }
+.sh-item { margin: 0 -16px; padding: 16px; transition: background-color 240ms ease; }
+.sheet .story.is-on { background: var(--bg); }
+.sheet .st-meta, .sheet .st-when { color: var(--muted); }
+.sheet-end { margin-top: 56px; font-size: var(--s-small); color: var(--muted); }
+
+/* Economy: two-ended rows in a narrow column, grouped by where the story happened */
+.ends-col { max-width: 600px; }
+.end-grp { margin-top: 40px; }
+.end-g { color: var(--muted); margin-bottom: 4px; }
+.end-row { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; column-gap: 10px; align-items: baseline; margin: 0 -14px; padding: 10px 14px; transition: background-color 240ms ease; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); align-self: start; margin-top: 0.62em; justify-self: center; }
+.end-row.is-top .dot { background: var(--accent); }
+.end-main .st-sum { margin-top: 4px; }
+
+/* ---------- footer: the split ends, the name returns ---------- */
+.foot { background: var(--field); color: var(--field-ink); margin-top: var(--gap); min-height: 86svh; padding: var(--m); display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto auto; }
+.foot-top { display: flex; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; align-items: flex-start; }
+.foot-nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.foot-nav a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; }
+.foot-nav a .n { margin-left: 0.35em; font-weight: 400; color: var(--field-muted); }
+.foot-places { grid-row: 2; align-self: center; max-width: 64em; padding: 56px 0 0; }
+.fp-l { font-size: var(--s-small); color: var(--field-muted); margin-bottom: 10px; }
+.fp + .fp { margin-top: 40px; }
+/* 지난 판 달력: 판이 있는 날만 흰 숫자 링크, 나머지는 흐리게, 오늘은 테두리 */
+.cals { position: relative; width: min(100%, 336px); }
+.cal { width: 100%; border-collapse: collapse; table-layout: fixed; text-align: center; font-variant-numeric: tabular-nums; }
+.cal + .cal { margin-top: 28px; }
+.cal caption { text-align: left; font-weight: 500; line-height: 44px; white-space: nowrap; }
+.cal th { font-size: var(--s-small); font-weight: 400; color: var(--field-muted); padding-bottom: 4px; }
+.cal td { padding: 0; height: 46px; }
+.cal td > * { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; }
+.cal span { color: #555555; }
+.cal a { color: var(--field-ink); font-weight: 700; text-decoration: none; transition: background-color 160ms ease, color 160ms ease; }
+.cal a:hover { background: var(--field-ink); color: var(--field); }
+.cal b { font-weight: 400; color: var(--field-muted); box-shadow: inset 0 0 0 1px var(--field-muted); }
+.cal-nav { display: none; }
+.js .cal-nav { display: flex; position: absolute; top: 0; right: 0; }
+.cal-nav button { width: 44px; height: 44px; font-size: 22px; color: var(--field-ink); background: none; border: 0; cursor: pointer; }
+.cal-nav button:disabled { color: #444444; cursor: default; }
+.js .cal:not(.on) { display: none; }
+.places { font: 400 var(--s-lead)/1.45 var(--f-ko); }
+.foot-info { max-width: 30em; font-size: var(--s-small); color: var(--field-muted); }
+.foot-info p { margin-bottom: 10px; }
+.foot-info summary { cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; color: var(--field-ink); font-weight: 500; }
+.foot-info li { padding: 2px 0; }
+.foot-mark { grid-row: 3; margin: 32px 0 0 calc(37vw - var(--m)); font: 400 var(--s-display)/0.8 var(--f-latin); letter-spacing: -0.04em; white-space: nowrap; transform-origin: 0 100%; }
+.foot-legal { grid-row: 4; margin: 28px 0 0 calc(37vw - var(--m)); font-size: var(--s-small); color: var(--field-muted); max-width: 46em; }
+.foot :focus-visible { outline-color: var(--field-ink); }
+
+/* ---------- phone and narrow tablet: the globe becomes a pinned band ---------- */
+@media (max-width: 699px) {
+  [id] { scroll-margin-top: 228px; }
+  .split { display: block; }
+  .stage { top: 0; height: auto; margin: 0; padding: 0 var(--m) 10px; display: grid; grid-template-columns: 152px minmax(0, 1fr); grid-template-rows: auto 152px; column-gap: 14px; z-index: 5; }
+  .nav { grid-column: 1 / -1; gap: 0 18px; }
+  .nav a .n { display: none; }
+  .orb canvas { width: 152px; height: 152px; }
+  .dateline { max-width: none; min-height: 0; justify-content: center; gap: 2px; }
+  .dl-where .dl-coord, .dl-src { display: none; }
+  .dl-title { font-size: var(--s-small); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .dl-ctl { margin-top: 6px; }
+  .btn-stage { min-height: 44px; padding: 0 12px; }
+  .col { padding: 0 var(--m); }
+  .hero { min-height: 0; display: flex; flex-direction: column; padding: 28px 0 8px; }
+  .mark { position: static; order: 0; transform-origin: 0 100%; }
+  .mark > span { clip-path: none; }
+  .mark::after { content: none; }
+  .say { position: static; order: 1; width: auto; margin: 28px 0 0; }
+  .hero-meta { position: static; order: 2; margin-top: 20px; min-height: 0; }
+  .act-row, .sh-item { margin: 0 calc(-1 * var(--m)); padding: 18px var(--m); }
+  .fig-c { padding-left: 14px; }
+  .sheet { padding: 40px 28px; margin-inline: -6px; }
+  .end-row { margin: 0 calc(-1 * var(--m)); padding: 12px var(--m); }
+  .foot { min-height: 0; }
+  .foot-mark, .foot-legal { margin-left: 0; }
+}
+@media (max-width: 599px) {
+  .row-top { flex-direction: column; gap: 2px; }
+  .row-top .st-when { order: -1; }
+  .end-row { grid-template-columns: 16px minmax(0, 1fr); }
+  .end-row .st-when { grid-column: 2; }
+}
+
+/* ---------- motion: entrances once, the wordmark carries the scroll ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-r] { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-expo), background-color 240ms ease;
+    transition-delay: calc(var(--d, 0) * 80ms), calc(var(--d, 0) * 80ms), 0ms; }
+  .js [data-r].is-in { opacity: 1; transform: none; }
+  .say > *, .hero-meta { animation: rise 900ms var(--ease-expo) both; }
+  .say-line, .say-eds { animation-delay: 90ms; } .say-act { animation-delay: 180ms; } .hero-meta { animation-delay: 260ms; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+  @supports (animation-timeline: view()) {
+    .hero { view-timeline: --hero block; }
+    .mark { animation: shrink linear both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
+    @keyframes shrink { to { scale: 0.93; } }
+    .foot-mark { animation: grow linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    @keyframes grow { from { scale: 0.94; } }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dateline.swap > * { animation: none; }
+  .bar-x, .btn { transition: none; }
+}
+</style>
+<div class="split">
+  <aside class="stage" id="globe" aria-label="오늘 기사가 난 곳">
+    <nav class="nav" aria-label="분야"><a href="#ai"><span class="cat-dot" style="--c:#2f5bd8" aria-hidden="true"></span>AI<span class="n">5</span></a><a href="#robotics"><span class="cat-dot" style="--c:#1c8a55" aria-hidden="true"></span>로보틱스<span class="n">3</span></a><a href="#world"><span class="cat-dot" style="--c:#e9b21b" aria-hidden="true"></span>세계<span class="n">5</span></a><a href="#korea"><span class="cat-dot" style="--c:#7d4cdb" aria-hidden="true"></span>국내<span class="n">4</span></a><a href="#economy"><span class="cat-dot" style="--c:#d8382b" aria-hidden="true"></span>경제<span class="n">5</span></a><a href="#beauty"><span class="cat-dot" style="--c:#d6409a" aria-hidden="true"></span>뷰티<span class="n">3</span></a><a href="#markets">시장</a></nav>
+    <div class="orb"><canvas aria-hidden="true"></canvas></div>
+    <div class="dateline" aria-live="off">
+      <p class="dl-where" style="--c:#2f5bd8"><span class="cat-dot" aria-hidden="true"></span><span class="dl-cat">AI</span> · <span class="dl-place">San Francisco</span><span class="dl-coord"> · 37.77°N 122.42°W</span> · <span class="dl-count">주요 기사 1/12</span></p>
+      <p class="dl-title"><a class="dl-a" href="https://news.google.com/rss/articles/CBMihAFBVV95cUxQaDhoaHlMZk8tNWhZWlFEczhOc1FpNnZjcnlZTF9MUDJrVG5mb2NvUkdzZlBldmx2YkhEMkQtdVRuaXpWYkhTcDd2N3VLWlFvLW81S0ttcWxKTUlkdXBOMWRNZUIzS0o4ZVM1Y1dpbUIxRG4waXdxRVlncjJiVTM2TGtTZ0g?oc=5" target="_blank" rel="noopener">Anthropic, 데이터센터용 가스 화력 발전에 34억 달러 계약</a></p>
+      <p class="dl-src">Financial Times</p>
+      <div class="dl-ctl"><button type="button" class="btn btn-stage pause" aria-pressed="false">일시정지</button><button type="button" class="btn btn-stage next">다음 기사</button></div>
+    </div>
+  </aside>
+  <main class="col">
+    <header class="hero" id="top">
+      <p class="hero-meta">20:34 KST 수집 · 최근 8시간 새 기사 291건 중 25개 스토리</p>
+      <div class="say">
+        <p class="say-date">2026년 11월 8일 일요일</p>
+        <p class="say-line">저녁에 확인해보는 소식들</p>
+        <p class="say-eds"><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-08-am.html">조간 10:00</a><span data-href="https://mrtmi-0315.github.io/morning-wire/2026-11-08-noon.html">주간 13:00</span><b aria-current="page">석간 18:00</b><a href="#past">지난 판</a></p>
+        <div class="say-act"><a class="btn" href="#markets">오늘 판 읽기</a><p>제목을 누르면 원문으로 이동해요.</p></div>
+      </div>
+      <h1 class="mark"><span>morning wire</span></h1>
+    </header>
+<section class="sec ledger" id="markets" aria-labelledby="h-markets">
+<div class="ledger-head"><h2 class="sec-h" id="h-markets" data-r style="--d:0">시장</h2>
+<p class="sec-note" data-r style="--d:1">Yahoo Finance 기준 · 시각은 각 시장의 현지 시각. 오름은 빨강, 내림은 파랑.</p></div>
+<ol class="figs"><li class="fig" data-r style="--d:1"><span class="fig-w">7,376</span><span class="fig-d">.86</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/%5EGSPC" target="_blank" rel="noopener">S&amp;P 500</a> <span class="up">+0.32%</span><span class="asof">2026-11-06 16:37 EST</span></p></li><li class="fig" data-r style="--d:2"><span class="fig-w">24,579</span><span class="fig-d">.42</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/%5EIXIC" target="_blank" rel="noopener">Nasdaq</a> <span class="up">+1.09%</span><span class="asof">2026-11-06 17:15 EST</span></p></li><li class="fig" data-r style="--d:3"><span class="fig-w">5,059</span><span class="fig-d">.69</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/%5EKS11" target="_blank" rel="noopener">KOSPI</a> <span class="down">-6.02%</span><span class="asof">2026-11-06 20:05 KST</span></p></li><li class="fig" data-r style="--d:4"><span class="fig-w">1,363</span><span class="fig-d">.65</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/KRW%3DX" target="_blank" rel="noopener">원/달러</a> <span class="up">+0.51%</span><span class="asof">2026-11-06 21:59 GMT</span></p></li><li class="fig" data-r style="--d:4"><span class="fig-w">4</span><span class="fig-d">.86</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/%5ETNX" target="_blank" rel="noopener">미국 10년물 금리</a> <span class="up">+0.46%</span><span class="asof">2026-11-06 13:59 CST</span></p></li><li class="fig" data-r style="--d:4"><span class="fig-w">90</span><span class="fig-d">.83</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/CL%3DF" target="_blank" rel="noopener">WTI 유가</a> <span class="up">+0.34%</span><span class="asof">2026-11-06 16:59 EST</span></p></li><li class="fig" data-r style="--d:4"><span class="fig-w">75,873</span><span class="fig-d">.11</span>
+<p class="fig-c"><a class="fig-n" href="https://finance.yahoo.com/quote/BTC-USD" target="_blank" rel="noopener">비트코인</a> <span class="down">-0.01%</span><span class="asof">2026-11-08 11:34 UTC</span></p></li></ol>
+</section>
+<section class="sec act" id="ai" aria-labelledby="h-ai">
+<h2 class="sec-h" id="h-ai" data-r style="--d:0"><span class="cat-dot" style="--c:#2f5bd8" aria-hidden="true"></span>AI</h2>
+<p class="sec-note" data-r style="--d:1">5건 · Financial Times, ZDNet Korea, AI타임스 외 1곳</p>
+<ul class="act-list"><li class="story act-row" data-i="0" id="ai-0" data-r style="--d:2">
+<div class="row-top"><a class="st-t" href="https://news.google.com/rss/articles/CBMihAFBVV95cUxQaDhoaHlMZk8tNWhZWlFEczhOc1FpNnZjcnlZTF9MUDJrVG5mb2NvUkdzZlBldmx2YkhEMkQtdVRuaXpWYkhTcDd2N3VLWlFvLW81S0ttcWxKTUlkdXBOMWRNZUIzS0o4ZVM1Y1dpbUIxRG4waXdxRVlncjJiVTM2TGtTZ0g?oc=5" target="_blank" rel="noopener">Anthropic, 데이터센터용 가스 화력 발전에 34억 달러 계약</a><span class="st-when">20:00</span></div>
+<p class="st-sum">Financial Times에 따르면 Anthropic이 데이터센터 전력을 가스 화력으로 직접 만들기 위한 발전기 계약을 34억 달러 규모로 맺었다.</p><p class="st-why"><b>왜 중요한가</b> Claude API 사용 한도와 응답 속도는 결국 Anthropic의 연산 설비 확충 속도에 달려 있어, 이 발전 설비가 언제 가동되는지가 개발사에도 중요하다.</p><p class="st-more">함께 보도: <a class="more" href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQUzBjTENQajlIcmhRZWo0ZzBweVg5YWxXVFhMVVRsdG9yUnVKYWlJa0FTaFk1YzlvbEVJQ256WXdxd0k3bmUyS3k3NklTLVhLbHFOUF9BUUNuQWFyM2Q5ZGFQekZpUV9PTEJxaHNsSWI1dzFIYWlPYUhHaVdOUXRwaE1WWUZQcG1EQkxVQjI4d3BuOWJfUjZlTXd6Z0hWNjlXSWY2OGc4UFlFLXlHRWp5OEpYT245OTQyLUQ2THNlSnBuaTg?oc=5" target="_blank" rel="noopener">marketscreener.com</a>, <a class="more" href="https://news.google.com/rss/articles/CBMi3wFBVV95cUxOaW1SLUcxZEFjcnplS3RUM0h5RERyeWJ1Tk5qb1h1S21lOWNsQktKd0lvdl83aU5iYm16VjJycURwdTZ1b05zYTlOQ2drS29CZThpRllyQUpfcTcwcmNxLWg2RTVOcE9QUXo2eV9ib0gzRkVYTXo0cHhBS0pQcWFRN0FOZHRuRkNDVlhlU0FoMEFWY3VnYVR1MUpPWkxGb3h5Q0pybFFxemhNZld0V1YwOFdraW4wUkJzXzhJY3Q0TU9kcUhFXzNqdTE3R3NZeUticG1MSkZ4VXRRYmY4aTJV?oc=5" target="_blank" rel="noopener">TradingView</a></p><p class="st-meta"><b>주요 기사</b> · Financial Times · 3개 매체 보도 · San Francisco</p></li><li class="story act-row" data-i="1" id="ai-1" data-r style="--d:3">
+<div class="row-top"><a class="st-t" href="https://zdnet.co.kr/view/?no=20261108123102" target="_blank" rel="noopener">ChatGPT 국내 월간 앱 이용자 처음으로 1,800만 명 넘어</a><span class="st-when">12:38</span></div>
+<p class="st-sum">아이지에이웍스 모바일인덱스에 따르면 지난달 ChatGPT 앱 월간 활성 이용자는 1,876만 명으로 1년 전보다 43.8% 늘었고, 전체 사용시간은 두 배 이상 증가했다. Anthropic의 Claude도 국내에서 빠르게 이용자를 늘리고 있다.</p><p class="st-why"><b>왜 중요한가</b> 국내 소비자 대상 AI 서비스를 만드는 스타트업은 ChatGPT를 이미 쓰는 1,800만 명을 기본 비교 대상으로 놓고 기능과 가격을 정해야 한다.</p><p class="st-more">함께 보도: <a class="more" href="https://news.google.com/rss/articles/CBMimgFBVV95cUxPYkgwYmptV0oydTRHa0tKOFBuRGNYWmFlUC1rUzRpZG1hY1Fzd2FmMEIwaHBqRi1GeXF2cTYxcU5tMWMxSHVGVzhDTXI1cjd0UWtYQWhnV3NZbExURU9mYkNtZTFydkhnMU80YnIxTldVYnZwdU5xRF9BaFV6SGxwZV8tVVNoRjFmWkotQjV3RzRqVXBwMXp0OTd3?oc=5" target="_blank" rel="noopener">Seoul Economic Daily</a>, <a class="more" href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQeU5KR0k2OWZUbjZaWnBYZE4yU3JuUTdVNHUtVDdWVVc4cWhIQlBXZ2NJd3hETVA4TVZJbHZkU05aaWRlWE9YQnNIVVp1LXZSTkU5YmVSbnNWblBEMXc2by1iZ0k1QWdIV2hXZmVLRm5uZEFiLXlwRHNPc3ZyVUlEbEtIRWl0SUpXOVFGNE1MN2F2Q2VhcGM2YzFWMkY4RGJ2WW5fUThwMTY?oc=5" target="_blank" rel="noopener">Koreabizwire</a>, <a class="more" href="https://news.google.com/rss/articles/CBMiVEFVX3lxTFBhZjZKM0VxbEJvOFUxWWNEYzZNNmJ3Sk1VeVhMbkdwd2ZVLWgwU2RpUkRZSEx0V0lWRzQtMDhXVWZWcjcxX0ZEek92N3JaSE1rMnlEVQ?oc=5" target="_blank" rel="noopener">bloomingbit</a></p><p class="st-meta">ZDNet Korea · 4개 매체 보도 · South Korea</p></li><li class="story act-row" data-i="2" id="ai-2" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://www.aitimes.com/news/articleView.html?idxno=217146" target="_blank" rel="noopener">중국 앤트그룹, 멀티모달 모델 &#x27;Ling 3.2 Flash&#x27; 공개…일부 시각 평가서 Claude Opus 5 앞서</a><span class="st-when">16:59</span></div>
+<p class="st-sum">앤트그룹이 이미지·동영상을 이해하는 멀티모달 모델 Ling-3.2-flash를 5일 공개했다. 전체 매개변수 5,600억 개 중 추론에는 250억 개만 쓰며, 100만 토큰 컨텍스트와 낮은 사용료를 내세워 기업용 AI 에이전트 시장을 겨냥한다.</p><p class="st-why"><b>왜 중요한가</b> 이미지·영상 처리 비용이 큰 서비스라면 Claude Opus 5와 Ling 3.2 Flash를 같은 작업으로 돌려 비용과 정확도를 비교해 볼 만하다.</p><p class="st-meta">AI타임스 · 단일 출처 · Hangzhou</p></li><li class="story act-row" data-i="3" id="ai-3" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://www.aitimes.com/news/articleView.html?idxno=217147" target="_blank" rel="noopener">Anthropic 보고서 &quot;과학자들 Claude는 데이터 분석에 가장 많이 쓰고 가설 생성엔 4%&quot;</a><span class="st-when">18:14</span></div>
+<p class="st-sum">Anthropic이 8월 2일부터 9월 30일까지 Claude와 Claude Code의 과학 연구 세션 20만 7,049건을 분석한 보고서를 5일 공개했다. 연구자들은 가설 생성을 가장 중요한 활동으로 꼽았지만 실제 AI 사용 비중은 4% 수준이었다.</p><p class="st-meta">AI타임스 · 단일 출처 · San Francisco</p></li><li class="story act-row" data-i="4" id="ai-4" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://news.google.com/rss/articles/CBMipwFBVV95cUxPdFcyczl1X05tMHZWajQtNlZIZ096MnJMcXRzZjM0VlV3VXV1bk9SWUhpajJ3dGhuNEhsa2doc29iMElpWVdMdWM1SXpySkMxVnA4VHdNTXZoR2lIRmxxVmxJb3BXazJHaEY4VndHT2J0TjZFWVZkeXVUaG0tRV8xVHp6eEU1VlJ4azFZTC1PLWZPbDdYNkpNTWtoOUZJRTNRVnpvXzVCbw?oc=5" target="_blank" rel="noopener">미국 AI 안전 센터 직원들, 백악관에 직접 보고…독립성 우려 제기</a><span class="st-when">17:38</span></div>
+<p class="st-meta">The Boston Globe · 단일 출처 · Washington</p></li></ul>
+</section>
+<section class="sec giant" id="robotics" aria-labelledby="h-robotics">
+<h2 class="giant-w" id="h-robotics" lang="en" aria-label="로보틱스" data-r style="--d:0">Robotics</h2>
+<p class="sec-note" data-r style="--d:1"><span class="cat-dot" style="--c:#1c8a55" aria-hidden="true"></span>로보틱스 3건 · Seoul Economic Daily, The Korea Herald, Pandaily</p>
+<div class="bars"><details class="story bar" data-i="5" id="robotics-0" open data-r style="--d:2">
+<summary><a class="st-t" href="https://news.google.com/rss/articles/CBMilgFBVV95cUxNQ2o4ZVNIVHVoeFd4V2RqZ0tveTNjQ3ZockVMOGxPSFo3RzBLSUlURHlGLW5Rd0YycTFRb3pjUUVlUlRCSjBGSE1IanJnTlBwMkMwTGQyOWQ0aGQxV0N6Z3RTRnJVZWc2NlFaNXIybEw2RUdRZ1Rvb0xpUEIzQzFMbDFxSzhwMU9fXzFNc0tNcnc4UldrQmc?oc=5" target="_blank" rel="noopener">삼성전자, 현대차그룹 휴머노이드 Atlas에 메모리 공급</a><span class="bar-x" aria-hidden="true">+</span></summary>
+<div class="bar-body"><p class="st-why"><b>왜 중요한가</b> 휴머노이드 양산을 앞두고 국내 대기업 간 부품 공급망이 정해지고 있어, 로봇 부품 스타트업은 Atlas 공급망에서 어느 자리가 남는지 살펴볼 때다.</p><p class="st-meta">Seoul Economic Daily · 11월 8일 18:39 · 단일 출처 · South Korea</p></div></details><details class="story bar" data-i="6" id="robotics-1" data-r style="--d:3">
+<summary><a class="st-t" href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFB1V2hxSWZMQTI4Ykx1TGJJd3N6VXNkV0ExTFZWbmsyV1ZzX1laamFtX3dlVGZ3bXVvRTRwMTBGNS1JQXN1UC1JNmwzYnRnQlhrRW9pdUcxRQ?oc=5" target="_blank" rel="noopener">삼성·LG, 로봇 상용화 앞두고 해외에서 로보틱스 인재 영입</a><span class="bar-x" aria-hidden="true">+</span></summary>
+<div class="bar-body"><p class="st-why"><b>왜 중요한가</b> 대기업이 해외까지 나서 로봇 인력을 찾는 만큼, 로봇 스타트업은 채용 경쟁과 인건비 상승을 내년 계획에 반영해야 한다.</p><p class="st-meta">The Korea Herald · 11월 8일 14:40 · 단일 출처 · South Korea</p></div></details><details class="story bar" data-i="7" id="robotics-2" data-r style="--d:4">
+<summary><a class="st-t" href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPSTJmdUNMZkpSM2wybFVJdkgxbEtiTl9LVTdtNUR3YllUcVNBSTdKaGxDenZQNWhDdVNnU2F2R3Zhbmdicl82NldLV185ZHp0RWxlU1pYWmwwY0IwY0lieVJFSExPb2c1YU1YNEluTlhGNk9nZ0cwWDhIeFpOTkZrZUFzVmJJZkUw?oc=5" target="_blank" rel="noopener">중국 X-Humanoid, 휴머노이드 Tiangong용 전신 제어 모델 &#x27;Hi-WBC&#x27; 공개</a><span class="bar-x" aria-hidden="true">+</span></summary>
+<div class="bar-body"><p class="st-why"><b>왜 중요한가</b> 휴머노이드의 걷기·균형 같은 전신 제어를 모델로 풀려는 중국 연구소의 결과물이라, 같은 문제를 다루는 국내 팀이 성능을 견줄 기준점이 하나 더 생겼다.</p><p class="st-meta">Pandaily · 11월 8일 15:53 · 단일 출처 · Beijing</p></div></details></div>
+</section>
+<section class="sec sheet-sec" id="world" aria-labelledby="h-world">
+<div class="sheet">
+<h2 class="sec-h" id="h-world" data-r style="--d:0"><span class="cat-dot" style="--c:#e9b21b" aria-hidden="true"></span>세계</h2>
+<p class="sec-note" data-r style="--d:1">5건 · 연합뉴스, Al Jazeera</p>
+<div class="grp"><h3 class="grp-h" data-r style="--d:0">주요 소식</h3><ul class="sh-list"><li class="story sh-item" data-i="8" id="world-0" data-r style="--d:1">
+<div class="row-top"><a class="st-t" href="https://www.yna.co.kr/view/AKR20261108042200079" target="_blank" rel="noopener">후티 반군 공격에 사우디 리야드 금융지구의 Aramco 건물 파손</a><span class="st-when">17:26</span></div>
+<p class="st-sum">예멘 후티 반군의 발사체 공격으로 사우디아라비아 수도 리야드의 킹압둘라 금융지구(KAFD)에 있는 Aramco 건물이 파손됐다. 사우디 에너지부는 떨어진 파편에 건물이 피해를 입었다고 밝혔다.</p><p class="st-why"><b>왜 중요한가</b> 사우디 공습과 후티의 맞대응이 석유시설을 넘어 수도 금융 중심지까지 번져, 이번 주 유가와 중동 항공편 운항에 미칠 영향을 지켜봐야 한다.</p><p class="st-more">함께 보도: <a class="more" href="https://www.aljazeera.com/news/2026/11/8/saudi-arabia-intercepts-houthi-missiles-targeting-riyadh-eastern-province?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera</a></p><p class="st-meta"><b>주요 기사</b> · 연합뉴스 · 2개 매체 보도 · Saudi Arabia</p></li></ul></div><div class="grp"><h3 class="grp-h" data-r style="--d:0">그 밖의 소식</h3><ul class="sh-list"><li class="story sh-item" data-i="9" id="world-1" data-r style="--d:1">
+<div class="row-top"><a class="st-t" href="https://www.yna.co.kr/view/AKR20261108036600009" target="_blank" rel="noopener">미국 의회 장악한 민주당, 우크라이나 지원 확대·러시아 제재 강화 추진</a><span class="st-when">16:17</span></div>
+<p class="st-sum">중간선거에서 상·하원을 모두 차지한 민주당이 20조 원 규모의 우크라이나 지원과 러시아 제재 강화를 추진한다. 우크라이나는 미국의 지원 확대를 기대하지만 트럼프 대통령의 평화 협상과 군사 지원 지속 여부는 불확실하다.</p><p class="st-why"><b>왜 중요한가</b> 새 의회가 실제로 지원 예산을 통과시킬지가 아부다비 3자 회담을 앞둔 우크라이나의 협상력을 좌우한다.</p><p class="st-more">함께 보도: <a class="more" href="https://www.aljazeera.com/news/2026/11/8/democrats-congressional-win-could-strengthen-ukraines-hand-against-russia?traffic_source=rss" target="_blank" rel="noopener">Al Jazeera</a></p><p class="st-meta">연합뉴스 · 2개 매체 보도 · Washington</p></li><li class="story sh-item" data-i="10" id="world-2" data-r style="--d:2">
+<div class="row-top"><a class="st-t" href="https://www.yna.co.kr/view/AKR20261108029300073" target="_blank" rel="noopener">한국 육군·해군 참모총장, 이달 일본 방문해 자위대 수뇌부와 회담</a><span class="st-when">14:58</span></div>
+<p class="st-sum">한국의 육군 참모총장과 해군 참모총장이 이달 중순 일본을 방문해 육상자위대·해상자위대 수뇌부와 각각 회담한다.</p><p class="st-why"><b>왜 중요한가</b> 두 군 수장이 같은 달 함께 일본을 찾는 만큼, 회담 뒤 발표될 한일 군사 교류·훈련 합의 내용을 볼 필요가 있다.</p><p class="st-more">함께 보도: <a class="more" href="https://news.google.com/rss/articles/CBMibkFVX3lxTFBOVXRETGQwLTAySUppZ1NTZGcxR2VKQ3M2NjVTeFVFNy01c1FuT1dGU1c1RXZ4S3ZZSmRlYjlaSkl5dl9LWFB5QkhDTmpNdG5ub05RdW40RkVxUWI5dFl6cFVGMmpIbUpacWFMWnRR?oc=5" target="_blank" rel="noopener">news.sbs.co.kr</a></p><p class="st-meta">연합뉴스 · 2개 매체 보도 · Tokyo</p></li><li class="story sh-item" data-i="11" id="world-3" data-r style="--d:3">
+<div class="row-top"><a class="st-t" href="https://www.aljazeera.com/news/2026/11/8/earthquake-hits-central-japan-injuring-more-than-20-people?traffic_source=rss" target="_blank" rel="noopener">일본 시즈오카현 규모 5.7 지진…20여 명 부상</a><span class="st-when">13:20</span></div>
+<p class="st-sum">일본 중부 시즈오카현에서 규모 5.7 지진이 일어나 20명 넘게 다쳤고, 당국은 며칠간 강한 여진 가능성을 경고했다.</p><p class="st-meta">Al Jazeera · 단일 출처 · Japan</p></li><li class="story sh-item" data-i="12" id="world-4" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter?traffic_source=rss" target="_blank" rel="noopener">가자지구 폭우로 천막 수천 개 무너져 수만 명 거처 잃어</a><span class="st-when">18:28</span></div>
+<p class="st-sum">가자지구에 폭우가 쏟아져 피란민 천막과 대피소 수천 곳이 파괴되면서 수만 명이 거처를 잃었고, 민방위대에는 긴급 신고가 1,500건 넘게 들어왔다. 이스라엘의 구호 물자 제한이 대응을 어렵게 하고 있다.</p><p class="st-meta">Al Jazeera · 단일 출처 · Gaza</p></li></ul></div>
+<p class="sheet-end">11월 8일 20:34 KST 수집<br>제목을 누르면 원문으로 이동해요</p>
+</div>
+</section>
+<section class="sec act" id="korea" aria-labelledby="h-korea">
+<h2 class="sec-h" id="h-korea" data-r style="--d:0"><span class="cat-dot" style="--c:#7d4cdb" aria-hidden="true"></span>국내</h2>
+<p class="sec-note" data-r style="--d:1">4건 · 연합뉴스, The Korea Herald</p>
+<ul class="act-list"><li class="story act-row" data-i="13" id="korea-0" data-r style="--d:2">
+<div class="row-top"><a class="st-t" href="https://www.yna.co.kr/view/AKR20261108032300004" target="_blank" rel="noopener">조작기소 특검에 내년까지 380억 원 이상 투입…7차례 특검 중 최대</a><span class="st-when">17:27</span></div>
+<p class="st-sum">윤석열 정부 검찰의 조작 수사·기소 의혹을 수사하는 &#x27;조작기소 특검법&#x27;이 조만간 시행돼 내년까지 380억 원 이상이 투입된다. 더불어민주당 주도로 국회를 통과한 이 법을 두고 국민의힘은 &#x27;대통령 탈옥법&#x27;이라고 비판했고, 민주당은 &#x27;정치검찰 감싸기&#x27;라고 맞섰다.</p><p class="st-why"><b>왜 중요한가</b> 이재명 대통령 사건도 수사 대상에 들어 있어 법 시행 뒤 특검 임명 절차와 위헌 논란의 향방이 다음에 볼 대목이다.</p><p class="st-more">함께 보도: <a class="more" href="https://www.yna.co.kr/view/AKR20261107037851004" target="_blank" rel="noopener">연합뉴스</a>, <a class="more" href="https://www.khan.co.kr/article/202611081559001/?utm_source=khan_rss&amp;utm_medium=rss&amp;utm_campaign=politic_news" target="_blank" rel="noopener">경향신문</a>, <a class="more" href="https://www.chosun.com/politics/assembly/2026/11/08/3Z4FTCKYJ5HX3F7PGMPHJ6QI5Y/" target="_blank" rel="noopener">조선일보</a></p><p class="st-meta"><b>주요 기사</b> · 연합뉴스 · 3개 매체 보도 · Seoul</p></li><li class="story act-row" data-i="14" id="korea-1" data-r style="--d:3">
+<div class="row-top"><a class="st-t" href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFBERjFQMl8yZnZ5bnBoU3B2dFNxNWdYMUJkdTJ6TUQzUVdaWVdmaVE2SHNxRy1qOVlqa3kxZUU5N0tPekp0Vm9leEVYZkJNeF9SbHRuYWY2RQ?oc=5" target="_blank" rel="noopener">정부, 부천 사망 사고 뒤 소방 긴급 지원 2조 원 검토</a><span class="st-when">20:10</span></div>
+<p class="st-sum">국무총리가 부천 사망 사고 이후 소방 지원 전반을 재검토하겠다고 밝혔고, 정부는 지방 재정난 속에 2조 원 규모 긴급 소방 지원을 검토하고 있다. 청와대는 미래대응기금 활용을 검토한다고 밝혔다.</p><p class="st-why"><b>왜 중요한가</b> 지방 재정으로 감당하던 소방 예산을 중앙정부가 얼마나 떠안을지가 내년 예산 심사에서 정해진다.</p><p class="st-more">함께 보도: <a class="more" href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPdUhsOWFFZHpBWksxMlJSZkxrZDZUY2t6SmVoQzFNdDVheVhhbmI0WVRLOTVCbWJvZUNEazNiazlaaHVyR0EwVnJmazN2TDdHVDlCcXZ1UlJNUS1kbnN0QjZZTDZTOWhybnUtVW5mVk03R0toSDJlb3duNGVtOEt0RllKY3B6LVE1TENtcWs4cmxFRGtQa2JFTl9XQ1NsUFZxYVgw?oc=5" target="_blank" rel="noopener">Seoul Economic Daily</a>, <a class="more" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxONTBfRlRWcUtxWFVud3JKRmY5NjE2VHBCNmVlOVNYbWdTQjlUVVlDeGNRN2ZGQk9QR0oxYzhkNFdYQ2puUmpYMktOTjgwTUdmN2VhY1p4akpUeXVUczFaTFJjYkx3bmRpTVBVSDhPVEdfVmdwZ20wbGRnSWxYSjhuUGIwVTFTRlU4emRzVzBJMjQ3dzEySWxyMklrNE1XVVdlaEJ4Z3dkbVlzWkp3ZlZtUng0NVJocTh6UjZqbzlmWXdkSDJmSk9nTFBuRFhMUnc?oc=5" target="_blank" rel="noopener">Korea JoongAng Daily</a>, <a class="more" href="https://www.chosun.com/politics/politics_general/2026/11/08/J5XNXOIROVB2JI7IGBLQACLQIY/" target="_blank" rel="noopener">조선일보</a></p><p class="st-meta">The Korea Herald · 4개 매체 보도 · Seoul</p></li><li class="story act-row" data-i="15" id="korea-2" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://www.yna.co.kr/view/AKR20261108044551004" target="_blank" rel="noopener">서울대 총장 최종후보에 최해천 기계공학부 석좌교수…공대 출신 20년 만</a><span class="st-when">18:49</span></div>
+<p class="st-sum">서울대학교 제29대 총장 최종 후보로 최해천(64) 기계공학부 석좌교수가 8일 선출됐다. 공과대학 출신이 최종 후보가 된 것은 20년 만이다.</p><p class="st-why"><b>왜 중요한가</b> 공학자 출신 총장 후보가 나온 만큼 서울대의 기술사업화·창업 지원 정책이 어떻게 바뀔지 볼 만하다.</p><p class="st-more">함께 보도: <a class="more" href="https://www.yna.co.kr/view/AKR20261108044500004" target="_blank" rel="noopener">연합뉴스</a>, <a class="more" href="https://www.yna.co.kr/view/AKR20261108044700004" target="_blank" rel="noopener">연합뉴스</a></p><p class="st-meta">연합뉴스 · 단일 출처 · Seoul</p></li><li class="story act-row" data-i="16" id="korea-3" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://www.yna.co.kr/view/AKR20261108033900005" target="_blank" rel="noopener">SM엔터테인먼트, 임직원 주민등록번호·계좌번호 유출…&quot;진심으로 사과&quot;</a><span class="st-when">16:09</span></div>
+<p class="st-sum">SM엔터테인먼트와 일부 계열사에서 임직원의 주민등록번호와 계좌번호 등 개인정보가 유출됐다.</p><p class="st-meta">연합뉴스 · 단일 출처 · Seoul</p></li></ul>
+</section>
+<section class="sec ends" id="economy" aria-labelledby="h-economy">
+<div class="ends-col">
+<h2 class="sec-h" id="h-economy" data-r style="--d:0"><span class="cat-dot" style="--c:#d8382b" aria-hidden="true"></span>경제</h2>
+<p class="sec-note" data-r style="--d:1">5건 · UA.NEWS, 한국경제, ZDNet Korea 외 1곳 · 기사가 난 곳으로 묶었어요</p>
+<div class="end-grp"><p class="end-g" data-r style="--d:0">미주</p><ul class="end-list"><li class="story end-row" data-i="17" id="economy-0" data-r style="--d:1">
+<span class="dot" aria-hidden="true"></span><div class="end-main"><a class="st-t" href="https://news.google.com/rss/articles/CBMipwFBVV95cUxNZEFKeVJjRGhncC01WTA4QmFJZW1wZHVCeGJhSWxfc252MFVJMlFKNFVwMXlLeldVTDlYVWg1QmYyME12Si00bXlvdVNOS1V6WFNIRzlOQWliYzJuU1NiNE13QTl1dUVuejQ2TURBSzcyUUZ6QlpkVnZWd0ZSUHdxWFZWMDBZb2Jjakw5cmRucWxnU3M0VEY3eU42M2JnM1dLWU1mU0ZQNA?oc=5" target="_blank" rel="noopener">미국 민주당, 트럼프 관세에 입법으로 제동 준비</a><p class="st-sum">미국 민주당이 트럼프 대통령의 관세를 법으로 제한하는 방안을 준비하면서 관세의 경제적 비용을 두고 트럼프 대통령과 의회의 충돌이 예상된다.</p><p class="st-why"><b>왜 중요한가</b> 새 의회가 관세 제한 법안을 통과시키면 미국에 수출하는 한국 기업의 관세 부담이 달라져, 법안 처리 일정을 지켜봐야 한다.</p><p class="st-more">함께 보도: <a class="more" href="https://news.google.com/rss/articles/CBMimAFBVV95cUxQZW5GSDZyNFNMRE1oTmF2c3NITkNaemV2bkpUMFR4MUJLMW53TkQybkpzeVlOTWEtNm82MnFTYVE4eXdpS2ZBN051UUhZdkhaZ0oweU1KaVRSZDd6Nkp0ZUtNanh2cTdxYm93cGg5NVlCOGhBYldNMlhMWU9CbGJRdzA3cVh6eDdmbUxESkRRRkJkWEJnTklZMA?oc=5" target="_blank" rel="noopener">Jefferson City News Tribune</a></p><p class="st-meta">UA.NEWS · 2개 매체 보도 · Washington</p></div><span class="st-when">20:24</span></li></ul></div><div class="end-grp"><p class="end-g" data-r style="--d:0">아시아·태평양</p><ul class="end-list"><li class="story end-row" data-i="18" id="economy-1" data-r style="--d:1">
+<span class="dot" aria-hidden="true"></span><div class="end-main"><a class="st-t" href="https://www.hankyung.com/article/2026110833851" target="_blank" rel="noopener">Visa·Mastercard 수수료에서 벗어난 한국형 &#x27;터치 결제&#x27; 나온다</a><p class="st-why"><b>왜 중요한가</b> 해외 카드 브랜드 수수료가 빠지면 국내 온·오프라인 가맹점의 결제 비용 구조가 달라져, 결제 연동을 앞둔 스타트업은 지원 시기를 확인해야 한다.</p><p class="st-more">함께 보도: <a class="more" href="https://www.hankyung.com/article/2026110832091" target="_blank" rel="noopener">한국경제</a></p><p class="st-meta">한국경제 · 단일 출처 · South Korea</p></div><span class="st-when">19:54</span></li><li class="story end-row" data-i="19" id="economy-2" data-r style="--d:2">
+<span class="dot" aria-hidden="true"></span><div class="end-main"><a class="st-t" href="https://www.hankyung.com/article/2026110832081" target="_blank" rel="noopener">카카오뱅크·토스뱅크, Apple Pay 도입</a><p class="st-why"><b>왜 중요한가</b> 인터넷은행까지 Apple Pay를 붙이면 아이폰 사용자 결제 수단이 넓어져, 오프라인 매장을 둔 스타트업은 NFC 단말 지원 여부를 다시 볼 필요가 있다.</p><p class="st-meta">한국경제 · 단일 출처 · South Korea</p></div><span class="st-when">17:29</span></li><li class="story end-row" data-i="20" id="economy-3" data-r style="--d:3">
+<span class="dot" aria-hidden="true"></span><div class="end-main"><a class="st-t" href="https://zdnet.co.kr/view/?no=20261108125758" target="_blank" rel="noopener">대한상의 조사 &quot;제조기업 10곳 중 3곳만 설비 전기화 추진&quot;</a><p class="st-sum">대한상공회의소가 제조업체 307개사를 조사한 결과 화석연료 설비를 전기로 바꾸는 전기화를 추진 중인 곳은 31.9%, 추진 예정은 5.2%였고 62.9%는 계획이 없었다. 기업들은 초기 투자비를 가장 큰 걸림돌로 꼽았다.</p><p class="st-meta">ZDNet Korea · 2개 매체 보도 · South Korea</p></div><span class="st-when">12:59</span></li><li class="story end-row" data-i="21" id="economy-4" data-r style="--d:4">
+<span class="dot" aria-hidden="true"></span><div class="end-main"><a class="st-t" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPSDctckNzc0xRUXdDNzVaZFRSNXRFdGFoMDduamYwNTdLeWRNS2J1WnJZNlY1LUI1OGVRQTRPWVpldjIzUENLelBrZFUwcXhoM0JNZWtIY0xZTTJfN2dia3hsOEdPbVI5OWg1ZG0yRFU3SmtoTU9USHNJS28xY1AtZlRacVJFMVpUdVo2NUVrQ1pXMW1KSEtRY2taUUMtdnNrWHVKNGFUc1h0UEJmTWhhQnlERm9XNkJaeXFOcUtB0gHDAUFVX3lxTFBzSW96UVZjckpxc1h2X0NFdHF1VmNqUDJ3ZTRsNHA4UUg3WGFNWEFwb1ppcGtDWDZuMDB3bEFGRElrYTI0UnYwOUZxdy1fM2N1U290ZW5HXzJPWW5uZVdBWjRGX3BxUkV4azdONFU2TVRvNVJSYW5FR0JBdVpqRzk4WGM0S00wNk1MTXljbGN0ZGp0QnY3T0g2VGZFM0xNQ3NHeFp2ckdZclR6b2x1TWZveXZzWDkzRXFXVFVEOUcwX3pRTQ?oc=5" target="_blank" rel="noopener">한국 부양비, 2048년 OECD 최저에서 최고로 바뀐다</a><p class="st-meta">The Korea Times · 단일 출처 · South Korea</p></div><span class="st-when">14:28</span></li></ul></div>
+</div>
+</section>
+<section class="sec act" id="beauty" aria-labelledby="h-beauty">
+<h2 class="sec-h" id="h-beauty" data-r style="--d:0"><span class="cat-dot" style="--c:#d6409a" aria-hidden="true"></span>뷰티</h2>
+<p class="sec-note" data-r style="--d:1">3건 · 한국경제, KED Global, The Manila Times</p>
+<ul class="act-list"><li class="story act-row" data-i="22" id="beauty-0" data-r style="--d:2">
+<div class="row-top"><a class="st-t" href="https://www.hankyung.com/article/2026110832611" target="_blank" rel="noopener">해외 사모펀드 LYFE Capital, 피부과 화장품 기업 메디안스 인수</a><span class="st-when">18:10</span></div>
+<p class="st-sum">LYFE Capital이 피부과 화장품(코스메슈티컬) 기업 메디안스를 인수한다. 한국경제는 인수가를 2,000억 원, KED Global은 최대 1억 4,700만 달러로 전했다.</p><p class="st-why"><b>왜 중요한가</b> 해외 자본이 더마 화장품 브랜드를 2,000억 원대에 사들이면서 비슷한 국내 화장품 스타트업의 매각 가격을 따질 비교 사례가 생겼다.</p><p class="st-more">함께 보도: <a class="more" href="https://news.google.com/rss/articles/CBMidkFVX3lxTFBiSFFhZERJY3VHckVlNFg0QTV0N19yc196X2M1aUphZU8yUWJ5cnV3OTBjcnYyNXdrNjlPeGZkT2s2T0JUdXdJUWJrVHhVUUQ1TzB2aHllczR1MjZjcTMzQ1NFWnBXdTAwbVJDNWlDR19VUUtScUE?oc=5" target="_blank" rel="noopener">KED Global</a></p><p class="st-meta"><b>주요 기사</b> · 한국경제 · 2개 매체 보도 · South Korea</p></li><li class="story act-row" data-i="23" id="beauty-1" data-r style="--d:3">
+<div class="row-top"><a class="st-t" href="https://news.google.com/rss/articles/CBMidkFVX3lxTE84WkJJUmM3cHozcVV6REEwYjVyekVqdERzOTRiN2I3WlY3TlMtLXJsS2wzV0czQkRjRmFldnkzTjh2LUwxcU0yZFZWamtzc3p0RlBJRmdrZl96MWtLQWpQUjhaY2g0NlBhVndjMjYxNktqZXJyNGc?oc=5" target="_blank" rel="noopener">Blackstone이 투자한 준오헤어, K-뷰티 아카데미 방식으로 미국 진출 추진</a><span class="st-when">20:21</span></div>
+<p class="st-why"><b>왜 중요한가</b> 국내 미용 서비스 기업이 교육 체계를 앞세워 미국 시장을 노리는 사례라, 뷰티 서비스 창업자가 해외 진출 방식을 정할 때 참고할 만하다.</p><p class="st-meta">KED Global · 단일 출처 · Seoul</p></li><li class="story act-row" data-i="24" id="beauty-2" data-r style="--d:4">
+<div class="row-top"><a class="st-t" href="https://news.google.com/rss/articles/CBMi2AFBVV95cUxOZkRrbXNYN0hiLTl4SlBPQjNqSFhDaGl6T3pJcGhjeHJ5QnJlajRzSEY0Mld3NDV1cGJnUlBoWG5LWWw0d0VQekJyMW1UMFh0MzhuUjhwUWpKTERqMDREeDhLekFOdFZpZzlZS2w3WVc4UTd1NGJkVUc5cFBHSk9Xd0hXaDdHNGdOOE9lWGFKRnRGNlhVUXV4bFBIbVZKd3RuYjVDN0pTN25UTWNOVWNHTzdBaEpOYWF5RVhjV2lVMXl2bHo5OGJTLU9lZ1VsOGtONFN6aDAxNlnSAd4BQVVfeXFMUFBiWWt3WGEwbXYzOVJ2MFJBdjNFZ09mUUtiajhtSm9PajV5M3hPaGVOcHlBN1dDWmZ3R2pvQTFOc0kyQlNqd18yeG9pMWdPWGFBLUlxd0hJS1VBYkNSQkVDbERMc0FUdkFrSEREX1haVWFrblJVRXhXXzUxUGlWVm9EV0ZfaWFvQW5nUU5zX0F2RDJEZmxnLXYtZGZoQk83RnlOYVJOOWtrdVpTYkF1NktrTEEwQWU3N3plRDhHVzl2aDdhTUpQMUI2VElsWlNfOFhoc2gwa1c5SDFlOENB?oc=5" target="_blank" rel="noopener">K-뷰티 편집숍 Dear Seoul, 필리핀 SM Makati에 매장 개점</a><span class="st-when">18:25</span></div>
+<p class="st-why"><b>왜 중요한가</b> K-뷰티 브랜드를 한곳에 모은 편집숍이 필리핀 대형 쇼핑몰에 들어서 동남아 진출을 노리는 중소 브랜드에 새 입점 창구가 생겼다.</p><p class="st-meta">The Manila Times · 단일 출처 · Philippines</p></li></ul>
+</section>
+  </main>
+</div>
+<footer class="foot">
+  <div class="foot-top">
+    <nav class="foot-nav" aria-label="분야 다시 보기"><a href="#ai"><span class="cat-dot" style="--c:#2f5bd8" aria-hidden="true"></span>AI<span class="n">5</span></a><a href="#robotics"><span class="cat-dot" style="--c:#1c8a55" aria-hidden="true"></span>로보틱스<span class="n">3</span></a><a href="#world"><span class="cat-dot" style="--c:#e9b21b" aria-hidden="true"></span>세계<span class="n">5</span></a><a href="#korea"><span class="cat-dot" style="--c:#7d4cdb" aria-hidden="true"></span>국내<span class="n">4</span></a><a href="#economy"><span class="cat-dot" style="--c:#d8382b" aria-hidden="true"></span>경제<span class="n">5</span></a><a href="#beauty"><span class="cat-dot" style="--c:#d6409a" aria-hidden="true"></span>뷰티<span class="n">3</span></a><a href="#markets">시장</a><a href="#top">맨 위로</a></nav>
+    <div class="foot-info">
+      <p>AI가 고르고 요약했어요. 요약은 기사 제목과 소개문만 근거로 썼으니, 중요한 내용은 원문에서 확인하세요.</p>
+      <details><summary>수집한 피드 41곳</summary><ul><li>AI · OpenAI · 0/1368건</li><li>AI · Google DeepMind · 0/100건</li><li>AI · Hugging Face · 0/899건</li><li>AI · TechCrunch · 0/20건</li><li>AI · Google News · 25/100건</li><li>AI · Google News · 22/66건</li><li>AI · AI타임스 · 2/50건</li><li>AI · ZDNet Korea · 13/30건</li><li>AI · Claude Code · 0/10건</li><li>AI · GitHub Changelog 0/10건</li><li>AI · Simon Willison · 0/30건</li><li>AI · The Verge · 0/10건</li><li>AI · Bloomberg · 0/5건</li><li>AI · Hacker News · 0/9건</li><li>Robotics · IEEE Spectrum · 0/30건</li><li>Robotics · Google News · 15/100건</li><li>Robotics · 로봇신문 · 0/50건</li><li>Robotics · The Robot Report 0/15건</li><li>World News BBC · 3/25건</li><li>World News The Guardian · 16/45건</li><li>World News NPR · 1/10건</li><li>World News Al Jazeera · 22/25건</li><li>World News Google News · 25/100건</li><li>World News 연합뉴스 · 25/120건</li><li>Korea · 연합뉴스 · 실패 ParseError: not well-formed (invalid token): line 723, column 80</li><li>Korea · 연합뉴스 · 25/120건</li><li>Korea · 조선일보 · 5/100건</li><li>Korea · 경향신문 · 7/50건</li><li>Economy · BBC · 2/45건</li><li>Economy · Federal Reserve · 0/15건</li><li>Economy · Google News · 25/100건</li><li>Economy · Google News · 19/49건</li><li>Economy · 연합뉴스 · 3/120건</li><li>Economy · 한국경제 · 25/50건</li><li>Economy · 벤처스퀘어 · 1/30건</li><li>Beauty · WWD · 0/10건</li><li>Beauty · Glossy · 0/20건</li><li>Beauty · 장업신문 · 0/50건</li><li>Beauty · Google News · 3/25건</li><li>Beauty · Google News · 6/24건</li><li>Beauty · Google News · 7/22건</li></ul></details>
+    </div>
+  </div>
+  <div class="foot-places"><div class="fp"><p class="fp-l">오늘 기사가 난 곳, 지구본에 찍힌 순서대로</p><p class="places">San Francisco · South Korea · Hangzhou · Washington · Beijing · Saudi Arabia · Tokyo · Japan · Gaza · Seoul · Philippines</p></div><div class="fp" id="past"><p class="fp-l">지난 판</p><div class="cals"><div class="cal-nav"><button type="button" data-d="-1" aria-label="이전 달">‹</button><button type="button" data-d="1" aria-label="다음 달">›</button></div><table class="cal"><caption>2026년 10월</caption><thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td><span>1</span></td><td><span>2</span></td><td><span>3</span></td></tr><tr><td><span>4</span></td><td><span>5</span></td><td><span>6</span></td><td><span>7</span></td><td><span>8</span></td><td><span>9</span></td><td><span>10</span></td></tr><tr><td><span>11</span></td><td><span>12</span></td><td><span>13</span></td><td><span>14</span></td><td><span>15</span></td><td><span>16</span></td><td><span>17</span></td></tr><tr><td><span>18</span></td><td><span>19</span></td><td><span>20</span></td><td><span>21</span></td><td><span>22</span></td><td><span>23</span></td><td><span>24</span></td></tr><tr><td><span>25</span></td><td><span>26</span></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-27.html" aria-label="10월 27일(화)">27</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-28.html" aria-label="10월 28일(수)">28</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-29.html" aria-label="10월 29일(목)">29</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-30.html" aria-label="10월 30일(금)">30</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-10-31.html" aria-label="10월 31일(토)">31</a></td></tr></tbody></table><table class="cal"><caption>2026년 11월</caption><thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead><tbody><tr><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-01.html" aria-label="11월 1일(일)">1</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-02.html" aria-label="11월 2일(월)">2</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-03.html" aria-label="11월 3일(화)">3</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-04.html" aria-label="11월 4일(수)">4</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-05.html" aria-label="11월 5일(목)">5</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-06.html" aria-label="11월 6일(금)">6</a></td><td><a href="https://mrtmi-0315.github.io/morning-wire/2026-11-07.html" aria-label="11월 7일(토)">7</a></td></tr><tr><td><b aria-current="date">8</b></td><td><span>9</span></td><td><span>10</span></td><td><span>11</span></td><td><span>12</span></td><td><span>13</span></td><td><span>14</span></td></tr><tr><td><span>15</span></td><td><span>16</span></td><td><span>17</span></td><td><span>18</span></td><td><span>19</span></td><td><span>20</span></td><td><span>21</span></td></tr><tr><td><span>22</span></td><td><span>23</span></td><td><span>24</span></td><td><span>25</span></td><td><span>26</span></td><td><span>27</span></td><td><span>28</span></td></tr><tr><td><span>29</span></td><td><span>30</span></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div></div>
+  <p class="foot-mark" aria-hidden="true">morning wire</p>
+  <p class="foot-legal">TMI 모닝 와이어 · 2026년 11월 8일 일요일 석간 · 저녁에 확인해보는 소식들</p>
+</footer>
+<script type="application/json" id="globe-data">{"stories": [{"c": "AI", "col": "#2f5bd8", "t": "Anthropic, 데이터센터용 가스 화력 발전에 34억 달러 계약", "u": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQaDhoaHlMZk8tNWhZWlFEczhOc1FpNnZjcnlZTF9MUDJrVG5mb2NvUkdzZlBldmx2YkhEMkQtdVRuaXpWYkhTcDd2N3VLWlFvLW81S0ttcWxKTUlkdXBOMWRNZUIzS0o4ZVM1Y1dpbUIxRG4waXdxRVlncjJiVTM2TGtTZ0g?oc=5", "s": "Financial Times", "p": "San Francisco", "l": [37.77, -122.42]}, {"c": "AI", "col": "#2f5bd8", "t": "ChatGPT 국내 월간 앱 이용자 처음으로 1,800만 명 넘어", "u": "https://zdnet.co.kr/view/?no=20261108123102", "s": "ZDNet Korea", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "AI", "col": "#2f5bd8", "t": "중국 앤트그룹, 멀티모달 모델 'Ling 3.2 Flash' 공개…일부 시각 평가서 Claude Opus 5 앞서", "u": "https://www.aitimes.com/news/articleView.html?idxno=217146", "s": "AI타임스", "p": "Hangzhou", "l": [30.27, 120.16]}, {"c": "AI", "col": "#2f5bd8", "t": "Anthropic 보고서 \"과학자들 Claude는 데이터 분석에 가장 많이 쓰고 가설 생성엔 4%\"", "u": "https://www.aitimes.com/news/articleView.html?idxno=217147", "s": "AI타임스", "p": "San Francisco", "l": [37.77, -122.42]}, {"c": "AI", "col": "#2f5bd8", "t": "미국 AI 안전 센터 직원들, 백악관에 직접 보고…독립성 우려 제기", "u": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPdFcyczl1X05tMHZWajQtNlZIZ096MnJMcXRzZjM0VlV3VXV1bk9SWUhpajJ3dGhuNEhsa2doc29iMElpWVdMdWM1SXpySkMxVnA4VHdNTXZoR2lIRmxxVmxJb3BXazJHaEY4VndHT2J0TjZFWVZkeXVUaG0tRV8xVHp6eEU1VlJ4azFZTC1PLWZPbDdYNkpNTWtoOUZJRTNRVnpvXzVCbw?oc=5", "s": "The Boston Globe", "p": "Washington", "l": [38.91, -77.04]}, {"c": "로보틱스", "col": "#1c8a55", "t": "삼성전자, 현대차그룹 휴머노이드 Atlas에 메모리 공급", "u": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNQ2o4ZVNIVHVoeFd4V2RqZ0tveTNjQ3ZockVMOGxPSFo3RzBLSUlURHlGLW5Rd0YycTFRb3pjUUVlUlRCSjBGSE1IanJnTlBwMkMwTGQyOWQ0aGQxV0N6Z3RTRnJVZWc2NlFaNXIybEw2RUdRZ1Rvb0xpUEIzQzFMbDFxSzhwMU9fXzFNc0tNcnc4UldrQmc?oc=5", "s": "Seoul Economic Daily", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "로보틱스", "col": "#1c8a55", "t": "삼성·LG, 로봇 상용화 앞두고 해외에서 로보틱스 인재 영입", "u": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFB1V2hxSWZMQTI4Ykx1TGJJd3N6VXNkV0ExTFZWbmsyV1ZzX1laamFtX3dlVGZ3bXVvRTRwMTBGNS1JQXN1UC1JNmwzYnRnQlhrRW9pdUcxRQ?oc=5", "s": "The Korea Herald", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "로보틱스", "col": "#1c8a55", "t": "중국 X-Humanoid, 휴머노이드 Tiangong용 전신 제어 모델 'Hi-WBC' 공개", "u": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPSTJmdUNMZkpSM2wybFVJdkgxbEtiTl9LVTdtNUR3YllUcVNBSTdKaGxDenZQNWhDdVNnU2F2R3Zhbmdicl82NldLV185ZHp0RWxlU1pYWmwwY0IwY0lieVJFSExPb2c1YU1YNEluTlhGNk9nZ0cwWDhIeFpOTkZrZUFzVmJJZkUw?oc=5", "s": "Pandaily", "p": "Beijing", "l": [39.9, 116.4]}, {"c": "세계", "col": "#e9b21b", "t": "후티 반군 공격에 사우디 리야드 금융지구의 Aramco 건물 파손", "u": "https://www.yna.co.kr/view/AKR20261108042200079", "s": "연합뉴스", "p": "Saudi Arabia", "l": [24.71, 46.68]}, {"c": "세계", "col": "#e9b21b", "t": "미국 의회 장악한 민주당, 우크라이나 지원 확대·러시아 제재 강화 추진", "u": "https://www.yna.co.kr/view/AKR20261108036600009", "s": "연합뉴스", "p": "Washington", "l": [38.91, -77.04]}, {"c": "세계", "col": "#e9b21b", "t": "한국 육군·해군 참모총장, 이달 일본 방문해 자위대 수뇌부와 회담", "u": "https://www.yna.co.kr/view/AKR20261108029300073", "s": "연합뉴스", "p": "Tokyo", "l": [35.68, 139.69]}, {"c": "세계", "col": "#e9b21b", "t": "일본 시즈오카현 규모 5.7 지진…20여 명 부상", "u": "https://www.aljazeera.com/news/2026/11/8/earthquake-hits-central-japan-injuring-more-than-20-people?traffic_source=rss", "s": "Al Jazeera", "p": "Japan", "l": [35.68, 139.69]}, {"c": "세계", "col": "#e9b21b", "t": "가자지구 폭우로 천막 수천 개 무너져 수만 명 거처 잃어", "u": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter?traffic_source=rss", "s": "Al Jazeera", "p": "Gaza", "l": [31.5, 34.47]}, {"c": "국내", "col": "#7d4cdb", "t": "조작기소 특검에 내년까지 380억 원 이상 투입…7차례 특검 중 최대", "u": "https://www.yna.co.kr/view/AKR20261108032300004", "s": "연합뉴스", "p": "Seoul", "l": [37.57, 126.98]}, {"c": "국내", "col": "#7d4cdb", "t": "정부, 부천 사망 사고 뒤 소방 긴급 지원 2조 원 검토", "u": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBERjFQMl8yZnZ5bnBoU3B2dFNxNWdYMUJkdTJ6TUQzUVdaWVdmaVE2SHNxRy1qOVlqa3kxZUU5N0tPekp0Vm9leEVYZkJNeF9SbHRuYWY2RQ?oc=5", "s": "The Korea Herald", "p": "Seoul", "l": [37.57, 126.98]}, {"c": "국내", "col": "#7d4cdb", "t": "서울대 총장 최종후보에 최해천 기계공학부 석좌교수…공대 출신 20년 만", "u": "https://www.yna.co.kr/view/AKR20261108044551004", "s": "연합뉴스", "p": "Seoul", "l": [37.57, 126.98]}, {"c": "국내", "col": "#7d4cdb", "t": "SM엔터테인먼트, 임직원 주민등록번호·계좌번호 유출…\"진심으로 사과\"", "u": "https://www.yna.co.kr/view/AKR20261108033900005", "s": "연합뉴스", "p": "Seoul", "l": [37.57, 126.98]}, {"c": "경제", "col": "#d8382b", "t": "미국 민주당, 트럼프 관세에 입법으로 제동 준비", "u": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZEFKeVJjRGhncC01WTA4QmFJZW1wZHVCeGJhSWxfc252MFVJMlFKNFVwMXlLeldVTDlYVWg1QmYyME12Si00bXlvdVNOS1V6WFNIRzlOQWliYzJuU1NiNE13QTl1dUVuejQ2TURBSzcyUUZ6QlpkVnZWd0ZSUHdxWFZWMDBZb2Jjakw5cmRucWxnU3M0VEY3eU42M2JnM1dLWU1mU0ZQNA?oc=5", "s": "UA.NEWS", "p": "Washington", "l": [38.91, -77.04]}, {"c": "경제", "col": "#d8382b", "t": "Visa·Mastercard 수수료에서 벗어난 한국형 '터치 결제' 나온다", "u": "https://www.hankyung.com/article/2026110833851", "s": "한국경제", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "경제", "col": "#d8382b", "t": "카카오뱅크·토스뱅크, Apple Pay 도입", "u": "https://www.hankyung.com/article/2026110832081", "s": "한국경제", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "경제", "col": "#d8382b", "t": "대한상의 조사 \"제조기업 10곳 중 3곳만 설비 전기화 추진\"", "u": "https://zdnet.co.kr/view/?no=20261108125758", "s": "ZDNet Korea", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "경제", "col": "#d8382b", "t": "한국 부양비, 2048년 OECD 최저에서 최고로 바뀐다", "u": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPSDctckNzc0xRUXdDNzVaZFRSNXRFdGFoMDduamYwNTdLeWRNS2J1WnJZNlY1LUI1OGVRQTRPWVpldjIzUENLelBrZFUwcXhoM0JNZWtIY0xZTTJfN2dia3hsOEdPbVI5OWg1ZG0yRFU3SmtoTU9USHNJS28xY1AtZlRacVJFMVpUdVo2NUVrQ1pXMW1KSEtRY2taUUMtdnNrWHVKNGFUc1h0UEJmTWhhQnlERm9XNkJaeXFOcUtB0gHDAUFVX3lxTFBzSW96UVZjckpxc1h2X0NFdHF1VmNqUDJ3ZTRsNHA4UUg3WGFNWEFwb1ppcGtDWDZuMDB3bEFGRElrYTI0UnYwOUZxdy1fM2N1U290ZW5HXzJPWW5uZVdBWjRGX3BxUkV4azdONFU2TVRvNVJSYW5FR0JBdVpqRzk4WGM0S00wNk1MTXljbGN0ZGp0QnY3T0g2VGZFM0xNQ3NHeFp2ckdZclR6b2x1TWZveXZzWDkzRXFXVFVEOUcwX3pRTQ?oc=5", "s": "The Korea Times", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "뷰티", "col": "#d6409a", "t": "해외 사모펀드 LYFE Capital, 피부과 화장품 기업 메디안스 인수", "u": "https://www.hankyung.com/article/2026110832611", "s": "한국경제", "p": "South Korea", "l": [37.57, 126.98]}, {"c": "뷰티", "col": "#d6409a", "t": "Blackstone이 투자한 준오헤어, K-뷰티 아카데미 방식으로 미국 진출 추진", "u": "https://news.google.com/rss/articles/CBMidkFVX3lxTE84WkJJUmM3cHozcVV6REEwYjVyekVqdERzOTRiN2I3WlY3TlMtLXJsS2wzV0czQkRjRmFldnkzTjh2LUwxcU0yZFZWamtzc3p0RlBJRmdrZl96MWtLQWpQUjhaY2g0NlBhVndjMjYxNktqZXJyNGc?oc=5", "s": "KED Global", "p": "Seoul", "l": [37.57, 126.98]}, {"c": "뷰티", "col": "#d6409a", "t": "K-뷰티 편집숍 Dear Seoul, 필리핀 SM Makati에 매장 개점", "u": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOZkRrbXNYN0hiLTl4SlBPQjNqSFhDaGl6T3pJcGhjeHJ5QnJlajRzSEY0Mld3NDV1cGJnUlBoWG5LWWw0d0VQekJyMW1UMFh0MzhuUjhwUWpKTERqMDREeDhLekFOdFZpZzlZS2w3WVc4UTd1NGJkVUc5cFBHSk9Xd0hXaDdHNGdOOE9lWGFKRnRGNlhVUXV4bFBIbVZKd3RuYjVDN0pTN25UTWNOVWNHTzdBaEpOYWF5RVhjV2lVMXl2bHo5OGJTLU9lZ1VsOGtONFN6aDAxNlnSAd4BQVVfeXFMUFBiWWt3WGEwbXYzOVJ2MFJBdjNFZ09mUUtiajhtSm9PajV5M3hPaGVOcHlBN1dDWmZ3R2pvQTFOc0kyQlNqd18yeG9pMWdPWGFBLUlxd0hJS1VBYkNSQkVDbERMc0FUdkFrSEREX1haVWFrblJVRXhXXzUxUGlWVm9EV0ZfaWFvQW5nUU5zX0F2RDJEZmxnLXYtZGZoQk83RnlOYVJOOWtrdVpTYkF1NktrTEEwQWU3N3plRDhHVzl2aDdhTUpQMUI2VElsWlNfOFhoc2gwa1c5SDFlOENB?oc=5", "s": "The Manila Times", "p": "Philippines", "l": [14.6, 120.98]}], "tour": [0, 1, 5, 6, 8, 9, 13, 14, 17, 18, 22, 23]}</script>
+<script>
+// editions published after this page was built become links (Pages only; elsewhere they stay plain text)
+// 지난 판 달력: 이번 달부터 보여 주고 ‹ › 로 넘긴다
+document.querySelectorAll('.cals').forEach((box) => {
+  const cals = [...box.querySelectorAll('.cal')], btns = box.querySelectorAll('.cal-nav button');
+  let i = cals.length - 1;
+  const go = () => { cals.forEach((c, k) => c.classList.toggle('on', k === i)); btns[0] && (btns[0].disabled = i === 0, btns[1].disabled = i === cals.length - 1); };
+  btns.forEach((b) => b.addEventListener('click', () => { i = Math.min(cals.length - 1, Math.max(0, i + +b.dataset.d)); go(); }));
+  go();
+});
+document.querySelectorAll('.say-eds span[data-href]').forEach((el) => {
+  fetch(el.dataset.href, { method: 'HEAD', cache: 'no-store' }).then((r) => {
+    if (!r.ok) return;
+    const a = document.createElement('a'); a.href = el.dataset.href; a.textContent = el.textContent; el.replaceWith(a);
+  }).catch(() => {});
+});
+// entrances: once, and never left hidden if the observer is missing
+(() => {
+  const els = document.querySelectorAll('[data-r]');
+  if (!('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('is-in')); return; }
+  const io = new IntersectionObserver((es) => { for (const en of es) if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }, { threshold: 0 });
+  els.forEach((el) => io.observe(el));
+})();
+// fit "morning wire" to the width it has; every display-size word uses the same size
+(() => {
+  const mark = document.querySelector('.mark'), word = mark.firstElementChild;
+  const fit = () => {
+    const cur = parseFloat(getComputedStyle(word).fontSize), w = word.getBoundingClientRect().width / (parseFloat(getComputedStyle(mark).scale) || 1);
+    if (w > 0) document.documentElement.style.setProperty('--s-display', (cur * mark.clientWidth / w).toFixed(2) + 'px');
+  };
+  fit(); document.fonts && document.fonts.ready.then(fit);
+  let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fit, 80); });
+})();
+</script>
+<script type="module">
+const stage = document.getElementById('globe');
+const D = JSON.parse(document.getElementById('globe-data').textContent);
+const S = D.stories, T = D.tour;
+if (!S.length) throw new Error('no stories');
+const M = S.map((s, i) => ({ ...s, i })).filter((s) => s.l);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s) => stage.querySelector(s);
+const dl = $('.dateline'), link = $('.dl-a'), pauseBtn = $('.pause'), nextBtn = $('.next'), canvas = $('canvas');
+const rows = [...document.querySelectorAll('.story[data-i]')];
+const toAngles = ([lat, lng]) => [Math.PI - (lng * Math.PI / 180 - Math.PI / 2), lat * Math.PI / 180];
+const wrap = (x) => ((x + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+const rgb = (name) => { const h = getComputedStyle(stage).getPropertyValue(name).trim(); return [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); };
+let cur = T.length ? T[0] : 0, tpos = 0, timer = null, paused = reduce, target = null, globe = null, raf = 0, heroIn = true;
+let [phi, theta] = toAngles((S[cur] && S[cur].l) || [37.57, 126.98]); phi -= 1.2; theta = 0.3;
+
+const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
+const markers = () => { const k = S[cur] && S[cur].c;
+  return M.map((m) => ({ location: m.l, size: m.i === cur ? 0.1 : m.c === k ? 0.05 : 0.035, color: hex(m.col) })); };
+const coord = ([la, lo]) => `${Math.abs(la).toFixed(2)}°${la >= 0 ? 'N' : 'S'} ${Math.abs(lo).toFixed(2)}°${lo >= 0 ? 'E' : 'W'}`;
+
+function show(i, how) {
+  cur = i; const s = S[i];
+  $('.dl-where').style.setProperty('--c', s.col);
+  dl.setAttribute('aria-live', how === 'manual' ? 'polite' : 'off');
+  $('.dl-cat').textContent = s.c;
+  $('.dl-place').textContent = s.p || '장소 정보 없음';
+  $('.dl-coord').textContent = s.l ? ` · ${coord(s.l)}` : '';
+  $('.dl-count').textContent = how === 'tour' ? `주요 기사 ${T.indexOf(i) + 1}/${T.length}` : `기사 ${i + 1}/${S.length}`;
+  link.textContent = s.t; if (/^https?:\/\//.test(s.u)) link.href = s.u;
+  $('.dl-src').textContent = s.s;
+  dl.classList.remove('swap'); void dl.offsetWidth; dl.classList.add('swap');
+  rows.forEach((r) => r.classList.toggle('is-on', how !== 'tour' && +r.dataset.i === i));
+  if (s.l) { target = toAngles(s.l); if (reduce) [phi, theta] = target; }
+  globe?.update({ markers: markers() });
+  kick();
+}
+function tour() { clearInterval(timer); timer = null; if (paused || !heroIn || !T.length) return; timer = setInterval(() => { tpos = (tpos + 1) % T.length; show(T[tpos], 'tour'); }, 5000); }
+function frame() {
+  raf = 0; let moving = false;
+  if (target) { const dp = wrap(target[0] - phi), dt = target[1] - theta;
+    if (Math.abs(dp) > 1e-3 || Math.abs(dt) > 1e-3) { phi += dp * 0.08; theta += dt * 0.08; moving = true; } }
+  else if (!paused) { phi += 0.0025; moving = true; }
+  globe.update({ phi, theta });
+  if (moving) kick();
+}
+function kick() { if (globe && !raf && !document.hidden) raf = requestAnimationFrame(frame); }
+
+pauseBtn.addEventListener('click', () => {
+  paused = !paused; pauseBtn.setAttribute('aria-pressed', String(paused)); pauseBtn.textContent = paused ? '재생' : '일시정지';
+  tour(); kick();
+});
+if (paused) { pauseBtn.setAttribute('aria-pressed', 'true'); pauseBtn.textContent = '재생'; }
+nextBtn.addEventListener('click', () => {
+  if (heroIn && T.length) { tpos = (tpos + 1) % T.length; show(T[tpos], 'manual'); tour(); return; }
+  const nx = rows[rows.findIndex((r) => +r.dataset.i === cur) + 1];  // page order: 경제 is grouped by place
+  if (nx) nx.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+});
+canvas.addEventListener('click', () => pauseBtn.click());
+// the reading line: whichever story crosses it is the one the globe turns to
+const spy = new IntersectionObserver((es) => { for (const en of es) if (en.isIntersecting && !heroIn) show(+en.target.dataset.i, 'spy'); },
+  { rootMargin: '-42% 0px -52% 0px' });
+rows.forEach((r) => spy.observe(r));
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) rows.forEach((r) => r.addEventListener('pointerenter', () => { if (!heroIn) show(+r.dataset.i, 'spy'); }));
+rows.forEach((r) => r.addEventListener('focusin', () => show(+r.dataset.i, 'manual')));
+new IntersectionObserver(([en]) => { heroIn = en.isIntersecting; if (heroIn && T.length) { rows.forEach((r) => r.classList.remove('is-on')); show(T[tpos], 'tour'); } tour(); },
+  { threshold: 0.25 }).observe(document.getElementById('top'));
+document.addEventListener('visibilitychange', kick);
+
+try {
+  const c = document.createElement('canvas');
+  if (!(c.getContext('webgl2') || c.getContext('webgl'))) throw new Error('no webgl');
+  const { default: createGlobe } = await import('https://cdn.jsdelivr.net/npm/cobe@2.0.1/+esm');
+  const size = () => canvas.offsetWidth || 300;
+  globe = createGlobe(canvas, {
+    devicePixelRatio: Math.min(2, window.devicePixelRatio || 1), width: size(), height: size(), phi, theta,
+    dark: 1, diffuse: 1.2, mapSamples: 20000, mapBrightness: 6, baseColor: rgb('--g-base'),
+    markerColor: [1, 1, 1], glowColor: rgb('--g-glow'), markerElevation: 0, markers: markers(),
+  });
+  new ResizeObserver(() => { globe.update({ width: size(), height: size() }); kick(); }).observe(canvas);
+  if (reduce && S.length) show(cur, 'tour'); else kick();
+} catch (err) {
+  stage.classList.add('no-gl');  // without WebGL or the CDN the dateline, the controls and the links still work
+}
+</script>
